@@ -1,9 +1,7 @@
 /**
   ******************************************************************************
   * @file     main.h
-  * @author   Mahajan Electronics Team
-  * @version  V1.0.0
-  * @date     17-August-2015
+  * @author   Vipul Panchal
   * @brief    This file contains the external declarations for main file
   ******************************************************************************
   */
@@ -29,6 +27,7 @@ typedef enum
 #define MAX_LCD_RESLN     (99999)
 #define MAX_ADD_COUNT     (999999999)
 
+/* Pending  - To add differently based on display resolution for LACs & CRs*/
 #define LCD_WRAP_CHAR     ((char)'L')
 
 #define DEF_NOTE_C_COUNT  (100)

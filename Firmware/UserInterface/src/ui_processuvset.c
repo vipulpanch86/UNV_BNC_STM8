@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file    ui_processuvset.c
-  * @author  Mahajan Electronics Team
+  * @author  Vipul Panchal
   * @version V1.0.0
   * @date    29-October-2015
   * @brief   This file contains ui UV Setting process function

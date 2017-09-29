@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file    reg.c
-  * @author  Mahajan Electronics Team
+  * @author  Vipul Panchal
   * @version V1.0.0
   * @date    28-August-2015
   * @brief   This file contains the register handling function.

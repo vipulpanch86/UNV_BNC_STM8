@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file    main.c
-  * @author  Mahajan Electronics Team
+  * @author  Vipul Panchal
   * @version  V1.0.0
   * @date     11-August-2015
   * @brief   This file contains the main function for Currency counting
