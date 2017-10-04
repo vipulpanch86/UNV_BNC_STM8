@@ -3,3 +3,9 @@ Firmware/Project/STVD_Cosmic/Debug/
 
 #excludes release directory
 Firmware/Project/STVD_Cosmic/Release/
+
+#excludes Programmer setting directory
+Firmware/Project/STVD_Cosmic/UNV_BNC_Programmer/
+
+#excludes dependency file
+Firmware/Project/STVD_Cosmic/UNV_BNC.dep
