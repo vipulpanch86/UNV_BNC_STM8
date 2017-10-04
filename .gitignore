@@ -1,0 +1,5 @@
+#excludes debug directory
+Firmware/Project/STVD_Cosmic/Debug/
+
+#excludes release directory
+Firmware/Project/STVD_Cosmic/Release/
