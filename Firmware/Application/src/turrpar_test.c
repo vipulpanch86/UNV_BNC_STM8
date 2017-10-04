@@ -1,11 +1,8 @@
 /**
   ******************************************************************************
-  * @file    main.c
-  * @author  Mahajan Electronics Team
-  * @version  V1.0.0
-  * @date     11-August-2015
-  * @brief   This file contains the main function for Currency counting
-  *          application.
+  * @file    turrpar_test.c
+  * @author  Vipul Panchal
+  * @brief   This file contains the function for testing parallel turret.
   ******************************************************************************
   */
 

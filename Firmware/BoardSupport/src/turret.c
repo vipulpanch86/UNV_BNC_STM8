@@ -1,10 +1,8 @@
 /**
   ******************************************************************************
   * @file    turret.c
-  * @author  Mahajan Electronics Team
-  * @version  V1.0.0
-  * @date     28-February-2016
-  * @brief   This file contains the parser for turret.
+  * @author  Vipul Panchal
+  * @brief   This file contains the parser for serial turret.
   ******************************************************************************
   */
 

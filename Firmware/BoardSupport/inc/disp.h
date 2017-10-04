@@ -1,10 +1,8 @@
 /**
   ******************************************************************************
   * @file    disp.h
-  * @author  Mahajan Electronics Team
-  * @version V1.0.0
-  * @date    16-August-2015
-  * @brief   This file contains definitions for dsiplay resources.
+  * @author  Vipul Panchal
+  * @brief   This file contains definitions for display resources.
   ******************************************************************************
   */
 /* Define to prevent recursive inclusion -------------------------------------*/

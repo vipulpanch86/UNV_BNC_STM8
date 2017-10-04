@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    ret.c
+  * @file    ret.h
   * @author  Vipul Panchal
   * @brief   This file contains the retention memory definitions and prototype.
   ******************************************************************************

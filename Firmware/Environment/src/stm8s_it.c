@@ -116,8 +116,9 @@ INTERRUPT_HANDLER(EXTI_PORTA_IRQHandler, 3)
   */
 INTERRUPT_HANDLER(EXTI_PORTB_IRQHandler, 4)
 {
-  extern __IO uint32_t BspSensorCounter;
-  BspSensorCounter++;
+  /* In order to detect unexpected events during development,
+     it is recommended to set a breakpoint on the following instruction.
+  */
 }
 
 /**
@@ -151,9 +152,8 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
   */
 INTERRUPT_HANDLER(EXTI_PORTE_IRQHandler, 7)
 {
-  /* In order to detect unexpected events during development,
-     it is recommended to set a breakpoint on the following instruction.
-  */
+	extern __IO uint32_t BspSensorCounter;
+  BspSensorCounter++;
 }
 #ifdef STM8S903
 /**

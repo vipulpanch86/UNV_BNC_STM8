@@ -2,10 +2,8 @@
   ******************************************************************************
   * @file    key_26_7x4.c
   * @author  Vipul Panchal
-  * @version V1.0.0
-  * @date    31-July-2017
   * @brief   Contains the functions to handle matrix keypad scanning,
-  *          read/write keypad status
+  *          read/write keypad status specific to 26 keys 7x4 keypad
   ******************************************************************************
   */
 
@@ -252,7 +250,7 @@ static void KpdInit(void)
   */
 static void KpdScan(KEY_INFO_T * pKeyInfo)
 {
-  uint8_t keyScanNo = 0, scanLine = 0, retLine = 0;
+  uint8_t keyNo = 0, scanLine = 0, retLine = 0;
   uint8_t keyPressBit[(NB_KEYS / 8) + ((NB_KEYS % 8) ? (1) : (0)) ] = {0};
   uint32_t bspSysTime = BSP_GetSysTime();
   
@@ -271,56 +269,59 @@ static void KpdScan(KEY_INFO_T * pKeyInfo)
       
       if(retVal == 0)
       {
-        //keyScanNo = (uint8_t)(NB_SC_4_RT_ACC[retLine - 1] + scanLine);
-        /* Map the Key code generated from scan & return lines to
-        Key Value Index */
-        keyScanNo = KEY_VALUE_MAP[(uint8_t)(NB_SC_4_RT_ACC[retLine - 1] + scanLine)];
+        keyNo = (uint8_t)(NB_SC_4_RT_ACC[retLine - 1] + scanLine);
         /* change the key press state */
-        keyPressBit[keyScanNo >> 3] |= (uint8_t)(1 << (keyScanNo & 0x7));
-        
+        keyPressBit[keyNo >> 3] |= (uint8_t)(1 << (keyNo & 0x7));
         break;
       }
     }
   }
 
   /* Set Key State */  
-  for(keyScanNo = 0; keyScanNo < NB_KEYS; keyScanNo++)
+  for(keyNo = 0; keyNo < NB_KEYS; keyNo++)
   {
-    uint8_t keyPressState;
-    keyPressState = (uint8_t)((keyPressBit[keyScanNo >> 3] & (1 << (keyScanNo & 0x7))) ? CLOSED : OPEN);
+		uint8_t  keyScanNo, keyPressState;
 
-    /* Check if the key state is changed */
-    if(keyPressState != pKeyInfo[keyScanNo].press)
-    {
-      /* Check if the debounce verification is done */
-      if(pKeyInfo[keyScanNo].debounce == TRUE)
-      {
-        int32_t debounce = (int32_t)KPD_GetDebounceTime();
-        /* wait for debounce verification */
-        if(absolute((int32_t)(bspSysTime - pKeyInfo[keyScanNo].backuptime)) >= debounce)
-        {
-          /* change the key press state */
-          pKeyInfo[keyScanNo].press = (uint8_t)(
-            pKeyInfo[keyScanNo].press == OPEN ? CLOSED : OPEN);
-          pKeyInfo[keyScanNo].debounce = FALSE;
-        }
-      }
-      else
-      {
-        /* Pre debounce check
-           Mark the bsp timer for debounce check,
-           set the debounce check start flag as true
-         */
-        pKeyInfo[keyScanNo].backuptime = bspSysTime;
-        pKeyInfo[keyScanNo].debounce = TRUE;
-      }
-    }
-    else
-    {
-      pKeyInfo[keyScanNo].debounce = FALSE;
-    }
-
-    KPD_SetState(keyScanNo, pKeyInfo[keyScanNo].press);
+    keyPressState = (uint8_t)((keyPressBit[keyNo >> 3] & (1 << (keyNo & 0x7))) ? CLOSED : OPEN);
+    
+    /* Map the Key No to Key Value Index */
+    keyScanNo = KEY_VALUE_MAP[(uint8_t)keyNo];
+		
+		if(keyScanNo != 0xFF)
+		{
+			/* Check if the key state is changed */
+			if(keyPressState != pKeyInfo[keyScanNo].press)
+			{
+				/* Check if the debounce verification is done */
+				if(pKeyInfo[keyScanNo].debounce == TRUE)
+				{
+					int32_t debounce = (int32_t)KPD_GetDebounceTime();
+					/* wait for debounce verification */
+					if(absolute((int32_t)(bspSysTime - pKeyInfo[keyScanNo].backuptime)) >= debounce)
+					{
+						/* change the key press state */
+						pKeyInfo[keyScanNo].press = (uint8_t)(
+							pKeyInfo[keyScanNo].press == OPEN ? CLOSED : OPEN);
+						pKeyInfo[keyScanNo].debounce = FALSE;
+					}
+				}
+				else
+				{
+					/* Pre debounce check
+						 Mark the bsp timer for debounce check,
+						 set the debounce check start flag as true
+					 */
+					pKeyInfo[keyScanNo].backuptime = bspSysTime;
+					pKeyInfo[keyScanNo].debounce = TRUE;
+				}
+			}
+			else
+			{
+				pKeyInfo[keyScanNo].debounce = FALSE;
+			}
+	
+			KPD_SetState(keyScanNo, pKeyInfo[keyScanNo].press);
+		}
   }
 }
 

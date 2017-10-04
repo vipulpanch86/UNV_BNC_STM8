@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    switch.c
   * @author  Vipul Panchal
-  * @version V1.0.0
-  * @date    31-July-2017
   * @brief   Contains the functions to handle Switch Input Scanning
   ******************************************************************************
   */
@@ -27,7 +25,7 @@ static const GPIO_TypeDef* SW_GPIO_PORT[SW_MAX] =
 };
 
 /* List of Switch Input Lines GPIO Pin Definition */
-static const uint16_t SW_GPIO_PIN[SW_MAX] = 
+static const uint8_t SW_GPIO_PIN[SW_MAX] = 
 {
   SW_RST_GPIO_PIN,
   SW_CAM_GPIO_PIN,
@@ -149,13 +147,14 @@ void SW_Init(uint8_t debounce, void (* cb)(uint8_t, uint8_t))
 void SW_Scan(void)
 {
   uint8_t swNo = 0;
-  uint32_t bspSysTime = BSP_GetSysTime();
+  volatile uint32_t bspSysTime = BSP_GetSysTime();
 
   /* Scan and set switch State */  
   for(swNo = 0; swNo < SW_MAX; swNo++)
   {
-    uint8_t swPressState = ((SW_GPIO_PORT[swNo]->IDR & SW_GPIO_PIN[swNo]) == 0) ?  CLOSED : OPEN;
-
+    volatile uint8_t swPressState = ((SW_GPIO_PORT[swNo]->IDR & \
+		                 SW_GPIO_PIN[swNo]) == 0) ?  CLOSED : OPEN;
+    //printf("\n\rSW = %d, IDR = %d", (int)swNo, (int)SW_GPIO_PORT[swNo]->IDR);
     /* Check if the switch state is changed */
     if(swPressState != SwInfo[swNo].press)
     {

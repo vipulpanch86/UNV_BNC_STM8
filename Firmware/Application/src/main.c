@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    main.c
   * @author  Vipul Panchal
-  * @version  V1.0.0
-  * @date     11-August-2015
   * @brief   This file contains the main function for Currency counting
   *          application.
   ******************************************************************************
@@ -23,7 +21,7 @@
 #define UI_EXEC_MS   (10)
 
 #define STUB_ROT_DIP_SW
-#define ROT_DIP_SW  (0)
+#define ROT_DIP_SW  (1)
 
 /* Private define ------------------------------------------------------------*/
 #ifdef _RAISONANCE_
@@ -72,7 +70,7 @@ static const DISP_KPD_TYPE_T DISP_KPD_TYPE_MAP[DIP_SW_MAX_POS] =
   [DISP_T16X7B8X4__KPD_26_7X4] = 
     {
       .dispIndex   = DISP_TYPE_T16X7B8X4, 
-      .kpdIndex    = KPD_TYPE_18_7X4,
+      .kpdIndex    = KPD_TYPE_26_7X4,
       .valueEnable = TRUE
     },
 };
@@ -214,7 +212,7 @@ int32_t absolute(int32_t value)
     return value;  
   }
 }
-
+#if 1
 /**
   * @brief  Main program.
   * @param  None
@@ -227,16 +225,16 @@ void main(void)
   /* BSP Initialization -----------------------------------------*/
   BSP_Init();
   
+	BSP_DelayMs(1500);
   /* Initialize the I2C EEPROM driver ----------------------------------------*/
-  EE_Init();  
+  //EE_Init();  
   
   /* Initialize Display & Keypad */
   DisplayKeypadInit();
   TURR_Clear();
 
-
   /* Initialize Switches */
-  SW_Init(50, UI_SwCallBack);
+  SW_Init(20, UI_SwCallBack);
   
   RET_Init();
   REG_Init(FALSE);
@@ -315,17 +313,64 @@ void main(void)
     }
   }
 }
-
+#endif
+#if 0
 /**
   * @brief  Main program.
   * @param  None
   * @retval None
   */
-int main1(void)
+int main(void)
 {
-	extern void disp_test(void);
-  disp_test();
+	extern void switch_test(void);
+  switch_test();
 }
+#endif
+#if 0
+int main (void)
+{
+	char ans;
+		
+  CLK_DeInit();
+
+  /* Configure the Fcpu to DIV1*/
+  CLK_SYSCLKConfig(CLK_PRESCALER_CPUDIV1);
+  
+  /* Configure the HSI prescaler to the optimal value */
+  CLK_SYSCLKConfig(CLK_PRESCALER_HSIDIV1);
+
+  /* Configure the system clock to use HSE clock source and to run at 24Mhz */
+  CLK_ClockSwitchConfig(CLK_SWITCHMODE_AUTO, CLK_SOURCE_HSE, DISABLE,
+                        CLK_CURRENTCLOCKSTATE_DISABLE);
+  
+	GPIO_Init(GPIOE, GPIO_PIN_7, GPIO_MODE_IN_PU_NO_IT);
+	
+  UART1_DeInit();
+  /* UART1 configuration ------------------------------------------------------*/
+  /* UART1 configured as follow:
+        - BaudRate = 115200 baud  
+        - Word Length = 8 Bits
+        - One Stop Bit
+        - No parity
+        - Receive and transmit enabled
+        - UART1 Clock disabled
+  */
+  UART1_Init((uint32_t)9600, UART1_WORDLENGTH_8D, UART1_STOPBITS_1, UART1_PARITY_NO,
+              UART1_SYNCMODE_CLOCK_DISABLE, UART1_MODE_TXRX_ENABLE);
+
+  /* Output a message on Hyperterminal using printf function */
+  printf("\n\rEnter Text\n\r");
+
+  while (1)
+  {
+		volatile int PortE_7;
+		
+    ans = getchar();
+		PortE_7 = GPIOE->IDR & 0x80;
+    printf("\n\rPort_E7 %d", PortE_7);  
+  }	
+}
+#endif
 /**
   * @brief Retargets the C library printf function to the UART.
   * @param c Character to send

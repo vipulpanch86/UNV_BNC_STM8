@@ -1,25 +1,8 @@
 /**
   ******************************************************************************
-  * @file    stm8s_eval_i2c_ee.h
-  * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    30-September-2014
-  * @brief   This file contains all the functions prototypes for the stm8s_eval_i2c_ee
-  *          firmware driver.
-  ******************************************************************************
-  *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
-  *
-  *        http://www.st.com/software_license_agreement_liberty_v2
-  *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  *
+  * @file    eeprom.h
+  * @author  Vipul Panchal
+  * @brief   This file contains the eeprom definitions and prototype.
   ******************************************************************************
   */ 
 
@@ -30,27 +13,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "bsp.h"
 
-/** @addtogroup Utilities
-  * @{
-  */
-  
-/** @addtogroup STM8S_EVAL
-  * @{
-  */ 
-
-/** @addtogroup Common
-  * @{
-  */
-  
-/** @addtogroup STM8S_EVAL_I2C_EE
-  * @{
-  */  
-
 /* Exported types ------------------------------------------------------------*/
   
-/** @defgroup STM8S_EVAL_I2C_EE_Exported_Constants
-  * @{
-  */
 /* Uncomment this line to use the default start and end of critical section 
    callbacks (it disables then enables all interrupts) */
 #define USE_DEFAULT_CRITICAL_CALLBACK 
@@ -68,25 +32,17 @@
    errors, busy devices ...). */   
 #define USE_DEFAULT_TIMEOUT_CALLBACK
 
-#if !defined (EE_M24C64_32)
-/* Use the defines below to choose the EEPROM type */
-#define EE_M24C64_32  /* Support the devices: M24C32 and M24C64 */
-#endif
-
-#ifdef EE_M24C64_32
 /* For M24C32 and M24C64 devices, E0,E1 and E2 pins are all used for device 
   address selection (ne need for additional address lines). According to the 
   Hardware connection on the board (on STM8 EVAL board E0 = E1 = E2 = 0) */
 
- #define EE_HW_ADDRESS     0xA0   /* E0 = E1 = E2 = 0 */ 
-#endif /* EE_M24C64_32 */
+#define EE_HW_ADDRESS         0xA0   /* E0 = E1 = E2 = 0 */ 
 
-#define I2C_SPEED              200000
-#define I2C_SLAVE_ADDRESS7     0xA0
+#define I2C_SPEED             20000
+#define I2C_SLAVE_ADDRESS7    0x00
 
-#if defined (EE_M24C64_32)
- #define EE_PAGESIZE    32
-#endif
+#define EE_PAGESIZE           8
+#define EE_ADDRSIZE           1
  
    
 /* Maximum Timeout values for flags and events waiting loops. These timeouts are
@@ -103,15 +59,7 @@
 #define EE_OK                    0
 #define EE_FAIL                  1 
 
-/**
-  * @}
-  */ 
-  
 /* Exported macro ------------------------------------------------------------*/ 
-
-/** @defgroup STM8S_EVAL_I2C_EE_Exported_Functions
-  * @{
-  */ 
 void     EE_DeInit(void);
 void     EE_Init(void);
 uint32_t EE_ReadBuffer(uint8_t* pBuffer, uint16_t ReadAddr, uint16_t* NumByteToRead);
@@ -140,24 +88,5 @@ void EE_EnterCriticalSection_UserCallback(void);
 void EE_ExitCriticalSection_UserCallback(void);
 
 #endif /* __STM8S_EVAL_I2C_EE_H */
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */ 
-
-/**
-  * @}
-  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

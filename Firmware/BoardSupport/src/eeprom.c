@@ -128,14 +128,13 @@ void EE_Init(void)
   /* I2C configuration */
   /* EE_I2C Peripheral Enable */
   I2C_Cmd( ENABLE);
+	I2C_SoftwareResetCmd(ENABLE);
   /* EE_I2C configuration after enabling it */
   I2C_Init(I2C_SPEED, I2C_SLAVE_ADDRESS7, I2C_DUTYCYCLE_2, I2C_ACK_CURR, 
            I2C_ADDMODE_7BIT, 16);
 
-#if defined (EE_M24C64_32)
   /* Select the EEPROM address according to the state of E0, E1, E2 pins */
   EEAddress = EE_HW_ADDRESS;
-#endif /* EE_M24C64_32 */
 }
 
 /**
@@ -161,6 +160,7 @@ void EE_Init(void)
   */
 uint32_t EE_ReadBuffer(uint8_t* pBuffer, uint16_t ReadAddr, uint16_t* NumByteToRead)
 {
+  printf("\n\rEE_ReadBuffer - Entry");
 
   /* While the bus is busy */
   EETimeout = EE_LONG_TIMEOUT;
@@ -168,6 +168,7 @@ uint32_t EE_ReadBuffer(uint8_t* pBuffer, uint16_t ReadAddr, uint16_t* NumByteToR
   {
     if((EETimeout--) == 0) return EE_TIMEOUT_UserCallback();
   }
+  printf("\n\rI2C not busy");
 
   /* Send START condition */
   I2C_GenerateSTART(ENABLE);
@@ -178,6 +179,7 @@ uint32_t EE_ReadBuffer(uint8_t* pBuffer, uint16_t ReadAddr, uint16_t* NumByteToR
   {
     if((EETimeout--) == 0) return EE_TIMEOUT_UserCallback();
   }
+  printf("\n\rI2C master mode selected");
 
   /* Send EEPROM address for write */
   I2C_Send7bitAddress( (uint8_t)EEAddress, I2C_DIRECTION_TX);
@@ -188,8 +190,9 @@ uint32_t EE_ReadBuffer(uint8_t* pBuffer, uint16_t ReadAddr, uint16_t* NumByteToR
   {
     if((EETimeout--) == 0) return EE_TIMEOUT_UserCallback();
   } 
+  printf("\n\rI2C master transmit mode selected");
 
-#ifdef EE_M24C64_32
+#if (EE_ADDRSIZE == 2)
 
   /* Send the EEPROM's internal address to read from: MSB of the address first */
   I2C_SendData( (uint8_t)((ReadAddr & 0xFF00) >> 8));    
@@ -200,11 +203,12 @@ uint32_t EE_ReadBuffer(uint8_t* pBuffer, uint16_t ReadAddr, uint16_t* NumByteToR
   {
     if((EETimeout--) == 0) return EE_TIMEOUT_UserCallback();
   }
+  printf("\n\rI2C master MSB transmitted");
+	
+#endif /* EE_ADDRSIZE  == 2 */
 
   /* Send the EEPROM's internal address to read from: LSB of the address */
   I2C_SendData( (uint8_t)(ReadAddr & 0x00FF));    
-
-#endif /* EE_M24C64_32 */
 
   /* Test on EV8 and clear it */
   EETimeout = EE_FLAG_TIMEOUT;
@@ -212,6 +216,7 @@ uint32_t EE_ReadBuffer(uint8_t* pBuffer, uint16_t ReadAddr, uint16_t* NumByteToR
   {
     if((EETimeout--) == 0) return EE_TIMEOUT_UserCallback();
   }
+  printf("\n\rI2C master LSB transmitted");
   
   /* Send START condition a second time */  
   I2C_GenerateSTART( ENABLE);
@@ -222,10 +227,19 @@ uint32_t EE_ReadBuffer(uint8_t* pBuffer, uint16_t ReadAddr, uint16_t* NumByteToR
   {
     if((EETimeout--) == 0) return EE_TIMEOUT_UserCallback();
   } 
+  printf("\n\rI2C master mode selected");
   
   /* Send EEPROM address for read */
   I2C_Send7bitAddress((uint8_t)EEAddress, I2C_DIRECTION_RX);
 
+  /* Test on EV6 and clear it */
+  EETimeout = EE_FLAG_TIMEOUT;
+  while(!I2C_CheckEvent( I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED))
+  {
+    if((EETimeout--) == 0) return EE_TIMEOUT_UserCallback();
+  }
+  printf("\n\rI2C master receiver mode Selected");
+	
   /* Read data from first byte until byte N-3 */
   if ((uint16_t)(*NumByteToRead)> 3) 
     {
@@ -600,16 +614,17 @@ uint32_t EE_WritePage(uint8_t* pBuffer, uint16_t WriteAddr, uint8_t* NumByteToWr
      User should check on this variable in order to know if the 
       data transfer has been completed or not. */
   EEDataWritePointer = NumByteToWrite;  
-  
+  printf("\n\rEE_WritePage - Entry");
   /* While the bus is busy */
   EETimeout = EE_LONG_TIMEOUT;
   while(I2C_GetFlagStatus(I2C_FLAG_BUSBUSY))
   {
     if((EETimeout--) == 0) return EE_TIMEOUT_UserCallback();
   }
-  
+  printf("\n\rI2C Not Busy");
   /* Send START condition */
   I2C_GenerateSTART( ENABLE);
+  printf("\n\rI2C Start Sent");
   
   /* Test on EV5 and clear it */
   EETimeout = EE_FLAG_TIMEOUT;
@@ -617,10 +632,12 @@ uint32_t EE_WritePage(uint8_t* pBuffer, uint16_t WriteAddr, uint8_t* NumByteToWr
   {
     if((EETimeout--) == 0) return EE_TIMEOUT_UserCallback();
   }
+  printf("\n\rI2C master mode Selected");
   
   /* Send EEPROM address for write */
   EETimeout = EE_FLAG_TIMEOUT;
   I2C_Send7bitAddress((uint8_t)EEAddress, I2C_DIRECTION_TX);
+  printf("\n\rI2C Slave Address 0x%x Sent", (int)EEAddress);
 
   /* Test on EV6 and clear it */
   EETimeout = EE_FLAG_TIMEOUT;
@@ -628,13 +645,9 @@ uint32_t EE_WritePage(uint8_t* pBuffer, uint16_t WriteAddr, uint8_t* NumByteToWr
   {
     if((EETimeout--) == 0) return EE_TIMEOUT_UserCallback();
   }
+  printf("\n\rI2C master transmit mode Selected");
 
-#ifdef EE_M24C08
-  
-  /* Send the EEPROM's internal address to write to : only one byte Address */
-  I2C_SendData( WriteAddr);
-  
-#elif defined(EE_M24C64_32)
+#if (EE_ADDRSIZE  == 2)
   
   /* Send the EEPROM's internal address to write to : MSB of the address first */
   I2C_SendData( (uint8_t)((WriteAddr & 0xFF00) >> 8));
@@ -645,11 +658,10 @@ uint32_t EE_WritePage(uint8_t* pBuffer, uint16_t WriteAddr, uint8_t* NumByteToWr
   {
     if((EETimeout--) == 0) return EE_TIMEOUT_UserCallback();
   }  
-  
+#endif /* EE_ADDRSIZE  == 2 */
+
   /* Send the EEPROM's internal address to write to : LSB of the address */
   I2C_SendData( (uint8_t)(WriteAddr & 0x00FF));
-  
-#endif /* EE_M24C08 */  
   
   /* Test on EV8 and clear it */
   EETimeout = EE_FLAG_TIMEOUT; 
@@ -784,6 +796,7 @@ uint32_t EE_WaitEepromStandbyState(void)
   */
 uint32_t EE_TIMEOUT_UserCallback(void)
 {
+	printf("\n\rTimeout");
   /* Block communication and all processes */
  while(1)
   {   

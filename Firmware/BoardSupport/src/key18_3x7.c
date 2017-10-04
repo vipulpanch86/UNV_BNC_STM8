@@ -5,7 +5,7 @@
   * @version V1.0.0
   * @date    31-July-2017
   * @brief   Contains the functions to handle matrix keypad scanning,
-  *          read/write keypad status
+  *          read/write keypad status specific to 18 keys 3x7 keypad
   ******************************************************************************
   */
 

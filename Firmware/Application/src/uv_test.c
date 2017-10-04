@@ -1,11 +1,8 @@
 /**
   ******************************************************************************
-  * @file    main.c
-  * @author  Mahajan Electronics Team
-  * @version  V1.0.0
-  * @date     11-August-2015
-  * @brief   This file contains the main function for Currency counting
-  *          application.
+  * @file    uv_test.c
+  * @author  Vipul Panchal
+  * @brief   This file contains the function for testing uv functionallity.
   ******************************************************************************
   */
 
@@ -30,7 +27,7 @@ void uv_test(void)
 {
   /* BSP Initialization -----------------------------------------*/
   BSP_Init();
-  BSP_UV_DetectEnable(FALSE);
+  BSP_UV_DetectEnable(TRUE);
   printf("\r\nUV Test");
 
   while(1)

@@ -1,10 +1,9 @@
 /**
   ******************************************************************************
-  * @file    disp_a7s5.c
-  * @author  Mahajan Electronics Team
-  * @version V1.0.0
-  * @date    11-August-2015
+  * @file    disp_t16x7b8x4.c
+  * @author  Vipul Panchal
   * @brief   This file contains display related functions
+  *          specific to display top 7 (16Seg), bottom 4 (7Seg)
   ******************************************************************************
   */
 

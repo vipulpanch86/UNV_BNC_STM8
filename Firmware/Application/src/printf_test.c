@@ -1,28 +1,9 @@
 /**
   ******************************************************************************
-  * @file UART1_Printf\main.c
-  * @brief This file contains the main function for: retarget the C library printf
-  *        /scanf functions to the UART1 example.
-  * @author  MCD Application Team
-  * @version  V2.2.0
-  * @date     30-September-2014
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
-  *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
-  *
-  *        http://www.st.com/software_license_agreement_liberty_v2
-  *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  *
+  * @file    printf_test.c
+  * @author  Vipul Panchal
+  * @brief   This file contains the test functions for: 
+  *          retarget the C library printf /scanf functions to the UART1.
   ******************************************************************************
   */
 
@@ -47,9 +28,19 @@
 void printf_test(void)
 {
   char ans;
-  /*High speed internal clock prescaler: 1*/
-  CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1);
-    
+
+  CLK_DeInit();
+
+  /* Configure the Fcpu to DIV1*/
+  CLK_SYSCLKConfig(CLK_PRESCALER_CPUDIV1);
+  
+  /* Configure the HSI prescaler to the optimal value */
+  CLK_SYSCLKConfig(CLK_PRESCALER_HSIDIV1);
+
+  /* Configure the system clock to use HSE clock source and to run at 24Mhz */
+  CLK_ClockSwitchConfig(CLK_SWITCHMODE_AUTO, CLK_SOURCE_HSE, DISABLE,
+                        CLK_CURRENTCLOCKSTATE_DISABLE);
+  
   UART1_DeInit();
   /* UART1 configuration ------------------------------------------------------*/
   /* UART1 configured as follow:
@@ -60,7 +51,7 @@ void printf_test(void)
         - Receive and transmit enabled
         - UART1 Clock disabled
   */
-  UART1_Init((uint32_t)115200, UART1_WORDLENGTH_8D, UART1_STOPBITS_1, UART1_PARITY_NO,
+  UART1_Init((uint32_t)9600, UART1_WORDLENGTH_8D, UART1_STOPBITS_1, UART1_PARITY_NO,
               UART1_SYNCMODE_CLOCK_DISABLE, UART1_MODE_TXRX_ENABLE);
 
   /* Output a message on Hyperterminal using printf function */

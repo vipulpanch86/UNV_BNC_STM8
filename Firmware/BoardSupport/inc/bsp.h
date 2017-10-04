@@ -1,9 +1,7 @@
 /**
   ******************************************************************************
   * @file    bsp.h
-  * @author  Mahajan Electronics Team
-  * @version V1.0.0
-  * @date    11-August-2015
+  * @author  Vipul Panchal
   * @brief   This file contains the board related definitions.
   ******************************************************************************
   */
@@ -218,6 +216,9 @@
 #define EE_I2C_WP_GPIO_PIN              GPIO_PIN_0                  /* PE.00 */
 #define EE_I2C_WP_GPIO_PORT             GPIOE                       /* GPIOE */
 
+#define EE_DIRECTION_TX                 0
+#define EE_DIRECTION_RX                 1
+
 /**
   * @brief  Read Cam Switch
   * @param  None
@@ -359,6 +360,7 @@ extern __IO uint32_t BspSensorCounter;
 }
 
 void BSP_Init(void);
+void BSP_DelayMs(uint16_t delay);
 void BSP_BuzzerExec(void);
 void BSP_AdcExec(void);
 uint8_t BSP_ReadRotDipSwitch(void);

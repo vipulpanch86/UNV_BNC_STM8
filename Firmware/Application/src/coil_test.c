@@ -2,10 +2,7 @@
   ******************************************************************************
   * @file    main.c
   * @author  Vipul Panchal
-  * @version  V1.0.0
-  * @date     11-August-2015
-  * @brief   This file contains the main function for Currency counting
-  *          application.
+  * @brief   This file contains the function for testing coils functionality
   ******************************************************************************
   */
 

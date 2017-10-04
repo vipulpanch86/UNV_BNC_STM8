@@ -1,27 +1,8 @@
 /**
   ******************************************************************************
-  * @file    I2C\I2C_EEPROM\main.c
-  * @author  MCD Application Team
-  * @version  V2.2.0
-  * @date     30-September-2014
-  * @brief   This file contains the main function for I2C EEPROM Read Write example.
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
-  *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
-  *
-  *        http://www.st.com/software_license_agreement_liberty_v2
-  *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  *
+  * @file    eeprom_test.c
+  * @author  Vipul Panchal
+  * @brief   This file contains the function for testing I2C EEPROM.
   ******************************************************************************
   */ 
 
@@ -52,9 +33,10 @@ typedef enum {FAILED = 0, PASSED = !FAILED} TestStatus;
 #define countof(a) (sizeof(a) / sizeof(*(a)))
 
 /* Private variables ---------------------------------------------------------*/
-uint8_t Tx1Buffer[] = 
-"STM8S I2C Firmware Library EEPROM driver example : \
-I2C1 interfacing with 24C02 EEPROM */";
+uint8_t Tx1Buffer[] = "0123";
+
+//"STM8S I2C Firmware Library EEPROM driver example : \
+//I2C1 interfacing with 24C02 EEPROM */";
 
 uint8_t Tx2Buffer[] = 
 "This firmware provides an example of the I2C firmware library and \
@@ -86,29 +68,31 @@ void eeprom_test(void)
      */
   BSP_Init();
 
-  printf("\r\nSTM32F0xx FW Library");
+	
+	char ans = getchar();
+		
   printf("\r\nEEPROM Test");
   
   /* Initialize the I2C EEPROM driver ----------------------------------------*/
   EE_Init();  
-
+	
   /* Temporarily Enable Write protect */
   GPIO_WriteLow(EE_I2C_WP_GPIO_PORT, EE_I2C_WP_GPIO_PIN);
-  
+
+	//while(1);
   /* First write in the memory followed by a read of the written data --------*/
   /* Write on I2C EEPROM from sEE_WRITE_ADDRESS1 */
   EE_WriteBuffer(Tx1Buffer, sEE_WRITE_ADDRESS1, BUFFER_SIZE1); 
-
+  printf("\n\rTransfer 1 Ongoing: %u", (unsigned int)BUFFER_SIZE1);
   /* Wait for EEPROM standby state */
   EE_WaitEepromStandbyState();  
-  
+  printf("\n\rEEprom Wait standby");
   /* Set the Number of data to be read */
   NumDataRead = BUFFER_SIZE1;
   
   /* Read from I2C EEPROM from sEE_READ_ADDRESS1 */
   EE_ReadBuffer(Rx1Buffer, sEE_READ_ADDRESS1, (uint16_t *)(&NumDataRead)); 
  
-  printf("\n\rTransfer 1 Ongoing: %u", (unsigned int)BUFFER_SIZE1);
   printf("\n\rTX: %s", Tx1Buffer);
   printf("\n\rRX: %s", Rx1Buffer);
   /* Check if the data written to the memory is read correctly */

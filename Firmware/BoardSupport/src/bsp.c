@@ -1,9 +1,7 @@
 /**
   ******************************************************************************
   * @file    bsp.c
-  * @author  Mahajan Electronics Team
-  * @version V1.0.0
-  * @date    11-August-2015
+  * @author  Vipul Panchal
   * @brief   This file contains the board related functions
   ******************************************************************************
   */
@@ -16,6 +14,7 @@
 #define TIM4_PERIOD       187
 #define DATA_START_ADDR   0x004080
 
+#define RET_MEM_FLASH
 /* Private typedef -----------------------------------------------------------*/
 /* Private constants----------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -61,10 +60,10 @@ static void GPIO_Config(void)
      Default State is High
   */
   GPIO_Init(TRIACS_GPIO_PORT, TRIACS_GPIO_PIN, GPIO_MODE_OUT_PP_HIGH_SLOW);
-  /* Configure the TRIAC Control Pin for Hopper Pump
+  /* Configure the TRIAC Control Pin for Hopper Motor
      Default State is High
   */
-  GPIO_Init(TRIACV_GPIO_PORT, TRIACH_GPIO_PIN, GPIO_MODE_OUT_PP_HIGH_SLOW);
+  GPIO_Init(TRIACH_GPIO_PORT, TRIACH_GPIO_PIN, GPIO_MODE_OUT_PP_HIGH_SLOW);
   /* Configure the Batch Coil Control Pin as Output
      Default State is High
   */
@@ -206,7 +205,7 @@ static void UV_Config(void)
 
   /* Init ADC2 peripheral */
   ADC2_Init(ADC2_CONVERSIONMODE_SINGLE, ADC2_CHANNEL_5, ADC2_PRESSEL_FCPU_D18, \
-            ADC2_EXTTRIG_TIM, DISABLE, ADC2_ALIGN_RIGHT, ADC2_SCHMITTTRIG_CHANNEL8, \
+            ADC2_EXTTRIG_TIM, DISABLE, ADC2_ALIGN_RIGHT, ADC2_SCHMITTTRIG_CHANNEL5, \
             DISABLE);
 
   /* Start ADC2 Conversion */
@@ -281,7 +280,7 @@ void BSP_EepromDeInit(void)
   GPIO_Init(EE_I2C_SCL_GPIO_PORT, EE_I2C_SCL_GPIO_PIN, GPIO_MODE_IN_PU_NO_IT);
 
   /*!< Configure EE_I2C pins: SDA */
-  GPIO_Init(EE_I2C_SCL_GPIO_PORT, EE_I2C_SCL_GPIO_PIN, GPIO_MODE_IN_PU_NO_IT);
+  GPIO_Init(EE_I2C_SDA_GPIO_PORT, EE_I2C_SDA_GPIO_PIN, GPIO_MODE_IN_PU_NO_IT);
 }
 
 /**
@@ -291,8 +290,18 @@ void BSP_EepromDeInit(void)
   */
 void BSP_EepromInit(void)
 {
-  /*!< EE_I2C Peripheral clock enable */
+  /*!< Configure EE_I2C pins: SCL */
+  GPIO_Init(EE_I2C_SCL_GPIO_PORT, EE_I2C_SCL_GPIO_PIN, GPIO_MODE_OUT_OD_HIZ_FAST);
+
+  /*!< Configure EE_I2C pins: SDA */
+  GPIO_Init(EE_I2C_SDA_GPIO_PORT, EE_I2C_SDA_GPIO_PIN, GPIO_MODE_OUT_OD_HIZ_FAST);	
+	
+	/*!< Configure EE_WP pin: WP */
+  GPIO_Init(EE_I2C_WP_GPIO_PORT, EE_I2C_WP_GPIO_PIN, GPIO_MODE_OUT_PP_HIGH_SLOW);
+	
+   /*!< EE_I2C Peripheral clock enable */
   CLK_PeripheralClockConfig(EE_I2C_CLK, ENABLE);
+
 }
 
 /* Public functions ----------------------------------------------------------*/
@@ -303,6 +312,11 @@ void BSP_EepromInit(void)
   */
 void BSP_Init(void)
 {
+//	CLK_DeInit();
+  
+  /* Clock divider to HSI/1 */
+//  CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1);
+	
   /* GPIO configuration */
   GPIO_Config();
 
@@ -329,6 +343,17 @@ void BSP_Init(void)
 }
 
 /**
+  * @brief  Inserts Delay in Milliseconds
+  * @param  Value in Milliseconds to crreate delay
+  * @retval None
+  */
+void BSP_DelayMs(uint16_t delay)
+{
+  uint32_t backupSysTmr = SystemTimer;
+	
+	while(abs(SystemTimer - backupSysTmr) < delay);
+}
+/**
   * @brief  Reads Rotary DIP switch
   * @param  None
   * @retval Returns DIP switch value 0 - 15
@@ -337,12 +362,12 @@ uint8_t BSP_ReadRotDipSwitch(void)
 {
   uint8_t dipSwitchVal = 0;
   
+  /* Switches are active low */
   dipSwitchVal |= (uint8_t)((ROT_DIP0_GPIO_PORT->IDR & ROT_DIP0_GPIO_PIN) ? 0: 1<<0);
   dipSwitchVal |= (uint8_t)((ROT_DIP1_GPIO_PORT->IDR & ROT_DIP1_GPIO_PIN) ? 0: 1<<1);
   dipSwitchVal |= (uint8_t)((ROT_DIP2_GPIO_PORT->IDR & ROT_DIP2_GPIO_PIN) ? 0: 1<<2);
   dipSwitchVal |= (uint8_t)((ROT_DIP3_GPIO_PORT->IDR & ROT_DIP3_GPIO_PIN) ? 0: 1<<3);
   
-  /* Switches are active low, XOR in order to get correct position */
   return (dipSwitchVal) ;
 }
 /**

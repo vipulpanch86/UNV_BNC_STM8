@@ -1,9 +1,7 @@
 /**
   ******************************************************************************
   * @file    key.h
-  * @author  Mahajan Electronics Team
-  * @version V1.0.0
-  * @date    14-August-2015
+  * @author  Vipul Panchal
   * @brief   This file contains definitions for keypad resources.
   ******************************************************************************
   */
@@ -80,7 +78,7 @@ typedef enum
 typedef enum 
 {
   KPD_TYPE_18_3X7,
-  KPD_TYPE_18_7X4,
+  KPD_TYPE_26_7X4,
   KPD_TYPE_MAX_NB
 }KPD_TYPE_NB_T;
 

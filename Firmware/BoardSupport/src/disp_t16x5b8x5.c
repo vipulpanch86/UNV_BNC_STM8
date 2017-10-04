@@ -1,10 +1,9 @@
 /**
   ******************************************************************************
-  * @file    disp_t16x5b8x5.c
-  * @author  Mahajan Electronics Team
-  * @version V1.0.0
-  * @date    11-August-2015
+  * @file    disp_t16x5b8x4.c
+  * @author  Vipul Panchal
   * @brief   This file contains display related functions
+  *          specific to display top 5 (16Seg), bottom 4 (7Seg)
   ******************************************************************************
   */
 

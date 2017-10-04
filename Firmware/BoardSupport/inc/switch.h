@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    switch.h
   * @author  Vipul Panchal
-  * @version V1.0.0
-  * @date    31-July-2017
   * @brief   This file contains definitions for Switch input resources.
   ******************************************************************************
   */

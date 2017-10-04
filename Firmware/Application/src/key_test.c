@@ -2,10 +2,7 @@
   ******************************************************************************
   * @file    main.c
   * @author  Vipul Panchal
-  * @version  V1.0.0
-  * @date     11-August-2015
-  * @brief   This file contains the main function for Currency counting
-  *          application.
+  * @brief   This file contains the function for testing keypad functionality
   ******************************************************************************
   */
 
@@ -48,11 +45,18 @@ static const char * KEYS_STR[] =
   "KEY_ENT",
   "KEY_CLR"
 };
-  
+
+static const char * KEYS_STATE[] = 
+{
+	"IDLE",
+  "PRESSED",
+  "RELEASED"
+};
+
 /* Private functions ---------------------------------------------------------*/
 void KeyCallBack(uint8_t keyNb, uint8_t keyState)
 {
-  printf("\n\r%s, St: %u", KEYS_STR[keyNb], keyState);
+  printf("\n\r%s, St: %s", KEYS_STR[keyNb], KEYS_STATE[keyState]);
   //printf("\n\rKey: %u, St: %u", (uint32_t)keyNb, (uint32_t)keyState);
 }
 
