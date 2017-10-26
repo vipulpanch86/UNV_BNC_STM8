@@ -2,7 +2,10 @@
   ******************************************************************************
   * @file    main.c
   * @author  Vipul Panchal
-  * @brief   This file contains the function for testing display functionality
+  * @version  V1.0.0
+  * @date     11-August-2015
+  * @brief   This file contains the main function for Currency counting
+  *          application.
   ******************************************************************************
   */
 
@@ -32,7 +35,7 @@ void DISP_Update(void)
   DISP_UpperPutStr(&buffer[0], 0);
   //DISP_UpperPutStr("HELLO", 0);
 
-  sprintf(buffer, "%04d", (int)(10000 - lowercounter));
+  sprintf(buffer, "%03d", (int)(1000 - lowercounter));
   //printf("\n\r%s", &buffer[0]);
   DISP_LowerPutStr(&buffer[0], 0);
   //DISP_LowerPutStr("1234", 0);
@@ -45,7 +48,7 @@ void DISP_Update(void)
   uppercounter %= 100000;
 	
 	lowercounter++;
-  lowercounter %= 10000;
+  lowercounter %= 1000;
 	
 	turretcounter++;
   turretcounter %= 10000;
@@ -60,7 +63,7 @@ void disp_test(void)
 {
   /* BSP Initialization -----------------------------------------*/
   BSP_Init();
-  DISP_Init(0);
+  DISP_Init(DISP_TYPE_T8X5B8X3_T1);
 
   
   while(1)

@@ -7,7 +7,6 @@
   ******************************************************************************
   */
 
-/* Pending ISR for System timer, Sensor & Turret */
 /* Includes ------------------------------------------------------------------*/
 #include "bsp.h"
 #include "ui.h"
@@ -20,8 +19,8 @@
 #define SNR_EXEC_MS  (1)
 #define UI_EXEC_MS   (10)
 
-#define STUB_ROT_DIP_SW
-#define ROT_DIP_SW  (1)
+//#define STUB_ROT_DIP_SW
+//#define ROT_DIP_SW  (1)
 
 /* Private define ------------------------------------------------------------*/
 #ifdef _RAISONANCE_
@@ -52,8 +51,13 @@ typedef struct
 
 typedef enum 
 {
-  DISP_T16X5B8X4__KPD_18_3X7,
-  DISP_T16X7B8X4__KPD_26_7X4,
+	DISP_T8X5B8X3__KPD_6_6X1,
+	DISP_T8X5B8X3__KPD_7_7X1,
+	DISP_T8X5B8X3__KPD_17_9X2,
+  DISP_T16X5B8X4__KPD_18_3X7_NOVAL,
+  DISP_T16X5B8X4__KPD_18_3X7_VAL,
+  DISP_T16X7B8X4__KPD_26_7X4_NOVAL,
+  DISP_T16X7B8X4__KPD_26_7X4_VAL,
   DISP_KPD_TYPE_MAX
 } DISP_KPD_BOARD_INDEX_T;
   
@@ -61,16 +65,46 @@ typedef enum
   
 static const DISP_KPD_TYPE_T DISP_KPD_TYPE_MAP[DIP_SW_MAX_POS] = 
 {
-  [DISP_T16X5B8X4__KPD_18_3X7] = 
+	[DISP_T8X5B8X3__KPD_6_6X1] = 
+    {
+      .dispIndex   = DISP_TYPE_T8X5B8X3_T2, 
+      .kpdIndex    = KPD_TYPE_6_6X1,
+      .valueEnable = FALSE
+    },
+	[DISP_T8X5B8X3__KPD_7_7X1] = 
+    {
+      .dispIndex   = DISP_TYPE_T8X5B8X3_T3, 
+      .kpdIndex    = KPD_TYPE_7_7X1,
+      .valueEnable = FALSE
+    },
+	[DISP_T8X5B8X3__KPD_17_9X2] = 
+    {
+      .dispIndex   = DISP_TYPE_T8X5B8X3_T1, 
+      .kpdIndex    = KPD_TYPE_17_9X2,
+      .valueEnable = FALSE
+    },
+  [DISP_T16X5B8X4__KPD_18_3X7_NOVAL] = 
+    {
+      .dispIndex   = DISP_TYPE_T16X5B8X4, 
+      .kpdIndex    = KPD_TYPE_18_3X7,
+      .valueEnable = FALSE
+    },
+  [DISP_T16X5B8X4__KPD_18_3X7_VAL] = 
     {
       .dispIndex   = DISP_TYPE_T16X5B8X4, 
       .kpdIndex    = KPD_TYPE_18_3X7,
       .valueEnable = TRUE
     },
-  [DISP_T16X7B8X4__KPD_26_7X4] = 
+  [DISP_T16X7B8X4__KPD_26_7X4_NOVAL] = 
     {
       .dispIndex   = DISP_TYPE_T16X7B8X4, 
-      .kpdIndex    = KPD_TYPE_26_7X4,
+      .kpdIndex    = KPD_TYPE_26_7X4_NOVAL,
+      .valueEnable = FALSE
+    },
+  [DISP_T16X7B8X4__KPD_26_7X4_VAL] = 
+    {
+      .dispIndex   = DISP_TYPE_T16X7B8X4, 
+      .kpdIndex    = KPD_TYPE_26_7X4_VAL,
       .valueEnable = TRUE
     },
 };
@@ -187,7 +221,7 @@ void DisplayKeypadInit(void)
   uint8_t rotDipSwitchPos = BSP_ReadRotDipSwitch();
   #endif
 	
-  printf("\n\rDip = %u", (uint32_t)rotDipSwitchPos);
+//  printf("\n\rDip = %u", (uint32_t)rotDipSwitchPos);
   rotDipSwitchPos = (rotDipSwitchPos >= DISP_KPD_TYPE_MAX) ? 
 	                (DISP_KPD_TYPE_MAX - 1) : (rotDipSwitchPos);
   
@@ -322,8 +356,8 @@ void main(void)
   */
 int main(void)
 {
-	extern void switch_test(void);
-  switch_test();
+	extern void sensor_test(void);
+  sensor_test();
 }
 #endif
 #if 0

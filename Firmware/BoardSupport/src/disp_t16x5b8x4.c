@@ -65,6 +65,10 @@
 #define MAX_SEL       (UPPER_MAX_SEL + LOWER_MAX_SEL + \
                        DISP_LED_MAX_SEL)
 
+/* Display Maximum Value Per Display declaraion */
+#define UPPER_MAX_VAL (99999)
+#define LOWER_MAX_VAL (9999)
+
 
 /* Private function prototypes -----------------------------------------------*/
 static void DispInit(void);
@@ -123,9 +127,12 @@ const DISP_TYPE_T DispInfoT16x5B8x4 =
   .uppMaxSel = UPPER_MAX_SEL,
   .lowSegType = DISP_SEVEN_SEG,
   .lowMaxSel = LOWER_MAX_SEL,
+	.uppMaxVal = UPPER_MAX_VAL,
+	.lowMaxVal = LOWER_MAX_VAL,
   .pLedBitmap = &LED_BITMAP[0],
   .uppFmtStr = "%5lu",
   .lowFmtStr = "%4lu",
+	.valWrapChar = 'L',
   .dispInit = DispInit,
   .dispWrite = DispWrite
 };
@@ -204,7 +211,6 @@ static void DispWrite(uint8_t dispNo, volatile uint16_t data)
   if(dispNo < MAX_SEL)
   {
     /* Write Low Byte on Port */
-    /* Pending - need to take care about 16-bit ODR Register and shifting of data */
     data8bit = (uint8_t)((data >> 0) & 0xFF);
     DISP_DB_GPIO_PORT->ODR = (uint8_t)data8bit;
 

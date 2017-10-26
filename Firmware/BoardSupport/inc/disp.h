@@ -24,17 +24,23 @@ extern "C" {
 #define DISP_SEVEN_SEG        (0)
 #define DISP_SIXTEEN_SEG      (1)
 
-/* Pending - Temporary for compilation
-   Can maintain a table */
+/* Format Specifier for display strings */
 #define DISP_LOWER_STR_FORMAT (pDisp->lowFmtStr)
 #define DISP_UPPER_STR_FORMAT (pDisp->uppFmtStr)
 #define DISP_TURR_STR_FORMAT  "%4lu"
-  
-/* Pending - Temporary for compilation */
+
+/* Max Value definition for display strings */
+#define DISP_LOWER_MAX_VALUE  (pDisp->lowMaxVal)
+#define DISP_UPPER_MAX_VALUE  (pDisp->uppMaxVal)
+#define DISP_TURRET_MAX_VALUE (9999)
+
+/* Max display definition */
 #define DISP_LOWER_MAX_NB    (pDisp->lowMaxSel)
 #define DISP_UPPER_MAX_NB    (pDisp->uppMaxSel)
 #define DISP_TURRET_MAX_NB   (4)
 
+/* Display Wrap Character Definition */
+#define DISP_WRAP_CHAR       (pDisp->valWrapChar)
   
 /* Pending - need to decide proper place */
 #define BIT(n)  (1<<(n))
@@ -48,9 +54,12 @@ typedef struct
   const uint8_t   uppMaxSel;
   const uint8_t   lowSegType;
   const uint8_t   lowMaxSel;
+	const uint32_t  uppMaxVal;
+	const uint32_t  lowMaxVal;
   const uint16_t  *pLedBitmap;
   const char *    uppFmtStr;
   const char *    lowFmtStr;
+	const char      valWrapChar;
   F_DISP_INIT     dispInit;
   F_DISP_WRITE    dispWrite;
 } DISP_TYPE_T;
@@ -77,9 +86,11 @@ typedef enum
 
 typedef enum 
 {
+  DISP_TYPE_T8X5B8X3_T1,
+	DISP_TYPE_T8X5B8X3_T2,
+	DISP_TYPE_T8X5B8X3_T3,
   DISP_TYPE_T16X5B8X4,
   DISP_TYPE_T16X7B8X4,
-  DISP_TYPE_T8X5B8X3,
   DISP_TYPE_MAX_NB
 }DISP_TYPE_NB_T;
 

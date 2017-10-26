@@ -64,7 +64,11 @@
 #define LOWER_MAX_SEL (4)
 #define MAX_SEL       (UPPER_MAX_SEL + LOWER_MAX_SEL + \
                        DISP_LED_MAX_SEL)
-                            
+
+/* Display Maximum Value Per Display declaraion */
+#define UPPER_MAX_VAL (9999999)
+#define LOWER_MAX_VAL (9999)
+
 /* Private function prototypes -----------------------------------------------*/
 static void DispInit(void);
 static void DispWrite(uint8_t dispNo, volatile uint16_t data);
@@ -124,9 +128,12 @@ const DISP_TYPE_T DispInfoT16x7B8x4 =
   .uppMaxSel = UPPER_MAX_SEL,
   .lowSegType = DISP_SEVEN_SEG,
   .lowMaxSel = LOWER_MAX_SEL,
+	.uppMaxVal = UPPER_MAX_VAL,
+	.lowMaxVal = LOWER_MAX_VAL,
   .pLedBitmap = &LED_BITMAP[0],
   .uppFmtStr = "%7lu",
   .lowFmtStr = "%4lu",
+	.valWrapChar = 'C',
   .dispInit = DispInit,
   .dispWrite = DispWrite
 };

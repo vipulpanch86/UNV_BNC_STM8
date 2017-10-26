@@ -12,7 +12,6 @@
 #include <string.h>
 #include "bsp.h"
 
-/* Pending - need to prepare a mapping table for switch codes against UI Messages */
 /* Private define ------------------------------------------------------------*/
 
 /* Private constants----------------------------------------------------------*/

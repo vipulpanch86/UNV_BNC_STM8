@@ -162,7 +162,7 @@ static const REG_INFO_T REG[] =
     FALSE,              /* Retention */
     0,                  /* Retntion Address*/
     0,                  /* Min  */
-    MAX_LCD_RESLN,      /* Max  */
+    99999,     					/* Max  */
     0                   /* Default value */
   },
   /* Verify Mode Over Count */
@@ -171,7 +171,7 @@ static const REG_INFO_T REG[] =
     FALSE,              /* Retention */
     0,                  /* Retntion Address*/
     0,                  /* Min  */
-    MAX_LCD_RESLN,      /* Max  */
+    99999,     					/* Max  */
     0                   /* Default value */
   },
   /* Verify Mode Under Count */
@@ -180,7 +180,7 @@ static const REG_INFO_T REG[] =
     FALSE,              /* Retention */
     0,                  /* Retntion Address*/
     0,                  /* Min  */
-    MAX_LCD_RESLN,      /* Max  */
+    99999,              /* Max  */
     0                   /* Default value */
   },
   /* UV Level */

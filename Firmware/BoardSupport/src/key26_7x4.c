@@ -67,7 +67,7 @@
 
 /* Private function prototypes -----------------------------------------------*/
 static void KpdInit(void);
-static void KpdScan(KEY_INFO_T * pKeyInfo);
+static void KpdScan(uint8_t * pKeyValueMap, KEY_INFO_T * pKeyInfo);
 
 /* Private constants----------------------------------------------------------*/
 static const uint8_t NB_SC_4_RT[MAX_RT_LINES] =
@@ -109,7 +109,38 @@ static const uint8_t NB_RT_4_SC_ACC[MAX_SC_LINES] =
 };
 
 /* Matrix Key code Mapping to BSP Key Value */
-static const uint8_t KEY_VALUE_MAP[NB_KEYS] = 
+static const uint8_t KEY_VALUE_MAP_T1[NB_KEYS] = 
+{
+  0xFF,
+  0xFF,
+  0xFF,
+  KPD_KEY_DIG1,
+  KPD_KEY_DIG2,
+  KPD_KEY_DIG3,
+  KPD_KEY_DIG4,
+  KPD_KEY_DIG5,
+  KPD_KEY_DIG6,
+  KPD_KEY_DIG7,
+  KPD_KEY_DIG8,
+	KPD_KEY_DIG9,
+  0xFF,
+  KPD_KEY_DIG0,
+  0xFF,
+  0xFF,
+  0xFF,
+  0xFF,
+  0xFF,
+  0xFF,
+  0xFF,
+  KPD_KEY_AUTO,
+  KPD_KEY_BACK,
+  KPD_KEY_MODE,
+  KPD_KEY_NEXT,
+  KPD_KEY_ENT
+};
+
+/* Matrix Key code Mapping to BSP Key Value */
+static const uint8_t KEY_VALUE_MAP_T2[NB_KEYS] = 
 {
   0xFF,
   0xFF,
@@ -141,12 +172,22 @@ static const uint8_t KEY_VALUE_MAP[NB_KEYS] =
 
 /* Public constants ----------------------------------------------------------*/
 /* Keypad Type table */
-const KPD_TYPE_T KeypadType_26_7x4 = 
+const KPD_TYPE_T KeypadType_26_7x4_NoVal = 
 {
   .nbScanLine = MAX_SC_LINES,
   .nbReturnLine = MAX_RT_LINES,
   .nbKeys = NB_KEYS,
-  .pKeyValueMap = KEY_VALUE_MAP,
+  .pKeyValueMap = KEY_VALUE_MAP_T1,
+  .kpdInit = KpdInit,
+  .kpdScan = KpdScan
+};
+
+const KPD_TYPE_T KeypadType_26_7x4_Val = 
+{
+  .nbScanLine = MAX_SC_LINES,
+  .nbReturnLine = MAX_RT_LINES,
+  .nbKeys = NB_KEYS,
+  .pKeyValueMap = KEY_VALUE_MAP_T2,
   .kpdInit = KpdInit,
   .kpdScan = KpdScan
 };
@@ -196,7 +237,7 @@ const KPD_TYPE_T KeypadType_26_7x4 =
   */
 @inline void ClrAllScanLines(void) 
 {
-  SCA_DEMC_GPIO_PORT->ODR &= ~SCA_DEMA_GPIO_PIN;
+  SCA_DEMA_GPIO_PORT->ODR &= ~SCA_DEMA_GPIO_PIN;
   SCA_DEMB_GPIO_PORT->ODR &= ~SCA_DEMB_GPIO_PIN;
   SCA_DEMC_GPIO_PORT->ODR &= ~SCA_DEMC_GPIO_PIN;
 }
@@ -248,7 +289,7 @@ static void KpdInit(void)
   * @param  None
   * @retval None
   */
-static void KpdScan(KEY_INFO_T * pKeyInfo)
+static void KpdScan(uint8_t * pKeyValueMap, KEY_INFO_T * pKeyInfo)
 {
   uint8_t keyNo = 0, scanLine = 0, retLine = 0;
   uint8_t keyPressBit[(NB_KEYS / 8) + ((NB_KEYS % 8) ? (1) : (0)) ] = {0};
@@ -276,6 +317,9 @@ static void KpdScan(KEY_INFO_T * pKeyInfo)
       }
     }
   }
+  
+  ClrAllScanLines();
+
 
   /* Set Key State */  
   for(keyNo = 0; keyNo < NB_KEYS; keyNo++)
@@ -285,7 +329,7 @@ static void KpdScan(KEY_INFO_T * pKeyInfo)
     keyPressState = (uint8_t)((keyPressBit[keyNo >> 3] & (1 << (keyNo & 0x7))) ? CLOSED : OPEN);
     
     /* Map the Key No to Key Value Index */
-    keyScanNo = KEY_VALUE_MAP[(uint8_t)keyNo];
+    keyScanNo = pKeyValueMap[(uint8_t)keyNo];
 		
 		if(keyScanNo != 0xFF)
 		{

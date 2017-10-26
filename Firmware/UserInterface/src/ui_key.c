@@ -135,7 +135,7 @@ static const MSG_MAP_T MSG_KEY_CODE[] =
 static const MSG_MAP_T MSG_SW_CODE[] =
 {
   /* SW_RESET */
-  SW_RESET, UIMSG_SW_RESET, FALSE,
+  SW_RESET, UIMSG_SW_RESET, TRUE,
   
   /* SW_CAM */
   SW_CAM,   UIMSG_SW_CAM,   FALSE,

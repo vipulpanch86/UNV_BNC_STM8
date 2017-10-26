@@ -70,7 +70,7 @@ void key_test(void)
 {
   /* BSP Initialization -----------------------------------------*/
   BSP_Init();
-  KPD_Init(1, 20, KeyCallBack);
+  KPD_Init(KPD_TYPE_17_9X2, 20, KeyCallBack);
   //KPD_AddEventListener(KeyCallBack);
   
   printf("\r\nKEYPAD Test");

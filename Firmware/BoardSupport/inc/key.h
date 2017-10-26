@@ -32,8 +32,6 @@ extern "C" {
 #define KEY_STATE_RELEASED             (2)
 
 /* Keypad Key List */
-
-
 typedef enum
 {
   KPD_KEY_DIG0,
@@ -63,7 +61,7 @@ typedef enum
   KPD_KEY_MAX
 } KPD_KEY_LIST_T;  
 
-/* Temporary dor avoiding Compilation problems */
+/* Pending - Temporary dor avoiding Compilation problems */
 #if (1)
 #define KPD_KEY_V10    (KPD_KEY_DIG1)
 #define KPD_KEY_V20    (KPD_KEY_DIG2)
@@ -77,8 +75,12 @@ typedef enum
 
 typedef enum 
 {
+	KPD_TYPE_6_6X1,
+	KPD_TYPE_7_7X1,
+	KPD_TYPE_17_9X2,
   KPD_TYPE_18_3X7,
-  KPD_TYPE_26_7X4,
+  KPD_TYPE_26_7X4_NOVAL,
+  KPD_TYPE_26_7X4_VAL,
   KPD_TYPE_MAX_NB
 }KPD_TYPE_NB_T;
 
@@ -91,7 +93,7 @@ typedef struct
 }KEY_INFO_T;
 
 typedef void ( *F_KPD_INIT )( void );
-typedef void ( *F_KPD_SCAN )( KEY_INFO_T * );
+typedef void ( *F_KPD_SCAN )( uint8_t *,KEY_INFO_T * );
 
 typedef struct
 {

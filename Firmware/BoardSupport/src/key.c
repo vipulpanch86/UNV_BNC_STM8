@@ -13,18 +13,24 @@
 #include <string.h>
 #include "bsp.h"
 
-/* Pending - key should have a mapping with unique key code to keep the ui_key.c same */
-
 /* External Declaration-------------------------------------------------------*/
+extern KPD_TYPE_T KeypadType_6_6x1;
+extern KPD_TYPE_T KeypadType_7_7x1;
+extern KPD_TYPE_T KeypadType_17_9x2;
 extern KPD_TYPE_T KeypadType_18_3x7;
-extern KPD_TYPE_T KeypadType_26_7x4;
+extern KPD_TYPE_T KeypadType_26_7x4_NoVal;
+extern KPD_TYPE_T KeypadType_26_7x4_Val;
 
 /* Private constants----------------------------------------------------------*/
 /* Keypad info table */
 static const KPD_TYPE_T * KeypadType[KPD_TYPE_MAX_NB] = 
 {
+	&KeypadType_6_6x1,
+	&KeypadType_7_7x1,
+  &KeypadType_17_9x2,
   &KeypadType_18_3x7,
-  &KeypadType_26_7x4,
+  &KeypadType_26_7x4_NoVal,
+  &KeypadType_26_7x4_Val,
 };
 
 /* Private variables ---------------------------------------------------------*/
@@ -133,7 +139,7 @@ void KPD_Scan(void)
 {
   if(pKeypad != NULL)
   {
-    pKeypad->kpdScan(&KeyInfo[0]);
+    pKeypad->kpdScan(pKeypad->pKeyValueMap, &KeyInfo[0]);
   }
 }
 

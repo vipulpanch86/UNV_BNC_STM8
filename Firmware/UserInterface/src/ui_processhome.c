@@ -157,7 +157,7 @@ static void HomeDispCounter(void)
   
   DISP_Led(DISP_LED_ADD, (uint8_t)flagAddCount);
   DISP_Led(DISP_LED_AUTO, (uint8_t)flagAutoCount);
-  DISP_Led(DISP_LED_MANUAL, (uint8_t)~flagAutoCount);
+  DISP_Led(DISP_LED_MANUAL, (uint8_t)!flagAutoCount);
   DISP_Led(DISP_LED_UV, (uint8_t)flagUVDetect);
   DISP_Led(COUNT_MODE_LED_LIST[cntMode], TRUE);
 
@@ -217,14 +217,14 @@ static void HomeDispCounter(void)
   }
 
   /* Top Display */
-  if(TopDispValue > (MAX_LCD_RESLN / 10))
+  if(TopDispValue > (DISP_UPPER_MAX_VALUE / 10))
   {
     /* Toggle Lacs & Thousand */
     if(flagSensorEnable)
     {
-      if(TopDispValue > MAX_LCD_RESLN)
+      if(TopDispValue > DISP_UPPER_MAX_VALUE)
       {
-        sprintf((char *)&strTopDisp[0], "%lu%c", TopDispValue / (MAX_LCD_RESLN + 1), LCD_WRAP_CHAR);
+        sprintf((char *)&strTopDisp[0], "%lu%c", TopDispValue / (DISP_UPPER_MAX_VALUE + 1), DISP_WRAP_CHAR);
       }
       else
       {
@@ -233,7 +233,7 @@ static void HomeDispCounter(void)
     }
     else
     {
-      if(TopDispValue > MAX_LCD_RESLN)
+      if(TopDispValue > DISP_UPPER_MAX_VALUE)
       {
         uint32_t SysTimer = BSP_GetSysTime();
 
@@ -245,12 +245,12 @@ static void HomeDispCounter(void)
 
         if(lacsDispEn == TRUE)
         {
-          sprintf((char *)&strTopDisp[0], "%lu%c", TopDispValue / (MAX_LCD_RESLN + 1), LCD_WRAP_CHAR);
+          sprintf((char *)&strTopDisp[0], "%lu%c", TopDispValue / (DISP_UPPER_MAX_VALUE + 1), DISP_WRAP_CHAR);
         }
         else
         {
           sprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT,
-                  TopDispValue % (MAX_LCD_RESLN + 1));
+                  TopDispValue % (DISP_UPPER_MAX_VALUE + 1));
         }
       }
       else
@@ -487,7 +487,7 @@ static uint8_t ProcHomeWelcomeMsg(void *param, UI_MSG_T *pMsg)
 #define WELCOME_MSG_INTERVAL   (250)
 
   static uint8_t msgStartCharNo, msgStartDispNo, msgNbDispChar;
-  static const char *pStrWelcomeMsg = "WELCOME";//(char *)FLASH_DATA_START_PHYSICAL_ADDRESS;
+  static const char *pStrWelcomeMsg = (char *)FLASH_DATA_START_PHYSICAL_ADDRESS;
   uint32_t powerOnDone = FALSE;
   REG_GetValue(&powerOnDone, REG_ID_POWER_ON_FLAG);
 
