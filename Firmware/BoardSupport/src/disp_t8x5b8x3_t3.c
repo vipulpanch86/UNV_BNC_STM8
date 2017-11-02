@@ -54,8 +54,8 @@
                        DISP_LED_MAX_SEL)
 
 /* Display Maximum Value Per Display declaraion */
-#define UPPER_MAX_VAL (99999)
-#define LOWER_MAX_VAL (999)
+#define UPPER_MAX_VAL (99999uL)
+#define LOWER_MAX_VAL (999uL)
 
 /* Private function prototypes -----------------------------------------------*/
 static void DispInit(void);
@@ -115,8 +115,8 @@ const DISP_TYPE_T DispInfoT8x5B8x3_t3 =
   .lowSegType = DISP_SEVEN_SEG,
   .lowMaxSel  = LOWER_MAX_SEL,
   .pLedBitmap = &LED_BITMAP[0],
-	.uppMaxVal = UPPER_MAX_VAL,
-	.lowMaxVal = LOWER_MAX_VAL,
+	.uppMaxVal = (uint32_t)UPPER_MAX_VAL,
+	.lowMaxVal = (uint32_t)LOWER_MAX_VAL,
   .uppFmtStr = "%5lu",
   .lowFmtStr = "%3lu",
 	.valWrapChar = 'L',

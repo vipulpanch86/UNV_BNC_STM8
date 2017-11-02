@@ -86,7 +86,7 @@ String.2.0=Compiling $(InputFile)...
 String.3.0=cxstm8 +modsl0 -customOpt+compact -customC -pp -pc99 -customLst -l -dSTM8S207 -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -i..\..\userinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,26,19,46,8
+String.6.0=2017,11,2,19,42,2
 
 [Root.Config.0.Settings.4]
 String.2.0=Assembling $(InputFile)...
@@ -249,7 +249,7 @@ String.2.0=Compiling $(InputFile)...
 String.3.0=cxstm8 +modsl0 -customOpt+compact -customC -pp -pc99 -customLst -l -dSTM8S207 -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -i..\..\userinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,26,19,46,8
+String.6.0=2017,11,2,19,42,2
 
 [Root.Application.Config.0.Settings.2]
 String.2.0=Assembling $(InputFile)...
@@ -1070,7 +1070,7 @@ String.2.0=Compiling $(InputFile)...
 String.3.0=cxstm8 +modsl0 -customOpt+compact -customC -pp -pc99 -customLst -l -dSTM8S207 -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -i..\..\userinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,26,19,46,8
+String.6.0=2017,11,2,19,42,2
 
 [Root.BoardSupport.Config.0.Settings.2]
 String.2.0=Assembling $(InputFile)...
@@ -1258,7 +1258,7 @@ String.2.0=Compiling $(InputFile)...
 String.3.0=cxstm8 +modsl0 -customOpt+compact -customC -pp -pc99 -customLst -l -dSTM8S207 -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -i..\..\userinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,26,19,46,8
+String.6.0=2017,11,2,19,42,2
 
 [Root.Environment.Config.0.Settings.2]
 String.2.0=Assembling $(InputFile)...
@@ -1361,7 +1361,7 @@ String.2.0=Compiling $(InputFile)...
 String.3.0=cxstm8 +modsl0 -customOpt+compact -customC -pp -pc99 -customLst -l -dSTM8S207 -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -i..\..\userinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,26,19,46,8
+String.6.0=2017,11,2,19,42,2
 
 [Root.STM8S_StdPeriph_Driver.Config.0.Settings.2]
 String.2.0=Assembling $(InputFile)...
@@ -1638,7 +1638,7 @@ String.2.0=Compiling $(InputFile)...
 String.3.0=cxstm8 +modsl0 -customOpt+compact -customC -pp -pc99 -customLst -l -dSTM8S207 -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -i..\..\userinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,26,19,46,8
+String.6.0=2017,11,2,19,42,2
 
 [Root.UserInterface.Config.0.Settings.2]
 String.2.0=Assembling $(InputFile)...

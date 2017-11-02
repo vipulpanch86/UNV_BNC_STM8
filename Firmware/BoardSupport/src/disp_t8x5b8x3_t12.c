@@ -56,7 +56,7 @@
 #define T1_LED_BATCH_BIT      BIT(5)
 #define T1_LED_FREE_BIT       BIT(4)
 #define T1_LED_STAMP_BIT      BIT(7)
-#define T1_LED_VALUE_BIT      BIT(0)
+#define T1_LED_MANUAL_BIT     BIT(0)
 #define T1_LED_ADD_BIT        BIT(1)
 #define T1_LED_UV_BIT         BIT(3)
 #define T1_LED_AUTO_BIT       BIT(2)
@@ -66,7 +66,7 @@
 #define T2_LED_BATCH_BIT      BIT(1)
 #define T2_LED_FREE_BIT       BIT(2)
 #define T2_LED_STAMP_BIT      BIT(3)
-#define T2_LED_VALUE_BIT      BIT(5)
+#define T2_LED_MANUAL_BIT     BIT(5)
 #define T2_LED_ADD_BIT        BIT(6)
 #define T2_LED_UV_BIT         BIT(7)
 #define T2_LED_AUTO_BIT       BIT(4)
@@ -78,8 +78,8 @@
                        DISP_LED_MAX_SEL)
 
 /* Display Maximum Value Per Display declaraion */
-#define UPPER_MAX_VAL (99999)
-#define LOWER_MAX_VAL (999)
+#define UPPER_MAX_VAL (99999uL)
+#define LOWER_MAX_VAL (999uL)
 
 /* Private function prototypes -----------------------------------------------*/
 static void DispInit(void);
@@ -129,11 +129,11 @@ static const uint16_t LED_BITMAP_T1[DISP_LED_MAX_NB] =
   /* DISP_LED_BATCH   */ T1_LED_BATCH_BIT,
   /* DISP_LED_FREE    */ T1_LED_FREE_BIT,
   /* DISP_LED_STAMP   */ T1_LED_STAMP_BIT,
-  /* DISP_LED_VALUE   */ T1_LED_VALUE_BIT,
+  /* DISP_LED_VALUE   */ 0,
   /* DISP_LED_ADD     */ T1_LED_ADD_BIT,
   /* DISP_LED_UV      */ T1_LED_UV_BIT,
   /* DISP_LED_AUTO    */ T1_LED_AUTO_BIT,
-  /* DISP_LED_MANUAL  */ 0,
+  /* DISP_LED_MANUAL  */ T1_LED_MANUAL_BIT,
   /* DISP_LED_V_10    */ 0,
   /* DISP_LED_V_20    */ 0,
   /* DISP_LED_V_50    */ 0,
@@ -149,11 +149,11 @@ static const uint16_t LED_BITMAP_T2[DISP_LED_MAX_NB] =
   /* DISP_LED_BATCH   */ T2_LED_BATCH_BIT,
   /* DISP_LED_FREE    */ T2_LED_FREE_BIT,
   /* DISP_LED_STAMP   */ T2_LED_STAMP_BIT,
-  /* DISP_LED_VALUE   */ T2_LED_VALUE_BIT,
+  /* DISP_LED_VALUE   */ 0,
   /* DISP_LED_ADD     */ T2_LED_ADD_BIT,
   /* DISP_LED_UV      */ T2_LED_UV_BIT,
   /* DISP_LED_AUTO    */ T2_LED_AUTO_BIT,
-  /* DISP_LED_MANUAL  */ 0,
+  /* DISP_LED_MANUAL  */ T2_LED_MANUAL_BIT,
   /* DISP_LED_V_10    */ 0,
   /* DISP_LED_V_20    */ 0,
   /* DISP_LED_V_50    */ 0,
@@ -170,8 +170,8 @@ const DISP_TYPE_T DispInfoT8x5B8x3_t1 =
   .uppMaxSel  = UPPER_MAX_SEL,
   .lowSegType = DISP_SEVEN_SEG,
   .lowMaxSel  = LOWER_MAX_SEL,
-	.uppMaxVal = UPPER_MAX_VAL,
-	.lowMaxVal = LOWER_MAX_VAL,
+	.uppMaxVal = (uint32_t)UPPER_MAX_VAL,
+	.lowMaxVal = (uint32_t)LOWER_MAX_VAL,
   .pLedBitmap = &LED_BITMAP_T1[0],
   .uppFmtStr = "%5lu",
   .lowFmtStr = "%3lu",
@@ -187,6 +187,8 @@ const DISP_TYPE_T DispInfoT8x5B8x3_t2 =
   .uppMaxSel  = UPPER_MAX_SEL,
   .lowSegType = DISP_SEVEN_SEG,
   .lowMaxSel  = LOWER_MAX_SEL,
+	.uppMaxVal = (uint32_t)UPPER_MAX_VAL,
+	.lowMaxVal = (uint32_t)LOWER_MAX_VAL,
   .pLedBitmap = &LED_BITMAP_T2[0],
   .uppFmtStr = "%5lu",
   .lowFmtStr = "%3lu",

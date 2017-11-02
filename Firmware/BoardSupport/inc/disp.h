@@ -30,8 +30,8 @@ extern "C" {
 #define DISP_TURR_STR_FORMAT  "%4lu"
 
 /* Max Value definition for display strings */
-#define DISP_LOWER_MAX_VALUE  (pDisp->lowMaxVal)
-#define DISP_UPPER_MAX_VALUE  (pDisp->uppMaxVal)
+#define DISP_LOWER_MAX_VALUE  ((uint32_t)(pDisp->lowMaxVal))
+#define DISP_UPPER_MAX_VALUE  ((uint32_t)(pDisp->uppMaxVal))
 #define DISP_TURRET_MAX_VALUE (9999)
 
 /* Max display definition */

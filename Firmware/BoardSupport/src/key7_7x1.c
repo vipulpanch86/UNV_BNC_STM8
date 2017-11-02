@@ -93,7 +93,7 @@ static const uint8_t NB_RT_4_SC_ACC[MAX_SC_LINES] =
 static const uint8_t KEY_VALUE_MAP[NB_KEYS] = 
 {
   KPD_KEY_MODE,
-  KPD_KEY_ADD,
+  KPD_KEY_ADD_UV,
   KPD_KEY_AUTO,
   KPD_KEY_UP,
   KPD_KEY_DOWN,

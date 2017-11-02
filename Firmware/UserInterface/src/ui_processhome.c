@@ -147,6 +147,7 @@ static void HomeDispCounter(void)
   uint8_t flagUVDetect = UV_GetDetectFlag();
   uint8_t cntMode = COUNTER_GetMode();
   uint32_t sensorCounter = SENSOR_GetCount();
+	uint32_t dispUppMaxResln = DISP_UPPER_MAX_VALUE;
 
   REG_GetValue(&valueCounter, REG_ID_VALUE_COUNTER);
   REG_GetValue(&accSensorCount, REG_ID_ACC_CTR_LIST[cntMode]);
@@ -217,14 +218,15 @@ static void HomeDispCounter(void)
   }
 
   /* Top Display */
-  if(TopDispValue > (DISP_UPPER_MAX_VALUE / 10))
+	/* Division by 10 for First Character of Mode */
+  if(TopDispValue > (dispUppMaxResln / 10))
   {
     /* Toggle Lacs & Thousand */
     if(flagSensorEnable)
     {
-      if(TopDispValue > DISP_UPPER_MAX_VALUE)
+      if(TopDispValue > dispUppMaxResln)
       {
-        sprintf((char *)&strTopDisp[0], "%lu%c", TopDispValue / (DISP_UPPER_MAX_VALUE + 1), DISP_WRAP_CHAR);
+        sprintf((char *)&strTopDisp[0], "%lu%c", TopDispValue / (dispUppMaxResln + 1), DISP_WRAP_CHAR);
       }
       else
       {
@@ -233,7 +235,7 @@ static void HomeDispCounter(void)
     }
     else
     {
-      if(TopDispValue > DISP_UPPER_MAX_VALUE)
+      if(TopDispValue > dispUppMaxResln)
       {
         uint32_t SysTimer = BSP_GetSysTime();
 
@@ -245,12 +247,12 @@ static void HomeDispCounter(void)
 
         if(lacsDispEn == TRUE)
         {
-          sprintf((char *)&strTopDisp[0], "%lu%c", TopDispValue / (DISP_UPPER_MAX_VALUE + 1), DISP_WRAP_CHAR);
+          sprintf((char *)&strTopDisp[0], "%lu%c", TopDispValue / (dispUppMaxResln + 1), DISP_WRAP_CHAR);
         }
         else
         {
           sprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT,
-                  TopDispValue % (DISP_UPPER_MAX_VALUE + 1));
+                  TopDispValue % (dispUppMaxResln + 1));
         }
       }
       else

@@ -67,19 +67,19 @@ static const DISP_KPD_TYPE_T DISP_KPD_TYPE_MAP[DIP_SW_MAX_POS] =
 {
 	[DISP_T8X5B8X3__KPD_6_6X1] = 
     {
-      .dispIndex   = DISP_TYPE_T8X5B8X3_T2, 
+      .dispIndex   = DISP_TYPE_T8X5B8X3_T1, 
       .kpdIndex    = KPD_TYPE_6_6X1,
       .valueEnable = FALSE
     },
 	[DISP_T8X5B8X3__KPD_7_7X1] = 
     {
-      .dispIndex   = DISP_TYPE_T8X5B8X3_T3, 
+      .dispIndex   = DISP_TYPE_T8X5B8X3_T2, 
       .kpdIndex    = KPD_TYPE_7_7X1,
       .valueEnable = FALSE
     },
 	[DISP_T8X5B8X3__KPD_17_9X2] = 
     {
-      .dispIndex   = DISP_TYPE_T8X5B8X3_T1, 
+      .dispIndex   = DISP_TYPE_T8X5B8X3_T3, 
       .kpdIndex    = KPD_TYPE_17_9X2,
       .valueEnable = FALSE
     },
@@ -228,6 +228,9 @@ void DisplayKeypadInit(void)
   FlagValueCount = DISP_KPD_TYPE_MAP[rotDipSwitchPos].valueEnable;
   DISP_Init(DISP_KPD_TYPE_MAP[rotDipSwitchPos].dispIndex);
   KPD_Init(DISP_KPD_TYPE_MAP[rotDipSwitchPos].kpdIndex, 20, UI_KeyCallBack);
+	
+//	printf("\n\rdisp upper max val = 0x%X", (uint32_t)DISP_UPPER_MAX_VALUE);
+//	printf("\n\rdisp lower max val = %u", (uint32_t)DISP_LOWER_MAX_VALUE);
 }
 
 /**
