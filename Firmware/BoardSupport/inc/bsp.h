@@ -12,12 +12,15 @@
 #define __BSP_H
 
 /* Includes ------------------------------------------------------------------*/
-#include <stdio.h>
+//#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 /* Contains the description of all STM8 hardware registers */
 #include "stm8s.h"
+
+/* Small footprint Printf handler */
+#include "xprintf.h"
 
 /* Private define ------------------------------------------------------------*/
 #define BSP_SW_VERSION        100
@@ -177,47 +180,71 @@
 /**
  * @brief Definition for TURRET COM port, connected to USART1
  */ 
-#define TURR_COM_TX_GPIO_PIN            GPIO_PIN_5
-#define TURR_COM_TX_GPIO_PORT           GPIOA
+#define TURR_COM_TX_GPIO_PORT (GPIOA)
+#define TURR_COM_TX_GPIO_PIN  (GPIO_PIN_5)
 
-#define TURR_COM_RX_GPIO_PIN            GPIO_PIN_4
-#define TURR_COM_RX_GPIO_PORT           GPIOA
+#define TURR_COM_RX_GPIO_PORT (GPIOA)
+#define TURR_COM_RX_GPIO_PIN  (GPIO_PIN_4)
 
 
 /**
  * @brief Definition for SENSOR port, connected to EXTI
  */ 
-#define SENSOR_GPIO_PIN                GPIO_PIN_5
-#define SENSOR_GPIO_PORT               GPIOE
-#define SENSOR_EXTI                    EXTI_PORT_GPIOE
-#define SENSOR_EXTI_SENSE              EXTI_SENSITIVITY_RISE_FALL
+#define SENSOR_GPIO_PORT      (GPIOE)
+#define SENSOR_GPIO_PIN       (GPIO_PIN_5)
+#define SENSOR_EXTI           (EXTI_PORT_GPIOE)
+#define SENSOR_EXTI_SENSE     (EXTI_SENSITIVITY_RISE_FALL)
 
 /**
  * @brief Definition for UV port, connected to ADC
  */ 
-#define UV_AIN_GPIO_PIN                GPIO_PIN_5
-#define UV_AIN_GPIO_PORT               GPIOB
+#define UV_AIN_GPIO_PORT      (GPIOB)
+#define UV_AIN_GPIO_PIN       (GPIO_PIN_5)
 
-#define UV_ENB_GPIO_PIN                GPIO_PIN_4
-#define UV_ENB_GPIO_PORT               GPIOB
+#define UV_ENB_GPIO_PORT      (GPIOB)
+#define UV_ENB_GPIO_PIN       (GPIO_PIN_4)
 
 /**
   * @brief  I2C EEPROM Interface pins
   */  
-#define EE_I2C                          I2C  
-#define EE_I2C_CLK                      CLK_PERIPHERAL_I2C
+#define EE_I2C                 (I2C)
+#define EE_I2C_CLK             (CLK_PERIPHERAL_I2C)
    
-#define EE_I2C_SCL_GPIO_PIN             GPIO_PIN_1                  /* PE.01 */
-#define EE_I2C_SCL_GPIO_PORT            GPIOE                       /* GPIOB */
+#define EE_I2C_SCL_GPIO_PORT   (GPIOE)                 /* GPIOE */
+#define EE_I2C_SCL_GPIO_PIN    (GPIO_PIN_1)  /* PE.01 */
 
-#define EE_I2C_SDA_GPIO_PIN             GPIO_PIN_2                  /* PE.02 */
-#define EE_I2C_SDA_GPIO_PORT            GPIOE                       /* GPIOB */
+#define EE_I2C_SDA_GPIO_PORT   (GPIOE)                 /* GPIOE */
+#define EE_I2C_SDA_GPIO_PIN    (GPIO_PIN_2)  /* PE.02 */
 
-#define EE_I2C_WP_GPIO_PIN              GPIO_PIN_0                  /* PE.00 */
-#define EE_I2C_WP_GPIO_PORT             GPIOE                       /* GPIOE */
+#define EE_I2C_WP_GPIO_PORT    (GPIOE)                 /* GPIOE */
+#define EE_I2C_WP_GPIO_PIN     (GPIO_PIN_0)  /* PE.00 */
 
-#define EE_DIRECTION_TX                 0
-#define EE_DIRECTION_RX                 1
+#define EE_DIRECTION_TX        (0)
+#define EE_DIRECTION_RX        (1)
+
+/**
+  * @brief  Writes high level to the specified GPIO pins.
+  * @param  GPIOx : Select the GPIO peripheral number (x = A to I).
+  * @param  PortPins : Specifies the pins to be turned high to the port output.
+  *         data register.
+  * @retval None
+  */
+@inline void BSP_SetGPIO(GPIO_TypeDef* GPIOx, GPIO_Pin_TypeDef Pins)
+{
+  GPIOx->ODR |= (uint8_t)Pins;
+}
+
+/**
+  * @brief  Writes low level to the specified GPIO pins.
+  * @param  GPIOx : Select the GPIO peripheral number (x = A to I).
+  * @param  PortPins : Specifies the pins to be turned low to the port output.
+  *         data register.
+  * @retval None
+  */
+@inline void BSP_ClrGPIO(GPIO_TypeDef* GPIOx, GPIO_Pin_TypeDef Pins)
+{
+  GPIOx->ODR &= (uint8_t)~Pins;
+}
 
 /**
   * @brief  Read Cam Switch
@@ -242,77 +269,91 @@
   * @param  state - True (Enable) / False (Disable)
   * @retval None
   */
-#define BSP_H_MotorEnable(state) { \
-    (state == TRUE) ? \
-    (TRIACH_GPIO_PORT->ODR &= ~TRIACH_GPIO_PIN) : \
-    (TRIACH_GPIO_PORT->ODR |= TRIACH_GPIO_PIN); \
-  }
+@inline void BSP_H_MotorEnable(uint8_t state)
+{
+  if(state == TRUE)
+    BSP_ClrGPIO(TRIACH_GPIO_PORT, TRIACH_GPIO_PIN);
+  else
+    BSP_SetGPIO(TRIACH_GPIO_PORT, TRIACH_GPIO_PIN);
+}
 
 /**
   * @brief  S-Motor Enable / Disable
   * @param  state - True (Enable) / False (Disable)
   * @retval None
   */
-#define BSP_S_MotorEnable(state) { \
-    (state == TRUE) ? \
-    (TRIACS_GPIO_PORT->ODR &= ~TRIACS_GPIO_PIN) : \
-    (TRIACS_GPIO_PORT->ODR |= TRIACS_GPIO_PIN); \
-  }
+@inline void BSP_S_MotorEnable(uint8_t state)
+{
+  if(state == TRUE)
+    BSP_ClrGPIO(TRIACS_GPIO_PORT, TRIACS_GPIO_PIN);
+  else
+    BSP_SetGPIO(TRIACS_GPIO_PORT, TRIACS_GPIO_PIN);
+}
 
 /**
   * @brief  V-Pump Enable / Disable
   * @param  state - True (Enable) / False (Disable)
   * @retval None
   */
-#define BSP_V_PumpEnable(state) { \
-    (state == TRUE) ? \
-    (TRIACV_GPIO_PORT->ODR &= ~TRIACV_GPIO_PIN) : \
-    (TRIACV_GPIO_PORT->ODR |= TRIACV_GPIO_PIN); \
-  }
+@inline void BSP_V_PumpEnable(uint8_t state)
+{
+  if(state == TRUE)
+    BSP_ClrGPIO(TRIACV_GPIO_PORT, TRIACV_GPIO_PIN);
+  else
+    BSP_SetGPIO(TRIACV_GPIO_PORT, TRIACV_GPIO_PIN);
+}
 
 /**
   * @brief  B-Coil Enable / Disable
   * @param  state - True (Enable) / False (Disable)
   * @retval None
   */
-#define BSP_B_CoilEnable(state) { \
-    (state == TRUE) ? \
-    (BATCH_GPIO_PORT->ODR &= ~BATCH_GPIO_PIN): \
-    (BATCH_GPIO_PORT->ODR |= BATCH_GPIO_PIN); \
-  }
+@inline void BSP_B_CoilEnable(uint8_t state)
+{
+  if(state == TRUE)
+    BSP_ClrGPIO(BATCH_GPIO_PORT, BATCH_GPIO_PIN);
+  else
+    BSP_SetGPIO(BATCH_GPIO_PORT, BATCH_GPIO_PIN);
+}
 
 /**
   * @brief  S-Coil Enable / Disable
   * @param  state - True (Enable) / False (Disable)
   * @retval None
   */
-#define BSP_S_CoilEnable(state) { \
-    (state == TRUE) ? \
-    (STAMP_GPIO_PORT->ODR &= ~STAMP_GPIO_PIN): \
-    (STAMP_GPIO_PORT->ODR |= STAMP_GPIO_PIN); \
-  }
+@inline void BSP_S_CoilEnable(uint8_t state)
+{
+  if(state == TRUE)
+    BSP_ClrGPIO(STAMP_GPIO_PORT, STAMP_GPIO_PIN);
+  else
+    BSP_SetGPIO(STAMP_GPIO_PORT, STAMP_GPIO_PIN);
+}
 
 /**
   * @brief  UV LED Enable / Disable
   * @param  state - True (Enable) / False (Disable)
   * @retval None
   */
-#define BSP_UV_DetectEnable(state) { \
-    (state == TRUE) ? \
-    (UV_ENB_GPIO_PORT->ODR &= ~UV_ENB_GPIO_PIN) : \
-    (UV_ENB_GPIO_PORT->ODR |= UV_ENB_GPIO_PIN); \
-  }
+@inline void BSP_UV_DetectEnable(uint8_t state)
+{
+  if(state == TRUE)
+    BSP_ClrGPIO(UV_ENB_GPIO_PORT, UV_ENB_GPIO_PIN);
+  else
+    BSP_SetGPIO(UV_ENB_GPIO_PORT, UV_ENB_GPIO_PIN);
+}
 
 /**
   * @brief  S-Fan Enable / Disable
   * @param  state - True (Enable) / False (Disable)
   * @retval None
   */
-#define BSP_S_FanEnable(state) { \
-    (state == TRUE) ? \
-    (STAMP_GPIO_PORT->ODR &= ~STAMP_GPIO_PIN): \
-    (STAMP_GPIO_PORT->ODR |= STAMP_GPIO_PIN); \
-  }
+@inline void BSP_S_FanEnable(uint8_t state)
+{
+  if(state == TRUE)
+    BSP_ClrGPIO(STAMP_GPIO_PORT, STAMP_GPIO_PIN);
+  else
+    BSP_SetGPIO(STAMP_GPIO_PORT, STAMP_GPIO_PIN);
+}
   
 extern uint32_t BuzzerOnTime;
 extern uint16_t AdcValue;

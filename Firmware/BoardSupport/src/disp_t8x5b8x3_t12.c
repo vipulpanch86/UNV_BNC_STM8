@@ -8,7 +8,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include <stdio.h>
+//#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "bsp.h"
@@ -100,7 +100,7 @@ static GPIO_TypeDef *DISP_EN_GPIO_PORT[MAX_SEL] =
   DISP_EN9_GPIO_PORT
 };
 
-static const uint16_t DISP_EN_GPIO_PIN[MAX_SEL] =
+static const uint8_t DISP_EN_GPIO_PIN[MAX_SEL] =
 {
   DISP_EN1_GPIO_PIN,
   DISP_EN2_GPIO_PIN,
@@ -114,7 +114,7 @@ static const uint16_t DISP_EN_GPIO_PIN[MAX_SEL] =
 };
 
 /* Turret Display Select Pin Table */
-static const uint16_t TURR_GPIO_PIN[DISP_TURRET_MAX_SEL][4] = 
+static const uint8_t TURR_GPIO_PIN[DISP_TURRET_MAX_SEL][4] = 
 {
   TURR_DIG0_GPIO_PIN * 1, TURR_DIG1_GPIO_PIN * 0, TURR_DIG2_GPIO_PIN * 0, TURR_DIG3_GPIO_PIN * 0,
   TURR_DIG0_GPIO_PIN * 0, TURR_DIG1_GPIO_PIN * 1, TURR_DIG2_GPIO_PIN * 0, TURR_DIG3_GPIO_PIN * 0,
@@ -170,12 +170,12 @@ const DISP_TYPE_T DispInfoT8x5B8x3_t1 =
   .uppMaxSel  = UPPER_MAX_SEL,
   .lowSegType = DISP_SEVEN_SEG,
   .lowMaxSel  = LOWER_MAX_SEL,
-	.uppMaxVal = (uint32_t)UPPER_MAX_VAL,
-	.lowMaxVal = (uint32_t)LOWER_MAX_VAL,
+  .uppMaxVal = (uint32_t)UPPER_MAX_VAL,
+  .lowMaxVal = (uint32_t)LOWER_MAX_VAL,
   .pLedBitmap = &LED_BITMAP_T1[0],
   .uppFmtStr = "%5lu",
   .lowFmtStr = "%3lu",
-	.valWrapChar = 'L',
+  .valWrapChar = 'L',
   .dispInit   = DispInit,
   .dispWrite  = DispWrite
 };
@@ -187,8 +187,8 @@ const DISP_TYPE_T DispInfoT8x5B8x3_t2 =
   .uppMaxSel  = UPPER_MAX_SEL,
   .lowSegType = DISP_SEVEN_SEG,
   .lowMaxSel  = LOWER_MAX_SEL,
-	.uppMaxVal = (uint32_t)UPPER_MAX_VAL,
-	.lowMaxVal = (uint32_t)LOWER_MAX_VAL,
+  .uppMaxVal = (uint32_t)UPPER_MAX_VAL,
+  .lowMaxVal = (uint32_t)LOWER_MAX_VAL,
   .pLedBitmap = &LED_BITMAP_T2[0],
   .uppFmtStr = "%5lu",
   .lowFmtStr = "%3lu",
@@ -196,9 +196,6 @@ const DISP_TYPE_T DispInfoT8x5B8x3_t2 =
   .dispWrite  = DispWrite
 };
 /* Private variables ---------------------------------------------------------*/
-
-
-/* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 /**
   * @brief  Initialzation Function for Display
@@ -210,7 +207,7 @@ static void DispInit(void)
   /* Configure the Data Port as Output
      Default State is LOW 
   */
- 	GPIO_Init(DISP_DB0_GPIO_PORT, DISP_DB0_GPIO_PIN, GPIO_MODE_OUT_PP_LOW_SLOW);
+  GPIO_Init(DISP_DB0_GPIO_PORT, DISP_DB0_GPIO_PIN, GPIO_MODE_OUT_PP_LOW_SLOW);
   GPIO_Init(DISP_DB1_GPIO_PORT, DISP_DB1_GPIO_PIN, GPIO_MODE_OUT_PP_LOW_SLOW);
   GPIO_Init(DISP_DB2_GPIO_PORT, DISP_DB2_GPIO_PIN, GPIO_MODE_OUT_PP_LOW_SLOW);
   GPIO_Init(DISP_DB3_GPIO_PORT, DISP_DB3_GPIO_PIN, GPIO_MODE_OUT_PP_LOW_SLOW);
@@ -231,7 +228,7 @@ static void DispInit(void)
   GPIO_Init(DISP_EN7_GPIO_PORT, DISP_EN7_GPIO_PIN, GPIO_MODE_OUT_PP_HIGH_SLOW);
   GPIO_Init(DISP_EN8_GPIO_PORT, DISP_EN8_GPIO_PIN, GPIO_MODE_OUT_PP_HIGH_SLOW);
   GPIO_Init(DISP_EN9_GPIO_PORT, DISP_EN9_GPIO_PIN, GPIO_MODE_OUT_PP_HIGH_SLOW);
-	
+  
   /* Configure Customer Display Enable bits
      Default State is High 
   */
@@ -252,20 +249,20 @@ static void DispWrite(uint8_t dispNo, volatile uint16_t data)
   volatile uint8_t data8bit = 0;
   
   /* Turret Disable */
-  TURR_DIG0_GPIO_PORT->ODR |= TURR_DIG0_GPIO_PIN;
-  TURR_DIG1_GPIO_PORT->ODR |= TURR_DIG1_GPIO_PIN;
-  TURR_DIG2_GPIO_PORT->ODR |= TURR_DIG2_GPIO_PIN;
-  TURR_DIG3_GPIO_PORT->ODR |= TURR_DIG3_GPIO_PIN;
+  BSP_SetGPIO(TURR_DIG0_GPIO_PORT, TURR_DIG0_GPIO_PIN);
+  BSP_SetGPIO(TURR_DIG1_GPIO_PORT, TURR_DIG1_GPIO_PIN);
+  BSP_SetGPIO(TURR_DIG2_GPIO_PORT, TURR_DIG2_GPIO_PIN);
+  BSP_SetGPIO(TURR_DIG3_GPIO_PORT, TURR_DIG3_GPIO_PIN);
   /* Output Disable */
-  DISP_EN1_GPIO_PORT->ODR |= (uint8_t)DISP_EN1_GPIO_PIN;
-  DISP_EN2_GPIO_PORT->ODR |= (uint8_t)DISP_EN2_GPIO_PIN;
-  DISP_EN3_GPIO_PORT->ODR |= (uint8_t)DISP_EN3_GPIO_PIN;
-  DISP_EN4_GPIO_PORT->ODR |= (uint8_t)DISP_EN4_GPIO_PIN;
-  DISP_EN5_GPIO_PORT->ODR |= (uint8_t)DISP_EN5_GPIO_PIN;
-  DISP_EN6_GPIO_PORT->ODR |= (uint8_t)DISP_EN6_GPIO_PIN;
-  DISP_EN7_GPIO_PORT->ODR |= (uint8_t)DISP_EN7_GPIO_PIN;
-  DISP_EN8_GPIO_PORT->ODR |= (uint8_t)DISP_EN8_GPIO_PIN;
-  DISP_EN9_GPIO_PORT->ODR |= (uint8_t)DISP_EN9_GPIO_PIN;
+  BSP_SetGPIO(DISP_EN1_GPIO_PORT, DISP_EN1_GPIO_PIN);
+  BSP_SetGPIO(DISP_EN2_GPIO_PORT, DISP_EN2_GPIO_PIN);
+  BSP_SetGPIO(DISP_EN3_GPIO_PORT, DISP_EN3_GPIO_PIN);
+  BSP_SetGPIO(DISP_EN4_GPIO_PORT, DISP_EN4_GPIO_PIN);
+  BSP_SetGPIO(DISP_EN5_GPIO_PORT, DISP_EN5_GPIO_PIN);
+  BSP_SetGPIO(DISP_EN6_GPIO_PORT, DISP_EN6_GPIO_PIN);
+  BSP_SetGPIO(DISP_EN7_GPIO_PORT, DISP_EN7_GPIO_PIN);
+  BSP_SetGPIO(DISP_EN8_GPIO_PORT, DISP_EN8_GPIO_PIN);
+  BSP_SetGPIO(DISP_EN9_GPIO_PORT, DISP_EN9_GPIO_PIN);
 
   /* Selects Upper, Lower & LED Display */
   if(dispNo < MAX_SEL)
@@ -274,23 +271,23 @@ static void DispWrite(uint8_t dispNo, volatile uint16_t data)
     data8bit = (uint8_t)((data >> 0) & 0xFF);
     DISP_DB_GPIO_PORT->ODR = (uint8_t)data8bit;
     /* Output Enable*/
-  	DISP_EN_GPIO_PORT[dispNo]->ODR &= (uint8_t)~DISP_EN_GPIO_PIN[dispNo];
+    BSP_ClrGPIO(DISP_EN_GPIO_PORT[dispNo], DISP_EN_GPIO_PIN[dispNo]);
   }
   /* Selects Turret Display */
   else if(dispNo < (MAX_SEL + DISP_TURRET_MAX_SEL))
   {
   
     dispNo -= MAX_SEL;
-	
+  
     /* Write Byte on Port */
     data8bit = (uint8_t)((data >> 0) & 0xFF);
     DISP_DB_GPIO_PORT->ODR = (uint8_t)data8bit;
 
     /* Select Corresponding Turret Display */
-    TURR_DIG0_GPIO_PORT->ODR &= ~TURR_GPIO_PIN[dispNo][0];
-    TURR_DIG1_GPIO_PORT->ODR &= ~TURR_GPIO_PIN[dispNo][1];
-    TURR_DIG2_GPIO_PORT->ODR &= ~TURR_GPIO_PIN[dispNo][2];
-    TURR_DIG3_GPIO_PORT->ODR &= ~TURR_GPIO_PIN[dispNo][3];
+    BSP_ClrGPIO(TURR_DIG0_GPIO_PORT, TURR_GPIO_PIN[dispNo][0]);
+    BSP_ClrGPIO(TURR_DIG1_GPIO_PORT, TURR_GPIO_PIN[dispNo][1]);
+    BSP_ClrGPIO(TURR_DIG2_GPIO_PORT, TURR_GPIO_PIN[dispNo][2]);
+    BSP_ClrGPIO(TURR_DIG3_GPIO_PORT, TURR_GPIO_PIN[dispNo][3]);
   }
 }
 /***********************END OF FILE************************/

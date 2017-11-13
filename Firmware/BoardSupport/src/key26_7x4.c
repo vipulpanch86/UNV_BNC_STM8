@@ -8,7 +8,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include <stdio.h>
+//#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "bsp.h"
@@ -67,7 +67,7 @@
 
 /* Private function prototypes -----------------------------------------------*/
 static void KpdInit(void);
-static void KpdScan(uint8_t * pKeyValueMap, KEY_INFO_T * pKeyInfo);
+static void KpdScan(KEY_VAL_MAP_T * pKeyValueMap, KEY_INFO_T * pKeyInfo);
 
 /* Private constants----------------------------------------------------------*/
 static const uint8_t NB_SC_4_RT[MAX_RT_LINES] =
@@ -109,65 +109,65 @@ static const uint8_t NB_RT_4_SC_ACC[MAX_SC_LINES] =
 };
 
 /* Matrix Key code Mapping to BSP Key Value */
-static const uint8_t KEY_VALUE_MAP_T1[NB_KEYS] = 
+static const KEY_VAL_MAP_T KEY_VALUE_MAP_T1[NB_KEYS] = 
 {
-  0xFF,
-  0xFF,
-  0xFF,
-  KPD_KEY_DIG1,
-  KPD_KEY_DIG2,
-  KPD_KEY_DIG3,
-  KPD_KEY_DIG4,
-  KPD_KEY_DIG5,
-  KPD_KEY_DIG6,
-  KPD_KEY_DIG7,
-  KPD_KEY_DIG8,
-	KPD_KEY_DIG9,
-  0xFF,
-  KPD_KEY_DIG0,
-  0xFF,
-  0xFF,
-  0xFF,
-  0xFF,
-  0xFF,
-  0xFF,
-  0xFF,
-  KPD_KEY_AUTO,
-  KPD_KEY_BACK,
-  KPD_KEY_MODE,
-  KPD_KEY_NEXT,
-  KPD_KEY_ENT
+  { 0xFF, 0xFF },
+  { 0xFF, 0xFF },
+  { 0xFF, 0xFF },
+  { KPD_KEY_DIG1, 0xFF },
+  { KPD_KEY_DIG2, 0xFF },
+  { KPD_KEY_DIG3, 0xFF },
+  { KPD_KEY_DIG4, 0xFF },
+  { KPD_KEY_DIG5, 0xFF },
+  { KPD_KEY_DIG6, 0xFF },
+  { KPD_KEY_DIG7, 0xFF },
+  { KPD_KEY_DIG8, 0xFF },
+  { KPD_KEY_DIG9, 0xFF },
+  { 0xFF, 0xFF },
+  { KPD_KEY_DIG0, 0xFF },
+  { 0xFF, 0xFF },
+  { 0xFF, 0xFF },
+  { 0xFF, 0xFF },
+  { 0xFF, 0xFF },
+  { 0xFF, 0xFF },
+  { 0xFF, 0xFF },
+  { 0xFF, 0xFF },
+  { KPD_KEY_AUTO, 0xFF },
+  { KPD_KEY_BACK, KPD_KEY_MANUAL },
+  { KPD_KEY_MODE, 0xFF },
+  { KPD_KEY_NEXT, KPD_KEY_ADD_UV },
+  { KPD_KEY_ENT, 0xFF }
 };
 
 /* Matrix Key code Mapping to BSP Key Value */
-static const uint8_t KEY_VALUE_MAP_T2[NB_KEYS] = 
+static const KEY_VAL_MAP_T KEY_VALUE_MAP_T2[NB_KEYS] = 
 {
-  0xFF,
-  0xFF,
-  0xFF,
-  KPD_KEY_DIG1,
-  KPD_KEY_DIG2,
-  KPD_KEY_DIG3,
-  KPD_KEY_DIG4,
-  KPD_KEY_DIG5,
-  KPD_KEY_DIG6,
-  KPD_KEY_DIG7,
-  KPD_KEY_DIG8,
-  KPD_KEY_DIG9,
-  KPD_KEY_ADD,
-  KPD_KEY_DIG0,
-  KPD_KEY_ENT,
-  0xFF,
-  0xFF,
-  0xFF,
-  KPD_KEY_MODE,
-  KPD_KEY_UV,
-  KPD_KEY_VALM,
-  KPD_KEY_UP,
-  KPD_KEY_BACK,
-  KPD_KEY_FUNC,
-  KPD_KEY_NEXT,
-  KPD_KEY_DOWN
+  { 0xFF, 0xFF },
+  { 0xFF, 0xFF },
+  { 0xFF, 0xFF },
+  { KPD_KEY_DIG1, KPD_KEY_V1000 },
+  { KPD_KEY_DIG2, KPD_KEY_V500 },
+  { KPD_KEY_DIG3, KPD_KEY_V100 },
+  { KPD_KEY_DIG4, KPD_KEY_V50 },
+  { KPD_KEY_DIG5, KPD_KEY_V20 },
+  { KPD_KEY_DIG6, KPD_KEY_V10 },
+  { KPD_KEY_DIG7, 0xFF },
+  { KPD_KEY_DIG8, 0xFF },
+  { KPD_KEY_DIG9, 0xFF },
+  { KPD_KEY_ADD, 0xFF },
+  { KPD_KEY_DIG0, 0xFF },
+  { KPD_KEY_ENT, 0xFF },
+  { 0xFF, 0xFF },
+  { 0xFF, 0xFF },
+  { 0xFF, 0xFF },
+  { KPD_KEY_MODE, 0xFF },
+  { KPD_KEY_UV, 0xFF },
+  { KPD_KEY_VALM, 0xFF },
+  { KPD_KEY_UP, KPD_KEY_TENS },
+  { KPD_KEY_BACK, 0xFF },
+  { KPD_KEY_FUNC, 0xFF },
+  { KPD_KEY_NEXT, 0xFF },
+  { KPD_KEY_DOWN, KPD_KEY_UNITS }
 };
 
 /* Public constants ----------------------------------------------------------*/
@@ -237,9 +237,9 @@ const KPD_TYPE_T KeypadType_26_7x4_Val =
   */
 @inline void ClrAllScanLines(void) 
 {
-  SCA_DEMA_GPIO_PORT->ODR &= ~SCA_DEMA_GPIO_PIN;
-  SCA_DEMB_GPIO_PORT->ODR &= ~SCA_DEMB_GPIO_PIN;
-  SCA_DEMC_GPIO_PORT->ODR &= ~SCA_DEMC_GPIO_PIN;
+  BSP_ClrGPIO(SCA_DEMA_GPIO_PORT, SCA_DEMA_GPIO_PIN);
+  BSP_ClrGPIO(SCA_DEMB_GPIO_PORT, SCA_DEMB_GPIO_PIN);
+  BSP_ClrGPIO(SCA_DEMC_GPIO_PORT, SCA_DEMC_GPIO_PIN);
 }
 
 /**
@@ -249,9 +249,20 @@ const KPD_TYPE_T KeypadType_26_7x4_Val =
   */
 @inline static void SetScanLine(uint8_t nb)
 {
-  SCA_DEMC_GPIO_PORT->ODR = ((nb) & 0x01) ? (SCA_DEMC_GPIO_PORT->ODR | SCA_DEMA_GPIO_PIN) : (SCA_DEMC_GPIO_PORT->ODR & ~SCA_DEMA_GPIO_PIN);
-  SCA_DEMB_GPIO_PORT->ODR = ((nb) & 0x02) ? (SCA_DEMB_GPIO_PORT->ODR | SCA_DEMB_GPIO_PIN) : (SCA_DEMB_GPIO_PORT->ODR & ~SCA_DEMB_GPIO_PIN);
-  SCA_DEMB_GPIO_PORT->ODR = ((nb) & 0x04) ? (SCA_DEMC_GPIO_PORT->ODR | SCA_DEMC_GPIO_PIN) : (SCA_DEMC_GPIO_PORT->ODR & ~SCA_DEMC_GPIO_PIN);
+    if((nb) & 0x01)
+      BSP_SetGPIO(SCA_DEMA_GPIO_PORT, SCA_DEMA_GPIO_PIN);
+    else
+      BSP_ClrGPIO(SCA_DEMA_GPIO_PORT, SCA_DEMA_GPIO_PIN);
+      
+    if((nb) & 0x02)
+      BSP_SetGPIO(SCA_DEMB_GPIO_PORT, SCA_DEMB_GPIO_PIN);
+    else
+      BSP_ClrGPIO(SCA_DEMB_GPIO_PORT, SCA_DEMB_GPIO_PIN);
+      
+    if((nb) & 0x04) 
+      BSP_SetGPIO(SCA_DEMC_GPIO_PORT, SCA_DEMC_GPIO_PIN);
+    else
+      BSP_ClrGPIO(SCA_DEMC_GPIO_PORT, SCA_DEMC_GPIO_PIN);
 }
 
 /**
@@ -289,7 +300,7 @@ static void KpdInit(void)
   * @param  None
   * @retval None
   */
-static void KpdScan(uint8_t * pKeyValueMap, KEY_INFO_T * pKeyInfo)
+static void KpdScan(KEY_VAL_MAP_T * pKeyValueMap, KEY_INFO_T * pKeyInfo)
 {
   uint8_t keyNo = 0, scanLine = 0, retLine = 0;
   uint8_t keyPressBit[(NB_KEYS / 8) + ((NB_KEYS % 8) ? (1) : (0)) ] = {0};
@@ -324,48 +335,50 @@ static void KpdScan(uint8_t * pKeyValueMap, KEY_INFO_T * pKeyInfo)
   /* Set Key State */  
   for(keyNo = 0; keyNo < NB_KEYS; keyNo++)
   {
-		uint8_t  keyScanNo, keyPressState;
+  uint8_t  keyScanNo, keyAltNo, keyPressState;
 
     keyPressState = (uint8_t)((keyPressBit[keyNo >> 3] & (1 << (keyNo & 0x7))) ? CLOSED : OPEN);
     
     /* Map the Key No to Key Value Index */
-    keyScanNo = pKeyValueMap[(uint8_t)keyNo];
-		
-		if(keyScanNo != 0xFF)
-		{
-			/* Check if the key state is changed */
-			if(keyPressState != pKeyInfo[keyScanNo].press)
-			{
-				/* Check if the debounce verification is done */
-				if(pKeyInfo[keyScanNo].debounce == TRUE)
-				{
-					int32_t debounce = (int32_t)KPD_GetDebounceTime();
-					/* wait for debounce verification */
-					if(absolute((int32_t)(bspSysTime - pKeyInfo[keyScanNo].backuptime)) >= debounce)
-					{
-						/* change the key press state */
-						pKeyInfo[keyScanNo].press = (uint8_t)(
-							pKeyInfo[keyScanNo].press == OPEN ? CLOSED : OPEN);
-						pKeyInfo[keyScanNo].debounce = FALSE;
-					}
-				}
-				else
-				{
-					/* Pre debounce check
-						 Mark the bsp timer for debounce check,
-						 set the debounce check start flag as true
-					 */
-					pKeyInfo[keyScanNo].backuptime = bspSysTime;
-					pKeyInfo[keyScanNo].debounce = TRUE;
-				}
-			}
-			else
-			{
-				pKeyInfo[keyScanNo].debounce = FALSE;
-			}
-	
-			KPD_SetState(keyScanNo, pKeyInfo[keyScanNo].press);
-		}
+    keyScanNo = pKeyValueMap[(uint8_t)keyNo].main;
+  keyAltNo = pKeyValueMap[(uint8_t)keyNo].alt;
+    
+    if(keyScanNo != 0xFF)
+    {
+      /* Check if the key state is changed */
+      if(keyPressState != pKeyInfo[keyScanNo].press)
+      {
+        /* Check if the debounce verification is done */
+        if(pKeyInfo[keyScanNo].debounce == TRUE)
+        {
+          int32_t debounce = (int32_t)KPD_GetDebounceTime();
+          /* wait for debounce verification */
+          if(labs((int32_t)(bspSysTime - pKeyInfo[keyScanNo].backuptime)) >= debounce)
+          {
+            /* change the key press state */
+            pKeyInfo[keyScanNo].press = (uint8_t)(
+              pKeyInfo[keyScanNo].press == OPEN ? CLOSED : OPEN);
+            pKeyInfo[keyScanNo].debounce = FALSE;
+          }
+        }
+        else
+        {
+          /* Pre debounce check
+             Mark the bsp timer for debounce check,
+             set the debounce check start flag as true
+           */
+          pKeyInfo[keyScanNo].backuptime = bspSysTime;
+          pKeyInfo[keyScanNo].debounce = TRUE;
+        }
+      }
+      else
+      {
+        pKeyInfo[keyScanNo].debounce = FALSE;
+      }
+  
+      KPD_SetState(keyScanNo, pKeyInfo[keyScanNo].press);
+      KPD_SetState(keyAltNo, pKeyInfo[keyScanNo].press);
+    }
   }
 }
 

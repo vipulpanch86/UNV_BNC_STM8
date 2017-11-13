@@ -23,7 +23,7 @@ static void USART_Config(void);
 /* Private functions ---------------------------------------------------------*/
 void SwCallBack(uint8_t swNb, uint8_t swState)
 {
-	int nb = swNb, st = swState;
+  int nb = swNb, st = swState;
   printf("\n\rSw no: %d, SwState: %d", nb, st);
 }
 

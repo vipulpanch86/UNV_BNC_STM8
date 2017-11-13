@@ -7,7 +7,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include <stdio.h>
+//#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "bsp.h"
@@ -54,7 +54,8 @@
 
 /* External Declaration-------------------------------------------------------*/
 extern DISP_TYPE_T DispInfoT16x5B8x4;
-extern DISP_TYPE_T DispInfoT16x7B8x4;
+extern DISP_TYPE_T DispInfoT16x7B8x4_t1;
+extern DISP_TYPE_T DispInfoT16x7B8x4_t2;
 extern DISP_TYPE_T DispInfoT8x5B8x3_t1;
 extern DISP_TYPE_T DispInfoT8x5B8x3_t2;
 extern DISP_TYPE_T DispInfoT8x5B8x3_t3;
@@ -156,15 +157,16 @@ static const char SEG_7A[] =
 static const DISP_TYPE_T * DisplayType[DISP_TYPE_MAX_NB] = 
 {
   &DispInfoT8x5B8x3_t1,
-	&DispInfoT8x5B8x3_t2,
-	&DispInfoT8x5B8x3_t3,
+  &DispInfoT8x5B8x3_t2,
+  &DispInfoT8x5B8x3_t3,
   &DispInfoT16x5B8x4,
-  &DispInfoT16x7B8x4,
+  &DispInfoT16x7B8x4_t1,
+  &DispInfoT16x7B8x4_t2,
 };
 
 /* Private variables ---------------------------------------------------------*/
 static uint16_t DisplayBuff[DISP_BUFF_SZ];
-static uint16_t DispMaxSel;
+static uint8_t  DispMaxSel;
 static uint16_t (*LowDispCalcSegment)(uint8_t);
 static uint16_t (*UppDispCalcSegment)(uint8_t);
 const DISP_TYPE_T * pDisp = NULL;
@@ -279,7 +281,8 @@ void DISP_Init(uint8_t dispIndex)
       UppDispCalcSegment = S16_CalcSegments;
     }
     
-    DispMaxSel = pDisp->uppMaxSel + pDisp->lowMaxSel + DISP_LED_MAX_SEL + DISP_TURRET_MAX_SEL; 
+    DispMaxSel = (uint8_t)(pDisp->uppMaxSel + pDisp->lowMaxSel + 
+                           DISP_LED_MAX_SEL + DISP_TURRET_MAX_SEL); 
   }
   
   memset(&DisplayBuff, 0x00, sizeof(DisplayBuff));
@@ -316,7 +319,7 @@ void DISP_LowerPutStr(char *pStr, uint8_t startDispNo)
     uint8_t maxChar = (uint8_t)(((pDisp->lowMaxSel - startDispNo) < strlength) ?
                                 (pDisp->lowMaxSel - startDispNo) :
                                 (strlength));
-    uint8_t dispBuffOffset = LOWER_DISP_BUFF_OFFSET + startDispNo;
+    uint8_t dispBuffOffset = (uint8_t)(LOWER_DISP_BUFF_OFFSET + startDispNo);
     
     for(count = 0; count < maxChar; count++)
     {
@@ -356,7 +359,7 @@ void DISP_UpperPutStr(char *pStr, uint8_t startDispNo)
     uint8_t maxChar = (uint8_t)(((pDisp->uppMaxSel - startDispNo) < strlength) ?
                                 (pDisp->uppMaxSel - startDispNo) :
                                 (strlength));
-    uint8_t dispBuffOffset = UPPER_DISP_BUFF_OFFSET + startDispNo;
+    uint8_t dispBuffOffset = (uint8_t)(UPPER_DISP_BUFF_OFFSET + startDispNo);
 
     for(count = 0; count < maxChar; count++)
     {
@@ -374,7 +377,7 @@ void DISP_UpperPutStr(char *pStr, uint8_t startDispNo)
 void DISP_TurrClear(void)
 {
   uint8_t count;
-  uint8_t dispBuffOffset = TURRET_DISP_BUFF_OFFSET;
+  uint8_t dispBuffOffset = (uint8_t)TURRET_DISP_BUFF_OFFSET;
 
   for(count = 0; count < DISP_TURRET_MAX_SEL; count++)
   {
@@ -397,7 +400,7 @@ void DISP_TurrPutStr(char *pStr, uint8_t startDispNo)
     uint8_t maxChar = (uint8_t)(((DISP_TURRET_MAX_SEL - startDispNo) < strlength) ?
                                 (DISP_TURRET_MAX_SEL - startDispNo) :
                                 (strlength));
-    uint8_t dispBuffOffset = TURRET_DISP_BUFF_OFFSET + startDispNo;
+    uint8_t dispBuffOffset = (uint8_t)(TURRET_DISP_BUFF_OFFSET + startDispNo);
 
     for(count = 0; count < maxChar; count++)
     {

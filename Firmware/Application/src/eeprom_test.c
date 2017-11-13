@@ -7,7 +7,7 @@
   */ 
 
 /* Includes ------------------------------------------------------------------*/
-#include <stdio.h>
+//#include <stdio.h>
 #include "bsp.h"
 
 /**
@@ -68,18 +68,18 @@ void eeprom_test(void)
      */
   BSP_Init();
 
-	
-	char ans = getchar();
-		
+  
+  char ans = getchar();
+    
   printf("\r\nEEPROM Test");
   
   /* Initialize the I2C EEPROM driver ----------------------------------------*/
   EE_Init();  
-	
+  
   /* Temporarily Enable Write protect */
   GPIO_WriteLow(EE_I2C_WP_GPIO_PORT, EE_I2C_WP_GPIO_PIN);
 
-	//while(1);
+  //while(1);
   /* First write in the memory followed by a read of the written data --------*/
   /* Write on I2C EEPROM from sEE_WRITE_ADDRESS1 */
   EE_WriteBuffer(Tx1Buffer, sEE_WRITE_ADDRESS1, BUFFER_SIZE1); 

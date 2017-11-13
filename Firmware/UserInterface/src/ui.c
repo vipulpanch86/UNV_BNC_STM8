@@ -251,7 +251,7 @@ void UI_ClearAllMessage(void)
 
   RefreshMsgInterval = 0;
   BkupRefreshTimer = 0;
-	
+  
   /* Flush Message stack */
   for(cnt = 0; cnt < MSG_STACK_SZ; cnt++)
   {
@@ -366,7 +366,7 @@ void UI_Exec(void)
     uint32_t sysTime = BSP_GetSysTime();
 
     /* Check if the Refresh Interval is Reached */
-    if(abs((int32_t)(sysTime - BkupRefreshTimer)) >= RefreshMsgInterval)
+    if(labs((int32_t)(sysTime - BkupRefreshTimer)) >= RefreshMsgInterval)
     {
       UI_MSG_T rfshMsg = {0, UIMSG_REFRESH};
 

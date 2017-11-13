@@ -68,8 +68,8 @@ static uint32_t AutoTestCompleteCount = 0;
 static uint8_t SwitchAutoSubProcess(void *param, UI_MSG_T *pMsg)
 {
   UI_ClearAllMessage();
-	
-  return (pfProcAuto(param, pMsg));	
+  
+  return (pfProcAuto(param, pMsg));  
 }
 
 /**
@@ -94,13 +94,13 @@ static void AutoDispCounter(uint8_t state)
     {
       if(AutoTestCompleteCount > 0)
       {
-        sprintf(&string[0], DISP_LOWER_STR_FORMAT, AutoTestCompleteCount);
+        xsprintf(&string[0], DISP_LOWER_STR_FORMAT, AutoTestCompleteCount);
         DISP_LowerPutStr(&string[0], 0);
       }
 
       if(AutoAccumulateCount > 0)
       {
-        sprintf(&string[0], DISP_UPPER_STR_FORMAT, AutoAccumulateCount);
+        xsprintf(&string[0], DISP_UPPER_STR_FORMAT, AutoAccumulateCount);
 
         if(AutoAccumulateCount < AUTO_ACCUMULATE_SET)
         {
@@ -128,7 +128,7 @@ static void AutoDispCounter(uint8_t state)
     {
       if(AutoTestCompleteCount > 0)
       {
-        sprintf(&string[0], DISP_LOWER_STR_FORMAT, AutoTestCompleteCount);
+        xsprintf(&string[0], DISP_LOWER_STR_FORMAT, AutoTestCompleteCount);
         DISP_LowerPutStr((char *)&string[0], 0);
       }
 
@@ -138,7 +138,7 @@ static void AutoDispCounter(uint8_t state)
 
         if(AutoAccumulateCount > 0)
         {
-          sprintf((char *)&string[0], DISP_UPPER_STR_FORMAT, AutoAccumulateCount);
+          xsprintf((char *)&string[0], DISP_UPPER_STR_FORMAT, AutoAccumulateCount);
 
           if(AutoAccumulateCount < AUTO_ACCUMULATE_SET)
           {
@@ -283,8 +283,8 @@ static uint8_t ProcAutoStartSMotor(void *param, UI_MSG_T *pMsg)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
         pfProcAuto = PF_PROC_AUTO_LIST[PROC_AUTO_START_B_COIL];
-				
-				AutoAccumulateCount -= (AutoAccumulateCount % 100); 
+        
+        AutoAccumulateCount -= (AutoAccumulateCount % 100); 
 
         UI_SetRefreshMsg(0);
 
@@ -602,7 +602,7 @@ static uint8_t ProcAutoBeep(void *param, UI_MSG_T *pMsg)
     {
       uint32_t sysTime = BSP_GetSysTime();
 
-      if(abs((int32_t)(sysTime - StartBeepTime)) >= TOTAL_BEEP_TIME)
+      if(labs((int32_t)(sysTime - StartBeepTime)) >= TOTAL_BEEP_TIME)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
         pfProcAuto = PF_PROC_AUTO_LIST[PROC_AUTO_ADD_DELAY];

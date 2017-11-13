@@ -41,16 +41,16 @@ void DISP_Update(void)
   //DISP_LowerPutStr("1234", 0);
   sprintf(buffer, "%04d", (int)(turretcounter));
   //printf("\n\r%s", &buffer[0]);
-	DISP_TurrPutStr(&buffer[0], 0);
+  DISP_TurrPutStr(&buffer[0], 0);
   //DISP_TurrPutStr("ABCD", 0);
   
   uppercounter++;
   uppercounter %= 100000;
-	
-	lowercounter++;
+  
+  lowercounter++;
   lowercounter %= 1000;
-	
-	turretcounter++;
+  
+  turretcounter++;
   turretcounter %= 10000;
 }
 /* Public functions ----------------------------------------------------------*/

@@ -95,7 +95,7 @@ uint8_t UI_ProcessCntlg(void *pParam, UI_MSG_T *pMsg)
 
   DISP_ClearAll();
 
-  sprintf((char *)&string[0], DISP_LOWER_STR_FORMAT, cntLog);
+  xsprintf((char *)&string[0], DISP_LOWER_STR_FORMAT, cntLog);
   DISP_LowerPutStr((char *)&string[0], 0);
 
   DISP_UpperPutStr((char *)pCntLogtrings[cntLogType], 0);

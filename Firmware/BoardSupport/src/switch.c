@@ -7,7 +7,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include <stdio.h>
+//#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "bsp.h"
@@ -56,7 +56,7 @@ static void      (* SwitchCB)(uint8_t, uint8_t);
 
   /* Configure the Hopper Switch as Input & Pull-up
   */
-	GPIO_Init(SW_CAM_GPIO_PORT, SW_CAM_GPIO_PIN, GPIO_MODE_IN_PU_NO_IT);
+  GPIO_Init(SW_CAM_GPIO_PORT, SW_CAM_GPIO_PIN, GPIO_MODE_IN_PU_NO_IT);
 
   /* Configure the Auto Switch as Input & Pull-up
   */
@@ -124,7 +124,7 @@ void SW_Init(uint8_t debounce, void (* cb)(uint8_t, uint8_t))
 
   ConfigSwitchLinesIO();
 
-  DebounceTime = (debounce < 1) ? (1) : (debounce);
+  DebounceTime = (uint8_t)((debounce < 1) ? (1) : (debounce));
   SwitchCB = cb;
 
   for(swNo = 0; swNo < SW_MAX; swNo++)
@@ -152,7 +152,7 @@ void SW_Scan(void)
   for(swNo = 0; swNo < SW_MAX; swNo++)
   {
     volatile uint8_t swPressState = ((SW_GPIO_PORT[swNo]->IDR & \
-		                 SW_GPIO_PIN[swNo]) == 0) ?  CLOSED : OPEN;
+                     SW_GPIO_PIN[swNo]) == 0) ?  CLOSED : OPEN;
     //printf("\n\rSW = %d, IDR = %d", (int)swNo, (int)SW_GPIO_PORT[swNo]->IDR);
     /* Check if the switch state is changed */
     if(swPressState != SwInfo[swNo].press)
@@ -161,7 +161,7 @@ void SW_Scan(void)
       if(SwInfo[swNo].debounce == TRUE)
       {
         /* wait for debounce verification */
-        if(abs((int32_t)(bspSysTime - SwInfo[swNo].backuptime)) >= DebounceTime)
+        if(labs((int32_t)(bspSysTime - SwInfo[swNo].backuptime)) >= DebounceTime)
         {
           /* change the switch press state */
           SwInfo[swNo].press = (uint8_t)(
@@ -215,7 +215,7 @@ uint8_t SW_IsPressed(uint8_t swNo)
   */
 void SW_SetDebounceTime(uint8_t debounce)
 {
-  DebounceTime = (debounce < 1) ? (1) : (debounce);
+  DebounceTime = (uint8_t)((debounce < 1) ? (1) : (debounce));
 }
 
 /**

@@ -152,7 +152,7 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
   */
 INTERRUPT_HANDLER(EXTI_PORTE_IRQHandler, 7)
 {
-	extern __IO uint32_t BspSensorCounter;
+  extern __IO uint32_t BspSensorCounter;
   BspSensorCounter++;
 }
 #ifdef STM8S903

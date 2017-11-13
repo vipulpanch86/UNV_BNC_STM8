@@ -47,7 +47,7 @@ void triac_test(void)
     if(SW_IsPressed(SW_CAM) == TRUE)
     {
       BSP_H_MotorEnable(TRUE);
-			printf("\n\rHopper Motor Enable");
+      printf("\n\rHopper Motor Enable");
     }
     else
     {
@@ -57,7 +57,7 @@ void triac_test(void)
     if(SW_IsPressed(SW_AUTO) == TRUE)
     {
       BSP_S_MotorEnable(TRUE);
-			printf("\n\rSpindle Motor Enable");
+      printf("\n\rSpindle Motor Enable");
     }
     else
     {
@@ -67,7 +67,7 @@ void triac_test(void)
     if(SW_IsPressed(SW_RESET) == TRUE)
     {
       BSP_V_PumpEnable(TRUE);
-			printf("\n\rVaccum Pump Enable");
+      printf("\n\rVaccum Pump Enable");
     }
     else
     {

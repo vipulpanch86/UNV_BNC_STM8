@@ -54,12 +54,12 @@ typedef struct
   const uint8_t   uppMaxSel;
   const uint8_t   lowSegType;
   const uint8_t   lowMaxSel;
-	const uint32_t  uppMaxVal;
-	const uint32_t  lowMaxVal;
+  const uint32_t  uppMaxVal;
+  const uint32_t  lowMaxVal;
   const uint16_t  *pLedBitmap;
   const char *    uppFmtStr;
   const char *    lowFmtStr;
-	const char      valWrapChar;
+  const char      valWrapChar;
   F_DISP_INIT     dispInit;
   F_DISP_WRITE    dispWrite;
 } DISP_TYPE_T;
@@ -87,10 +87,11 @@ typedef enum
 typedef enum 
 {
   DISP_TYPE_T8X5B8X3_T1,
-	DISP_TYPE_T8X5B8X3_T2,
-	DISP_TYPE_T8X5B8X3_T3,
+  DISP_TYPE_T8X5B8X3_T2,
+  DISP_TYPE_T8X5B8X3_T3,
   DISP_TYPE_T16X5B8X4,
-  DISP_TYPE_T16X7B8X4,
+  DISP_TYPE_T16X7B8X4_T1,
+  DISP_TYPE_T16X7B8X4_T2,
   DISP_TYPE_MAX_NB
 }DISP_TYPE_NB_T;
 

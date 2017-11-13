@@ -128,7 +128,7 @@ void EE_Init(void)
   /* I2C configuration */
   /* EE_I2C Peripheral Enable */
   I2C_Cmd( ENABLE);
-	I2C_SoftwareResetCmd(ENABLE);
+  I2C_SoftwareResetCmd(ENABLE);
   /* EE_I2C configuration after enabling it */
   I2C_Init(I2C_SPEED, I2C_SLAVE_ADDRESS7, I2C_DUTYCYCLE_2, I2C_ACK_CURR, 
            I2C_ADDMODE_7BIT, 16);
@@ -204,7 +204,7 @@ uint32_t EE_ReadBuffer(uint8_t* pBuffer, uint16_t ReadAddr, uint16_t* NumByteToR
     if((EETimeout--) == 0) return EE_TIMEOUT_UserCallback();
   }
   printf("\n\rI2C master MSB transmitted");
-	
+  
 #endif /* EE_ADDRSIZE  == 2 */
 
   /* Send the EEPROM's internal address to read from: LSB of the address */
@@ -239,7 +239,7 @@ uint32_t EE_ReadBuffer(uint8_t* pBuffer, uint16_t ReadAddr, uint16_t* NumByteToR
     if((EETimeout--) == 0) return EE_TIMEOUT_UserCallback();
   }
   printf("\n\rI2C master receiver mode Selected");
-	
+  
   /* Read data from first byte until byte N-3 */
   if ((uint16_t)(*NumByteToRead)> 3) 
     {
@@ -796,7 +796,7 @@ uint32_t EE_WaitEepromStandbyState(void)
   */
 uint32_t EE_TIMEOUT_UserCallback(void)
 {
-	printf("\n\rTimeout");
+  printf("\n\rTimeout");
   /* Block communication and all processes */
  while(1)
   {   

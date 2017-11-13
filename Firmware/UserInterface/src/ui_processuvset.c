@@ -242,14 +242,14 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
       }
     }    
 
-    sprintf((char *)&string[0], DISP_LOWER_STR_FORMAT, EditVal);
+    xsprintf((char *)&string[0], DISP_LOWER_STR_FORMAT, EditVal);
   }
   else
   {
     uint32_t uvLevel = 0;
 
     REG_GetValue(&uvLevel, REG_ID_UV_LVL);
-    sprintf((char *)&string[0], DISP_LOWER_STR_FORMAT, uvLevel);
+    xsprintf((char *)&string[0], DISP_LOWER_STR_FORMAT, uvLevel);
   }
 
   DISP_ClearAll();

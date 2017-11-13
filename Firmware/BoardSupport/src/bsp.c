@@ -13,7 +13,6 @@
 #define CPU_CLOCK_SPEED   24000000ul
 #define TIM4_PERIOD       187
 #define DATA_START_ADDR   0x004080
-
 #define RET_MEM_FLASH
 /* Private typedef -----------------------------------------------------------*/
 /* Private constants----------------------------------------------------------*/
@@ -83,7 +82,7 @@ static void GPIO_Config(void)
 
   /* Configure the Hopper Switch as Input & Pull-up
   */
-	GPIO_Init(SW_CAM_GPIO_PORT, SW_CAM_GPIO_PIN, GPIO_MODE_IN_PU_NO_IT);
+  GPIO_Init(SW_CAM_GPIO_PORT, SW_CAM_GPIO_PIN, GPIO_MODE_IN_PU_NO_IT);
 
   /* Configure the Auto Switch as Input & Pull-up
   */
@@ -223,13 +222,13 @@ void BSP_BuzzerExec(void)
 
   if(BuzzerEnable == TRUE)
   {
-    if(absolute((int32_t)(SystemTimer - BackupSysTime)) >= BuzzerOnTime)
+    if(labs((int32_t)(SystemTimer - BackupSysTime)) >= BuzzerOnTime)
     {
       BuzzerEnable = FALSE;
       BuzzerOnTime = 0;
       BackupSysTime = 0;
 
-      BUZZER_GPIO_PORT->ODR &= ~BUZZER_GPIO_PIN;
+      BSP_ClrGPIO(BUZZER_GPIO_PORT, BUZZER_GPIO_PIN);
     }
   }
   else
@@ -239,7 +238,7 @@ void BSP_BuzzerExec(void)
       BuzzerEnable = TRUE;
       BackupSysTime = SystemTimer;
       
-      BUZZER_GPIO_PORT->ODR |= BUZZER_GPIO_PIN;
+      BSP_SetGPIO(BUZZER_GPIO_PORT, BUZZER_GPIO_PIN);
     }
   }
 }
@@ -294,11 +293,11 @@ void BSP_EepromInit(void)
   GPIO_Init(EE_I2C_SCL_GPIO_PORT, EE_I2C_SCL_GPIO_PIN, GPIO_MODE_OUT_OD_HIZ_FAST);
 
   /*!< Configure EE_I2C pins: SDA */
-  GPIO_Init(EE_I2C_SDA_GPIO_PORT, EE_I2C_SDA_GPIO_PIN, GPIO_MODE_OUT_OD_HIZ_FAST);	
-	
-	/*!< Configure EE_WP pin: WP */
+  GPIO_Init(EE_I2C_SDA_GPIO_PORT, EE_I2C_SDA_GPIO_PIN, GPIO_MODE_OUT_OD_HIZ_FAST);  
+  
+  /*!< Configure EE_WP pin: WP */
   GPIO_Init(EE_I2C_WP_GPIO_PORT, EE_I2C_WP_GPIO_PIN, GPIO_MODE_OUT_PP_HIGH_SLOW);
-	
+  
    /*!< EE_I2C Peripheral clock enable */
   CLK_PeripheralClockConfig(EE_I2C_CLK, ENABLE);
 
@@ -312,11 +311,11 @@ void BSP_EepromInit(void)
   */
 void BSP_Init(void)
 {
-//	CLK_DeInit();
+//  CLK_DeInit();
   
   /* Clock divider to HSI/1 */
 //  CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1);
-	
+  
   /* GPIO configuration */
   GPIO_Config();
 
@@ -350,8 +349,8 @@ void BSP_Init(void)
 void BSP_DelayMs(uint16_t delay)
 {
   uint32_t backupSysTmr = SystemTimer;
-	
-	while(abs(SystemTimer - backupSysTmr) < delay);
+  
+  while(labs(SystemTimer - backupSysTmr) < delay);
 }
 /**
   * @brief  Reads Rotary DIP switch
@@ -386,7 +385,7 @@ void BSP_ReadFromFlash(uint16_t size, uint8_t *pData)
     pData[cnt] = FLASH_ReadByte(DATA_START_ADDR + cnt);
   }
 #else
-    EE_ReadBuffer(pData, 0, &size);
+  EE_ReadBuffer(pData, 0, &size);
 #endif
 }
 
@@ -414,12 +413,12 @@ void BSP_WriteToFlash(uint16_t size, uint8_t *pData)
   FLASH_Lock(FLASH_MEMTYPE_DATA);
 #else
   /* Disable Write Protect */
-  EE_I2C_WP_GPIO_PORT->ODR &= ~EE_I2C_WP_GPIO_PIN;
+  BSP_ClrGPIO(EE_I2C_WP_GPIO_PORT, EE_I2C_WP_GPIO_PIN);
 
   EE_WriteBuffer(pData, 0, size);
 
   /* Enable Write Protect */
-  EE_I2C_WP_GPIO_PORT->ODR |= EE_I2C_WP_GPIO_PIN;
+  BSP_SetGPIO(EE_I2C_WP_GPIO_PORT, EE_I2C_WP_GPIO_PIN);
 #endif
 }
 /***********************END OF FILE************************/

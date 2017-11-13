@@ -105,8 +105,8 @@ static UI_PROC_PF pfProcHome = NULL;
 static uint8_t SwitchHomeSubProcess(void *param, UI_MSG_T *pMsg)
 {
   UI_ClearAllMessage();
-	
-  return (pfProcHome(param, pMsg));	
+  
+  return (pfProcHome(param, pMsg));  
 }
 
 /**
@@ -147,7 +147,7 @@ static void HomeDispCounter(void)
   uint8_t flagUVDetect = UV_GetDetectFlag();
   uint8_t cntMode = COUNTER_GetMode();
   uint32_t sensorCounter = SENSOR_GetCount();
-	uint32_t dispUppMaxResln = DISP_UPPER_MAX_VALUE;
+  uint32_t dispUppMaxResln = DISP_UPPER_MAX_VALUE;
 
   REG_GetValue(&valueCounter, REG_ID_VALUE_COUNTER);
   REG_GetValue(&accSensorCount, REG_ID_ACC_CTR_LIST[cntMode]);
@@ -218,7 +218,7 @@ static void HomeDispCounter(void)
   }
 
   /* Top Display */
-	/* Division by 10 for First Character of Mode */
+  /* Division by 10 for First Character of Mode */
   if(TopDispValue > (dispUppMaxResln / 10))
   {
     /* Toggle Lacs & Thousand */
@@ -226,11 +226,11 @@ static void HomeDispCounter(void)
     {
       if(TopDispValue > dispUppMaxResln)
       {
-        sprintf((char *)&strTopDisp[0], "%lu%c", TopDispValue / (dispUppMaxResln + 1), DISP_WRAP_CHAR);
+        xsprintf((char *)&strTopDisp[0], "%lu%c", TopDispValue / (dispUppMaxResln + 1), DISP_WRAP_CHAR);
       }
       else
       {
-        sprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT, TopDispValue);
+        xsprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT, TopDispValue);
       }
     }
     else
@@ -239,7 +239,7 @@ static void HomeDispCounter(void)
       {
         uint32_t SysTimer = BSP_GetSysTime();
 
-        if(abs((int32_t)(SysTimer - BkupSysTimer)) >= 1000)
+        if(labs((int32_t)(SysTimer - BkupSysTimer)) >= 1000)
         {
           BkupSysTimer = SysTimer;
           lacsDispEn = (uint8_t)((lacsDispEn == TRUE) ? FALSE : TRUE);
@@ -247,30 +247,30 @@ static void HomeDispCounter(void)
 
         if(lacsDispEn == TRUE)
         {
-          sprintf((char *)&strTopDisp[0], "%lu%c", TopDispValue / (dispUppMaxResln + 1), DISP_WRAP_CHAR);
+          xsprintf((char *)&strTopDisp[0], "%lu%c", TopDispValue / (dispUppMaxResln + 1), DISP_WRAP_CHAR);
         }
         else
         {
-          sprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT,
+          xsprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT,
                   TopDispValue % (dispUppMaxResln + 1));
         }
       }
       else
       {
-        sprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT, TopDispValue);
+        xsprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT, TopDispValue);
       }
     }
   }
   else
   {
-    sprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT, TopDispValue);
+    xsprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT, TopDispValue);
     strTopDisp[0] = (char)charCountMode[cntMode];
   }
 
   /* Bottom Display */
   if(BotDispValue > 0)
   {
-    sprintf((char *)&strBotDisp[0], DISP_LOWER_STR_FORMAT, BotDispValue);
+    xsprintf((char *)&strBotDisp[0], DISP_LOWER_STR_FORMAT, BotDispValue);
   }
 
   DISP_UpperPutStr((char *)&strTopDisp[0], 0);
@@ -461,7 +461,7 @@ static uint8_t ProcHomeTestKeypad(void *param, UI_MSG_T *pMsg)
 
         UI_SetRefreshMsg(0);
         pfProcHome = PF_PROC_HOME_LIST[PROC_HOME_WELCOME_MSG];
-		
+    
         return(SwitchHomeSubProcess(param, &msg));
       }
     }
@@ -502,7 +502,7 @@ static uint8_t ProcHomeWelcomeMsg(void *param, UI_MSG_T *pMsg)
       /* only the First Character is to be displayed on start*/
       msgStartCharNo = 0;
       msgStartDispNo = (uint8_t)(DISP_UPPER_MAX_NB - 1);
-      msgNbDispChar = DISP_UPPER_MAX_NB - msgStartDispNo;
+      msgNbDispChar = (uint8_t)(DISP_UPPER_MAX_NB - msgStartDispNo);
 
       DISP_ClearAll();
 
@@ -761,7 +761,7 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
       standbyTimeCount = 0;
     }
     break;
-	
+  
     case UIMSG_KEY_ADD:
     {
       if((uint8_t)pMsg->param == UI_KEY_PRESS)
@@ -903,12 +903,12 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
                               (cntMode + 1) : (cntMode));
 
           cntMode %= COUNT_MODE_MAX;
-			
+      
           cntMode = (uint8_t)(((cntMode == COUNT_MODE_V) && (flagValueEnable == FALSE)) ?
                               (cntMode + 1) : (cntMode));
 
           cntMode %= COUNT_MODE_MAX;
-			
+      
           flagAddCount = (uint8_t)(((cntMode == COUNT_MODE_V) && (flagValueEnable == TRUE)) ?
                                    (FALSE) : (flagAddCount));
           
@@ -1019,6 +1019,13 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
     case UIMSG_KEY_DIG7:
     case UIMSG_KEY_DIG8:
     case UIMSG_KEY_DIG9:
+    case UIMSG_KEY_V10:
+    case UIMSG_KEY_V20:
+    case UIMSG_KEY_V50:
+    case UIMSG_KEY_V100:
+    case UIMSG_KEY_V500:
+    case UIMSG_KEY_V1000:
+
       if((uint8_t)pMsg->param == UI_KEY_PRESS)
       {
         if((cntMode == COUNT_MODE_C) ||
@@ -1317,7 +1324,7 @@ static uint8_t ProcHomeEdit(void *param, UI_MSG_T *pMsg)
 
   DISP_LowerClear();
 
-  sprintf(&string[0], DISP_LOWER_STR_FORMAT, EditVal);
+  xsprintf(&string[0], DISP_LOWER_STR_FORMAT, EditVal);
   DISP_LowerPutStr(&string[0], 0);
 
   return UI_RC_CONTINUE;
@@ -1586,7 +1593,7 @@ static uint8_t ProcHomeStartSMotor(void *param, UI_MSG_T *pMsg)
         {
           UI_MSG_T msg = {0, UIMSG_INIT};
           pfProcHome = PF_PROC_HOME_LIST[PROC_HOME_STOP_H_MOTOR];
-					
+          
           return(SwitchHomeSubProcess(param, &msg));
         }
         else if(cntMode == COUNT_MODE_S)
@@ -1696,9 +1703,9 @@ static uint8_t ProcHomeStartBCoil(void *param, UI_MSG_T *pMsg)
         UI_MSG_T msg = {0, UIMSG_INIT};
         
         BSP_B_CoilEnable(FALSE);
-				
+        
         UI_SetRefreshMsg(0);
-				
+        
         pfProcHome = PF_PROC_HOME_LIST[PROC_HOME_STOP_H_MOTOR];
 
         return (SwitchHomeSubProcess(param, &msg));
@@ -1769,7 +1776,7 @@ static uint8_t ProcHomeStartSCoil(void *param, UI_MSG_T *pMsg)
         {
           BSP_S_CoilEnable(FALSE);
         }
-				
+        
         return (SwitchHomeSubProcess(param, &msg));
       }
     }
@@ -1812,7 +1819,7 @@ static uint8_t ProcHomeStopHMotor(void *param, UI_MSG_T *pMsg)
       pfProcHome = PF_PROC_HOME_LIST[PROC_HOME_ERROR_01];
 
       BSP_H_MotorEnable(FALSE);
-			
+      
       return(SwitchHomeSubProcess(param, &msg));
     }
     //break;
@@ -1900,7 +1907,7 @@ static uint8_t ProcHomeStopHMotor(void *param, UI_MSG_T *pMsg)
         {
           pfProcHome = PF_PROC_HOME_LIST[PROC_HOME_IDLE];
         }
-				
+        
         return (SwitchHomeSubProcess(param, &msg));
       }
     }
@@ -1948,7 +1955,7 @@ static uint8_t ProcHomeWriteMemory(void *param, UI_MSG_T *pMsg)
 
       pfProcHome = PF_PROC_HOME_LIST[PROC_HOME_IDLE];
       HomeDispCounter();
-			
+      
       return (SwitchHomeSubProcess(param, &msg));
     }
     //break;
@@ -2005,7 +2012,7 @@ static uint8_t ProcHomeBeep(void *param, UI_MSG_T *pMsg)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
 
-				BeepOn = FALSE;
+        BeepOn = FALSE;
         BSP_DisableBuzzer();
         
         UI_SetRefreshMsg(0);
@@ -2140,7 +2147,7 @@ uint8_t UI_ProcessHome(void *param, UI_MSG_T *pMsg)
       pfProcHome = PF_PROC_HOME_LIST[PROC_HOME_IDLE];
     }
   }
-	
+  
   return (pfProcHome(param, pMsg));
 }
 /**********************************END OF FILE*********************************/

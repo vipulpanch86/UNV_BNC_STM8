@@ -129,6 +129,31 @@ static const MSG_MAP_T MSG_KEY_CODE[] =
 
   /* KPD_KEY_CLR */
   KPD_KEY_CLR,    UIMSG_KEY_CLR,    TRUE,
+  
+  /* KPD_KEY_V10 */
+  KPD_KEY_V10,    UIMSG_KEY_V10,    TRUE,
+  
+  /* KPD_KEY_V20 */
+  KPD_KEY_V20,    UIMSG_KEY_V20,    TRUE,
+  
+  /* KPD_KEY_V50 */
+  KPD_KEY_V50,    UIMSG_KEY_V50,    TRUE,
+  
+  /* KPD_KEY_V100 */
+  KPD_KEY_V100,   UIMSG_KEY_V100,   TRUE,
+  
+  /* KPD_KEY_V500 */
+  KPD_KEY_V500,   UIMSG_KEY_V500,   TRUE,
+  
+  /* KPD_KEY_V1000 */
+  KPD_KEY_V1000,  UIMSG_KEY_V1000,  TRUE,
+  
+  /* KPD_KEY_TENS */
+  KPD_KEY_TENS,   UIMSG_KEY_TENS,   TRUE,
+  
+  /* KPD_KEY_UNITS */
+  KPD_KEY_UNITS,  UIMSG_KEY_UNITS,  TRUE,
+  
 };
 
 /* UI Key code Mapping to BSP Key code */

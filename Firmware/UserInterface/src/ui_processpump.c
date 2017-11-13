@@ -49,7 +49,7 @@ uint8_t UI_ProcessPump(void *pParam, UI_MSG_T *pMsg)
   
   sensorCounter = SENSOR_GetCount();
 
-  sprintf((char *)&string[0], DISP_LOWER_STR_FORMAT, sensorCounter);
+  xsprintf((char *)&string[0], DISP_LOWER_STR_FORMAT, sensorCounter);
   DISP_LowerClear();
   DISP_LowerPutStr((char *)&string[0], 0);
 

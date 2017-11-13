@@ -14,6 +14,7 @@
 
 /* Private define ------------------------------------------------------------*/
 #define RET_MEM_SIZE       64
+#define DATA_START_ADDR    0x004080
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private Constant ----------------------------------------------------------*/
@@ -61,8 +62,16 @@ void RET_ClearMemory(void)
   */
 void RET_WriteMem(uint8_t idx, uint32_t *pData)
 {
+  uint32_t * pFlashPtr = (uint32_t *)DATA_START_ADDR;
   RetentionMem[idx]  = *pData;
-  UpdateRet = TRUE;
+  /* Unlock Data memory */
+  FLASH_Unlock(FLASH_MEMTYPE_DATA);
+
+  /* Program word at address 0x4100*/
+  FLASH_ProgramWord((uint32_t)&pFlashPtr[idx], *pData);
+  
+  FLASH_Lock(FLASH_MEMTYPE_DATA);
+//  UpdateRet = TRUE;
 }
 
 /**

@@ -48,7 +48,7 @@ static const char * KEYS_STR[] =
 
 static const char * KEYS_STATE[] = 
 {
-	"IDLE",
+  "IDLE",
   "PRESSED",
   "RELEASED"
 };

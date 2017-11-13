@@ -19,8 +19,8 @@ extern "C" {
 #define LOW            (0)
 #define HIGH           (1)
 
-#define FALSE          (0)
-#define TRUE           (1)
+//#define FALSE          (0)
+//#define TRUE           (1)
 
 /* Key Press Status */
 #define KPD_KEY_RELEASED               (0)
@@ -58,11 +58,19 @@ typedef enum
   KPD_KEY_NEXT,
   KPD_KEY_ENT,
   KPD_KEY_CLR,
+  KPD_KEY_V10,
+  KPD_KEY_V20,
+  KPD_KEY_V50,
+  KPD_KEY_V100,
+  KPD_KEY_V500,
+  KPD_KEY_V1000,
+  KPD_KEY_TENS,
+  KPD_KEY_UNITS,
   KPD_KEY_MAX
 } KPD_KEY_LIST_T;  
 
 /* Pending - Temporary dor avoiding Compilation problems */
-#if (1)
+#if (0)
 #define KPD_KEY_V10    (KPD_KEY_DIG1)
 #define KPD_KEY_V20    (KPD_KEY_DIG2)
 #define KPD_KEY_V50    (KPD_KEY_DIG3)
@@ -75,9 +83,9 @@ typedef enum
 
 typedef enum 
 {
-	KPD_TYPE_6_6X1,
-	KPD_TYPE_7_7X1,
-	KPD_TYPE_17_9X2,
+  KPD_TYPE_6_6X1,
+  KPD_TYPE_7_7X1,
+  KPD_TYPE_17_9X2,
   KPD_TYPE_18_3X7,
   KPD_TYPE_26_7X4_NOVAL,
   KPD_TYPE_26_7X4_VAL,
@@ -92,15 +100,22 @@ typedef struct
   uint32_t backuptime;
 }KEY_INFO_T;
 
+typedef struct 
+{
+  const uint8_t main;
+  const uint8_t alt;
+  
+}KEY_VAL_MAP_T;
+
 typedef void ( *F_KPD_INIT )( void );
-typedef void ( *F_KPD_SCAN )( uint8_t *,KEY_INFO_T * );
+typedef void ( *F_KPD_SCAN )( KEY_VAL_MAP_T *,KEY_INFO_T * );
 
 typedef struct
 {
   const uint8_t   nbScanLine;
   const uint8_t   nbReturnLine;
   const uint8_t   nbKeys;
-  const uint8_t   *pKeyValueMap;
+  KEY_VAL_MAP_T   *pKeyValueMap;
   F_KPD_INIT      kpdInit;
   F_KPD_SCAN      kpdScan;
 } KPD_TYPE_T;

@@ -8,7 +8,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include <stdio.h>
+//#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "bsp.h"
@@ -77,7 +77,7 @@ static const uint8_t MS_GPIO_PIN[MAX_SEL][7] =
 };
 
 /* Turret Display Select Pin Table */
-static const uint16_t TURR_GPIO_PIN[DISP_TURRET_MAX_SEL][4] = 
+static const uint8_t TURR_GPIO_PIN[DISP_TURRET_MAX_SEL][4] = 
 {
   TURR_DIG0_GPIO_PIN * 1, TURR_DIG1_GPIO_PIN * 0, TURR_DIG2_GPIO_PIN * 0, TURR_DIG3_GPIO_PIN * 0,
   TURR_DIG0_GPIO_PIN * 0, TURR_DIG1_GPIO_PIN * 1, TURR_DIG2_GPIO_PIN * 0, TURR_DIG3_GPIO_PIN * 0,
@@ -115,11 +115,11 @@ const DISP_TYPE_T DispInfoT8x5B8x3_t3 =
   .lowSegType = DISP_SEVEN_SEG,
   .lowMaxSel  = LOWER_MAX_SEL,
   .pLedBitmap = &LED_BITMAP[0],
-	.uppMaxVal = (uint32_t)UPPER_MAX_VAL,
-	.lowMaxVal = (uint32_t)LOWER_MAX_VAL,
+  .uppMaxVal = (uint32_t)UPPER_MAX_VAL,
+  .lowMaxVal = (uint32_t)LOWER_MAX_VAL,
   .uppFmtStr = "%5lu",
   .lowFmtStr = "%3lu",
-	.valWrapChar = 'L',
+  .valWrapChar = 'L',
   .dispInit   = DispInit,
   .dispWrite  = DispWrite
 };
@@ -182,18 +182,20 @@ static void DispWrite(uint8_t dispNo, volatile uint16_t data)
   volatile uint8_t data8bit = 0;
   
   /* Turret Disable */
-  TURR_DIG0_GPIO_PORT->ODR |= TURR_DIG0_GPIO_PIN;
-  TURR_DIG1_GPIO_PORT->ODR |= TURR_DIG1_GPIO_PIN;
-  TURR_DIG2_GPIO_PORT->ODR |= TURR_DIG2_GPIO_PIN;
-  TURR_DIG3_GPIO_PORT->ODR |= TURR_DIG3_GPIO_PIN;
+  BSP_SetGPIO(TURR_DIG0_GPIO_PORT, TURR_DIG0_GPIO_PIN);
+  BSP_SetGPIO(TURR_DIG1_GPIO_PORT, TURR_DIG1_GPIO_PIN);
+  BSP_SetGPIO(TURR_DIG2_GPIO_PORT, TURR_DIG2_GPIO_PIN);
+  BSP_SetGPIO(TURR_DIG3_GPIO_PORT, TURR_DIG3_GPIO_PIN);
   /* Output Disable */
-  DISP_MUXA_GPIO_PORT->ODR &= (uint8_t)~DISP_MUXA_GPIO_PIN;
-  DISP_MUXB_GPIO_PORT->ODR &= (uint8_t)~DISP_MUXB_GPIO_PIN;
-  DISP_MUXC_GPIO_PORT->ODR &= (uint8_t)~DISP_MUXC_GPIO_PIN;
-  DISP_EN2_GPIO_PORT->ODR  |= (uint8_t)DISP_EN2_GPIO_PIN;
-  DISP_EN3_GPIO_PORT->ODR  |= (uint8_t)DISP_EN3_GPIO_PIN;
-  DISP_EN4_GPIO_PORT->ODR  |= (uint8_t)DISP_EN4_GPIO_PIN;
-  DISP_EN5_GPIO_PORT->ODR  |= (uint8_t)DISP_EN5_GPIO_PIN; 
+  BSP_ClrGPIO(DISP_MUXA_GPIO_PORT, DISP_MUXA_GPIO_PIN);
+  BSP_ClrGPIO(DISP_MUXB_GPIO_PORT, DISP_MUXB_GPIO_PIN);
+  BSP_ClrGPIO(DISP_MUXC_GPIO_PORT, DISP_MUXC_GPIO_PIN);
+
+  BSP_SetGPIO(DISP_EN2_GPIO_PORT, DISP_EN2_GPIO_PIN);
+  BSP_SetGPIO(DISP_EN3_GPIO_PORT, DISP_EN3_GPIO_PIN);
+  BSP_SetGPIO(DISP_EN4_GPIO_PORT, DISP_EN4_GPIO_PIN);
+  BSP_SetGPIO(DISP_EN5_GPIO_PORT, DISP_EN5_GPIO_PIN);
+
 
   /* Selects Upper, Lower & LED Display */
   if(dispNo < MAX_SEL)
@@ -201,31 +203,32 @@ static void DispWrite(uint8_t dispNo, volatile uint16_t data)
     /* Write Byte on Port */
     data8bit = (uint8_t)((data >> 0) & 0xFF);
     DISP_DB_GPIO_PORT->ODR = (uint8_t)data8bit;
-	
+  
     /* Output Enable*/
-    DISP_MUXA_GPIO_PORT->ODR |= (uint8_t)MS_GPIO_PIN[dispNo][0];
-    DISP_MUXB_GPIO_PORT->ODR |= (uint8_t)MS_GPIO_PIN[dispNo][1];
-    DISP_MUXC_GPIO_PORT->ODR |= (uint8_t)MS_GPIO_PIN[dispNo][2];
-    DISP_EN2_GPIO_PORT->ODR  &= (uint8_t)~MS_GPIO_PIN[dispNo][3];
-    DISP_EN3_GPIO_PORT->ODR  &= (uint8_t)~MS_GPIO_PIN[dispNo][4];
-    DISP_EN4_GPIO_PORT->ODR  &= (uint8_t)~MS_GPIO_PIN[dispNo][5];
-    DISP_EN5_GPIO_PORT->ODR  &= (uint8_t)~MS_GPIO_PIN[dispNo][6];
+    BSP_SetGPIO(DISP_MUXA_GPIO_PORT, MS_GPIO_PIN[dispNo][0]);
+    BSP_SetGPIO(DISP_MUXB_GPIO_PORT, MS_GPIO_PIN[dispNo][1]);
+    BSP_SetGPIO(DISP_MUXC_GPIO_PORT, MS_GPIO_PIN[dispNo][2]);
+  
+    BSP_ClrGPIO(DISP_EN2_GPIO_PORT, MS_GPIO_PIN[dispNo][3]);
+    BSP_ClrGPIO(DISP_EN3_GPIO_PORT, MS_GPIO_PIN[dispNo][4]);
+    BSP_ClrGPIO(DISP_EN4_GPIO_PORT, MS_GPIO_PIN[dispNo][5]);
+    BSP_ClrGPIO(DISP_EN5_GPIO_PORT, MS_GPIO_PIN[dispNo][6]);
   }
   /* Selects Turret Display */
   else if(dispNo < (MAX_SEL + DISP_TURRET_MAX_SEL))
   {
   
     dispNo -= MAX_SEL;
-	
+  
     /* Write Byte on Port */
     data8bit = (uint8_t)((data >> 0) & 0xFF);
     DISP_DB_GPIO_PORT->ODR = (uint8_t)data8bit;
 
     /* Select Corresponding Turret Display */
-    TURR_DIG0_GPIO_PORT->ODR &= ~TURR_GPIO_PIN[dispNo][0];
-    TURR_DIG1_GPIO_PORT->ODR &= ~TURR_GPIO_PIN[dispNo][1];
-    TURR_DIG2_GPIO_PORT->ODR &= ~TURR_GPIO_PIN[dispNo][2];
-    TURR_DIG3_GPIO_PORT->ODR &= ~TURR_GPIO_PIN[dispNo][3];
+    BSP_ClrGPIO(TURR_DIG0_GPIO_PORT, TURR_GPIO_PIN[dispNo][0]);
+    BSP_ClrGPIO(TURR_DIG1_GPIO_PORT, TURR_GPIO_PIN[dispNo][1]);
+    BSP_ClrGPIO(TURR_DIG2_GPIO_PORT, TURR_GPIO_PIN[dispNo][2]);
+    BSP_ClrGPIO(TURR_DIG3_GPIO_PORT, TURR_GPIO_PIN[dispNo][3]);
   }
 }
 /***********************END OF FILE************************/

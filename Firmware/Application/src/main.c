@@ -51,9 +51,9 @@ typedef struct
 
 typedef enum 
 {
-	DISP_T8X5B8X3__KPD_6_6X1,
-	DISP_T8X5B8X3__KPD_7_7X1,
-	DISP_T8X5B8X3__KPD_17_9X2,
+  DISP_T8X5B8X3__KPD_6_6X1,
+  DISP_T8X5B8X3__KPD_7_7X1,
+  DISP_T8X5B8X3__KPD_17_9X2,
   DISP_T16X5B8X4__KPD_18_3X7_NOVAL,
   DISP_T16X5B8X4__KPD_18_3X7_VAL,
   DISP_T16X7B8X4__KPD_26_7X4_NOVAL,
@@ -65,19 +65,19 @@ typedef enum
   
 static const DISP_KPD_TYPE_T DISP_KPD_TYPE_MAP[DIP_SW_MAX_POS] = 
 {
-	[DISP_T8X5B8X3__KPD_6_6X1] = 
+  [DISP_T8X5B8X3__KPD_6_6X1] = 
     {
       .dispIndex   = DISP_TYPE_T8X5B8X3_T1, 
       .kpdIndex    = KPD_TYPE_6_6X1,
       .valueEnable = FALSE
     },
-	[DISP_T8X5B8X3__KPD_7_7X1] = 
+  [DISP_T8X5B8X3__KPD_7_7X1] = 
     {
       .dispIndex   = DISP_TYPE_T8X5B8X3_T2, 
       .kpdIndex    = KPD_TYPE_7_7X1,
       .valueEnable = FALSE
     },
-	[DISP_T8X5B8X3__KPD_17_9X2] = 
+  [DISP_T8X5B8X3__KPD_17_9X2] = 
     {
       .dispIndex   = DISP_TYPE_T8X5B8X3_T3, 
       .kpdIndex    = KPD_TYPE_17_9X2,
@@ -97,13 +97,13 @@ static const DISP_KPD_TYPE_T DISP_KPD_TYPE_MAP[DIP_SW_MAX_POS] =
     },
   [DISP_T16X7B8X4__KPD_26_7X4_NOVAL] = 
     {
-      .dispIndex   = DISP_TYPE_T16X7B8X4, 
+      .dispIndex   = DISP_TYPE_T16X7B8X4_T1, 
       .kpdIndex    = KPD_TYPE_26_7X4_NOVAL,
       .valueEnable = FALSE
     },
   [DISP_T16X7B8X4__KPD_26_7X4_VAL] = 
     {
-      .dispIndex   = DISP_TYPE_T16X7B8X4, 
+      .dispIndex   = DISP_TYPE_T16X7B8X4_T2, 
       .kpdIndex    = KPD_TYPE_26_7X4_VAL,
       .valueEnable = TRUE
     },
@@ -220,35 +220,20 @@ void DisplayKeypadInit(void)
   #else
   uint8_t rotDipSwitchPos = BSP_ReadRotDipSwitch();
   #endif
-	
+  
 //  printf("\n\rDip = %u", (uint32_t)rotDipSwitchPos);
-  rotDipSwitchPos = (rotDipSwitchPos >= DISP_KPD_TYPE_MAX) ? 
-	                (DISP_KPD_TYPE_MAX - 1) : (rotDipSwitchPos);
+  rotDipSwitchPos = (uint8_t)((rotDipSwitchPos >= DISP_KPD_TYPE_MAX) ? 
+                              (DISP_KPD_TYPE_MAX - 1) : (rotDipSwitchPos));
   
   FlagValueCount = DISP_KPD_TYPE_MAP[rotDipSwitchPos].valueEnable;
   DISP_Init(DISP_KPD_TYPE_MAP[rotDipSwitchPos].dispIndex);
   KPD_Init(DISP_KPD_TYPE_MAP[rotDipSwitchPos].kpdIndex, 20, UI_KeyCallBack);
-	
-//	printf("\n\rdisp upper max val = 0x%X", (uint32_t)DISP_UPPER_MAX_VALUE);
-//	printf("\n\rdisp lower max val = %u", (uint32_t)DISP_LOWER_MAX_VALUE);
+  
+//  printf("\n\rdisp upper max val = 0x%X", (uint32_t)DISP_UPPER_MAX_VALUE);
+//  printf("\n\rdisp lower max val = %u", (uint32_t)DISP_LOWER_MAX_VALUE);
 }
 
-/**
-  * @brief  Absolute value calculation.
-  * @param  None
-  * @retval None
-  */
-int32_t absolute(int32_t value) 
-{
-  if (value < 0) 
-	{
-    return -value;
-  }
-  else 
-	{
-    return value;  
-  }
-}
+
 #if 1
 /**
   * @brief  Main program.
@@ -262,7 +247,7 @@ void main(void)
   /* BSP Initialization -----------------------------------------*/
   BSP_Init();
   
-	BSP_DelayMs(1500);
+  BSP_DelayMs(1500);
   /* Initialize the I2C EEPROM driver ----------------------------------------*/
   //EE_Init();  
   
@@ -351,6 +336,7 @@ void main(void)
   }
 }
 #endif
+
 #if 0
 /**
   * @brief  Main program.
@@ -359,55 +345,12 @@ void main(void)
   */
 int main(void)
 {
-	extern void sensor_test(void);
+  extern void sensor_test(void);
   sensor_test();
 }
 #endif
+
 #if 0
-int main (void)
-{
-	char ans;
-		
-  CLK_DeInit();
-
-  /* Configure the Fcpu to DIV1*/
-  CLK_SYSCLKConfig(CLK_PRESCALER_CPUDIV1);
-  
-  /* Configure the HSI prescaler to the optimal value */
-  CLK_SYSCLKConfig(CLK_PRESCALER_HSIDIV1);
-
-  /* Configure the system clock to use HSE clock source and to run at 24Mhz */
-  CLK_ClockSwitchConfig(CLK_SWITCHMODE_AUTO, CLK_SOURCE_HSE, DISABLE,
-                        CLK_CURRENTCLOCKSTATE_DISABLE);
-  
-	GPIO_Init(GPIOE, GPIO_PIN_7, GPIO_MODE_IN_PU_NO_IT);
-	
-  UART1_DeInit();
-  /* UART1 configuration ------------------------------------------------------*/
-  /* UART1 configured as follow:
-        - BaudRate = 115200 baud  
-        - Word Length = 8 Bits
-        - One Stop Bit
-        - No parity
-        - Receive and transmit enabled
-        - UART1 Clock disabled
-  */
-  UART1_Init((uint32_t)9600, UART1_WORDLENGTH_8D, UART1_STOPBITS_1, UART1_PARITY_NO,
-              UART1_SYNCMODE_CLOCK_DISABLE, UART1_MODE_TXRX_ENABLE);
-
-  /* Output a message on Hyperterminal using printf function */
-  printf("\n\rEnter Text\n\r");
-
-  while (1)
-  {
-		volatile int PortE_7;
-		
-    ans = getchar();
-		PortE_7 = GPIOE->IDR & 0x80;
-    printf("\n\rPort_E7 %d", PortE_7);  
-  }	
-}
-#endif
 /**
   * @brief Retargets the C library printf function to the UART.
   * @param c Character to send
@@ -440,7 +383,7 @@ GETCHAR_PROTOTYPE
     c = UART1_ReceiveData8();
   return (c);
 }
-
+#endif
 #ifdef USE_FULL_ASSERT
 
 /**

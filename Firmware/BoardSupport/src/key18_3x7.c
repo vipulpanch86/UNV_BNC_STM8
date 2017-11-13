@@ -10,7 +10,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include <stdio.h>
+//#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "bsp.h"
@@ -67,7 +67,7 @@
 
 /* Private function prototypes -----------------------------------------------*/
 static void KpdInit(void);
-static void KpdScan(uint8_t * pKeyValueMap, KEY_INFO_T * pKeyInfo);
+static void KpdScan(KEY_VAL_MAP_T * pKeyValueMap, KEY_INFO_T * pKeyInfo);
 
 /* Private constants----------------------------------------------------------*/
 /* List of Keypad Scan Lines GPIO Port Pins */
@@ -79,7 +79,7 @@ static const GPIO_TypeDef *SCAN_GPIO_PORT[MAX_SC_LINES - SC_NB_MUXED] =
 };
 
 /* List of Keypad Scan Lines GPIO Port Pins */
-static const uint16_t SCAN_GPIO_PIN[MAX_SC_LINES - SC_NB_MUXED] =
+static const uint8_t SCAN_GPIO_PIN[MAX_SC_LINES - SC_NB_MUXED] =
 {
   KPD_SCA0_GPIO_PIN,
   KPD_SCA1_GPIO_PIN,
@@ -123,26 +123,26 @@ static const uint8_t NB_RT_4_SC_ACC[MAX_SC_LINES] =
 };
 
 /* Matrix Key code Mapping to BSP Key Value */
-static const uint8_t KEY_VALUE_MAP[NB_KEYS] = 
+static const KEY_VAL_MAP_T KEY_VALUE_MAP[NB_KEYS] = 
 {
-  KPD_KEY_DIG1,
-  KPD_KEY_DIG2,
-  KPD_KEY_DIG3,
-  KPD_KEY_DIG4,
-  KPD_KEY_DIG5,
-  KPD_KEY_DIG6,
-  KPD_KEY_DIG7,
-  KPD_KEY_DIG8,
-  KPD_KEY_DIG9,
-  KPD_KEY_DIG0,
-  KPD_KEY_ADD,
-  KPD_KEY_UV,
-  KPD_KEY_AUTO,
-  KPD_KEY_UP,
-  KPD_KEY_ENT,
-  KPD_KEY_DOWN,
-  KPD_KEY_CLR,
-  KPD_KEY_MODE
+  { KPD_KEY_DIG1, KPD_KEY_V10},
+  { KPD_KEY_DIG2, KPD_KEY_V20},
+  { KPD_KEY_DIG3, KPD_KEY_V50},
+  { KPD_KEY_DIG4, KPD_KEY_V100},
+  { KPD_KEY_DIG5, KPD_KEY_V500},
+  { KPD_KEY_DIG6, KPD_KEY_V1000},
+  { KPD_KEY_DIG7, 0xFF},
+  { KPD_KEY_DIG8, 0xFF},
+  { KPD_KEY_DIG9, 0xFF},
+  { KPD_KEY_DIG0, 0xFF},
+  { KPD_KEY_ADD, 0xFF},
+  { KPD_KEY_UV, 0xFF},
+  { KPD_KEY_AUTO, 0xFF},
+  { KPD_KEY_UP, KPD_KEY_TENS},
+  { KPD_KEY_ENT, 0xFF},
+  { KPD_KEY_DOWN, KPD_KEY_UNITS},
+  { KPD_KEY_CLR, 0xFF},
+  { KPD_KEY_MODE, 0xFF}
 };
 
 /* Public constants ----------------------------------------------------------*/
@@ -201,7 +201,7 @@ const KPD_TYPE_T KeypadType_18_3x7 =
   */
 @inline static void SetScanLine(uint8_t nb)
 {
-  ((GPIO_TypeDef *)(SCAN_GPIO_PORT[nb]))->ODR |= SCAN_GPIO_PIN[nb];
+  BSP_SetGPIO(SCAN_GPIO_PORT[nb], SCAN_GPIO_PIN[nb]);
 }
 
 /**
@@ -211,7 +211,7 @@ const KPD_TYPE_T KeypadType_18_3x7 =
   */
 @inline static void ClrScanLine(uint8_t nb)
 {
-  ((GPIO_TypeDef *)(SCAN_GPIO_PORT[nb]))->ODR &= ~SCAN_GPIO_PIN[nb];
+  BSP_ClrGPIO(SCAN_GPIO_PORT[nb], SCAN_GPIO_PIN[nb]);
 }
 
 /**
@@ -251,7 +251,7 @@ static void KpdInit(void)
   * @param  None
   * @retval None
   */
-static void KpdScan(uint8_t * pKeyValueMap, KEY_INFO_T * pKeyInfo)
+static void KpdScan(KEY_VAL_MAP_T * pKeyValueMap, KEY_INFO_T * pKeyInfo)
 {
   static uint8_t KeyScanLineNb = 0;
   volatile uint32_t bspSysTime = BSP_GetSysTime();
@@ -261,13 +261,14 @@ static void KpdScan(uint8_t * pKeyValueMap, KEY_INFO_T * pKeyInfo)
 
   for(; keyRetLineNb < NB_RT_4_SC[KeyScanLineNb]; keyRetLineNb++)
   {
-    uint8_t  keyScanNo, keyPressState;
+    uint8_t  keyScanNo, keyAltNo, keyPressState;
 
-    keyPressState = ((GetRetLine(keyRetLineNb) == LOW) ? CLOSED : OPEN);
+    keyPressState = (uint8_t)((GetRetLine(keyRetLineNb) == LOW) ? CLOSED : OPEN);
     
     /* Map the Key code generated from scan & return lines to
        Key Value Index */
-    keyScanNo = pKeyValueMap[(uint8_t)(NB_RT_4_SC_ACC[KeyScanLineNb] + keyRetLineNb)];
+    keyScanNo = pKeyValueMap[(uint8_t)(NB_RT_4_SC_ACC[KeyScanLineNb] + keyRetLineNb)].main;
+    keyAltNo = pKeyValueMap[(uint8_t)(NB_RT_4_SC_ACC[KeyScanLineNb] + keyRetLineNb)].alt;
     
     /* Check if the key state is changed */
     if(keyPressState != pKeyInfo[keyScanNo].press)
@@ -277,7 +278,7 @@ static void KpdScan(uint8_t * pKeyValueMap, KEY_INFO_T * pKeyInfo)
       {
         int32_t debounce = (int32_t)KPD_GetDebounceTime();
         /* wait for debounce verification */
-        if(absolute((int32_t)(bspSysTime - pKeyInfo[keyScanNo].backuptime)) >= debounce)
+        if(labs((int32_t)(bspSysTime - pKeyInfo[keyScanNo].backuptime)) >= debounce)
         {
           /* change the key press state */
           pKeyInfo[keyScanNo].press = (uint8_t)(
@@ -301,6 +302,7 @@ static void KpdScan(uint8_t * pKeyValueMap, KEY_INFO_T * pKeyInfo)
     }
 
     KPD_SetState(keyScanNo, pKeyInfo[keyScanNo].press);
+    KPD_SetState(keyAltNo, pKeyInfo[keyScanNo].press);
   }
 
   SetScanLine(KeyScanLineNb);

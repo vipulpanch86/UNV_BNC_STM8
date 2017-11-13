@@ -8,7 +8,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include <stdio.h>
+//#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "bsp.h"
@@ -25,8 +25,8 @@ extern KPD_TYPE_T KeypadType_26_7x4_Val;
 /* Keypad info table */
 static const KPD_TYPE_T * KeypadType[KPD_TYPE_MAX_NB] = 
 {
-	&KeypadType_6_6x1,
-	&KeypadType_7_7x1,
+  &KeypadType_6_6x1,
+  &KeypadType_7_7x1,
   &KeypadType_17_9x2,
   &KeypadType_18_3x7,
   &KeypadType_26_7x4_NoVal,
@@ -66,7 +66,7 @@ void KPD_Init(uint8_t index, uint8_t debounce, void (* cb)(uint8_t, uint8_t))
     pKeypad->kpdInit();
   }
 
-  DebounceTime = (debounce < 1) ? (1) : (debounce);
+  DebounceTime = (uint8_t)((debounce < 1) ? (1) : (debounce));
   KeypadCB = cb;
   
 //  KeyScanTimer = 0;
@@ -170,7 +170,7 @@ uint8_t KPD_IsPressed(uint8_t key)
   */
 void KPD_SetDebounceTime(uint8_t debounce)
 {
-  DebounceTime = (debounce < 1) ? (1) : (debounce);
+  DebounceTime = (uint8_t)((debounce < 1) ? (1) : (debounce));
 }
 
 /**

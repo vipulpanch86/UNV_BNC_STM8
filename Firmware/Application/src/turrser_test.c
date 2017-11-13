@@ -22,7 +22,7 @@
 static void turrser_update(void)
 {
   static uint16_t counter = 0;
-	
+  
   TURR_PutVal(counter);
   
   counter++;
