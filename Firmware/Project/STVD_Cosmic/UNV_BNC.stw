@@ -4,9 +4,9 @@
 Keyword=ST7Workspace-V0.7
 
 [Project0]
-Filename=UNV_BNC.stp
+Filename=unv_bnc.stp
 Dependencies=
 [Options]
 ActiveProject=UNV_BNC
-ActiveConfig=Debug
+ActiveConfig=Release
 AddSortedElements=1

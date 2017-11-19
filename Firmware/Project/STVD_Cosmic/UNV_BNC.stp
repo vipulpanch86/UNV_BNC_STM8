@@ -10,18 +10,11 @@ Toolset=STM8 Cosmic
 
 [Config]
 0=Config.0
-1=Config.1
 
 [Config.0]
-ConfigName=Debug
-Target=$(ProjectSFile).elf
-OutputFolder=Debug
-Debug=$(TargetFName)
-
-[Config.1]
 ConfigName=Release
-Target=UNV_BNC.elf
-OutputFolder=Release
+Target=$(ProjectSFile).elf
+OutputFolder=Output
 Debug=$(TargetFName)
 
 [Root]
@@ -29,7 +22,6 @@ ElemType=Project
 PathName=UNV_BNC
 Child=Root.Application
 Config.0=Root.Config.0
-Config.1=Root.Config.1
 
 [Root.Config.0]
 Settings.0.0=Root.Config.0.Settings.0
@@ -42,19 +34,8 @@ Settings.0.6=Root.Config.0.Settings.6
 Settings.0.7=Root.Config.0.Settings.7
 Settings.0.8=Root.Config.0.Settings.8
 
-[Root.Config.1]
-Settings.1.0=Root.Config.1.Settings.0
-Settings.1.1=Root.Config.1.Settings.1
-Settings.1.2=Root.Config.1.Settings.2
-Settings.1.3=Root.Config.1.Settings.3
-Settings.1.4=Root.Config.1.Settings.4
-Settings.1.5=Root.Config.1.Settings.5
-Settings.1.6=Root.Config.1.Settings.6
-Settings.1.7=Root.Config.1.Settings.7
-Settings.1.8=Root.Config.1.Settings.8
-
 [Root.Config.0.Settings.0]
-String.6.0=2017,9,25,11,11,54
+String.6.0=2017,11,19,17,40,3
 String.100.0=ST Assembler Linker
 String.100.1=ST7 Cosmic
 String.100.2=STM8 Cosmic
@@ -65,16 +46,16 @@ String.102.0=C:\Program Files (x86)\COSMIC\FSE_Compilers
 String.103.0=
 String.104.0=Hstm8
 String.105.0=Lib
-String.106.0=Debug
+String.106.0=Output
 String.107.0=$(ProjectSFile).elf
 Int.108=0
 
 [Root.Config.0.Settings.1]
-String.6.0=2017,10,23,18,59,49
+String.6.0=2017,11,19,17,40,58
 String.100.0=$(TargetFName)
 String.101.0=D:\Currency_Counter\UNV_BNC_STM8\Firmware\Project\STVD_Cosmic\Debug
 String.102.0=
-String.103.0=..\..\boardsupport\src;..\..\application\src;..\..\environment\src;..\..\environment\inc;
+String.103.0=
 
 [Root.Config.0.Settings.2]
 String.2.0=
@@ -83,10 +64,10 @@ String.100.0=STM8S207RB
 
 [Root.Config.0.Settings.3]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +warn +modsl -customDebCompat -customOpt +fast -customC -pp -pc99 -customLst-l -dSTM8S207 -i..\..\environment\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\boardsupport\inc -i..\..\userinterface\inc -i..\..\application\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 +warn +modsl -customOpt +fast -customC -pp -pc99 -customLst-l -dSTM8S207 -i..\..\environment\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\boardsupport\inc -i..\..\userinterface\inc -i..\..\application\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,11,7,5,19,35
+String.6.0=2017,11,19,17,40,58
 
 [Root.Config.0.Settings.4]
 String.2.0=Assembling $(InputFile)...
@@ -106,7 +87,7 @@ String.3.0=clnk $(ToolsetLibOpts) -o $(OutputPath)$(TargetSName).sm8 -fakeIntege
 String.3.1=cvdwarf $(OutputPath)$(TargetSName).sm8
 String.4.0=$(OutputPath)$(TargetFName)
 String.5.0=$(OutputPath)$(ProjectSFile).elf $(OutputPath)$(TargetSName).map
-String.6.0=2017,11,7,5,19,35
+String.6.0=2017,11,19,17,40,58
 String.100.0=
 String.101.0=crtsi.st7
 String.102.0=+seg .const -b 0x8080 -m 0x1ff80 -n .const -it
@@ -136,95 +117,12 @@ String.6.0=2017,9,25,11,4,58
 String.2.0=Performing Custom Build on $(InputFile)
 String.6.0=2017,9,25,11,4,58
 
-[Root.Config.1.Settings.0]
-String.6.0=2017,9,25,11,4,58
-String.100.0=ST Assembler Linker
-String.100.1=ST7 Cosmic
-String.100.2=STM8 Cosmic
-String.100.3=ST7 Metrowerks V1.1
-String.100.4=Raisonance
-String.101.0=STM8 Cosmic
-String.102.0=C:\Program Files (x86)\COSMIC\FSE_Compilers
-String.103.0=
-String.104.0=Hstm8
-String.105.0=Lib
-String.106.0=Release
-String.107.0=UNV_BNC.elf
-Int.108=0
-
-[Root.Config.1.Settings.1]
-String.6.0=2017,9,25,11,4,58
-String.100.0=$(TargetFName)
-String.101.0=
-String.102.0=
-String.103.0=\\desktop-dell\d\currency_counter\unv_bnc_stm8;\\desktop-dell\d\currency_counter\unv_bnc_stm8\stm8s_stdperiph_driver\src;\\desktop-dell\d\currency_counter\unv_bnc_stm8\bsp\src;\\desktop-dell\d\currency_counter\unv_bnc_stm8\app\src;\\desktop-dell\d\currency_counter\unv_bnc_stm8\ui\src;\\desktop-dell\d\currency_counter\unv_bnc_stm8\application\src;\\desktop-dell\d\currency_counter\unv_bnc_stm8\boardsupport\src;\\desktop-dell\d\currency_counter\unv_bnc_stm8\userinterface\src;\\desktop-dell\d\currency_counter\unv_bnc_stm8\userinterface\inc;\\desktop-dell\d\currency_counter\unv_bnc_stm8\stm8s_stdperiph_driver\inc;\\desktop-dell\d\currency_counter\unv_bnc_stm8\boardsupport\inc;\\desktop-dell\d\currency_counter\unv_bnc_stm8\application\inc;application\src;..\..\application\src;..\..\application\inc;..\..\boardsupport\inc;..\..\boardsupport\src;..\..\environment\inc;..\..\environment\src;..\..\stm8s_stdperiph_driver\inc;..\..\stm8s_stdperiph_driver\src;..\..\userinterface\inc;..\..\userinterface\src;
-
-[Root.Config.1.Settings.2]
-String.2.0=
-String.6.0=2017,10,26,19,43,37
-String.100.0=STM8S207RB
-
-[Root.Config.1.Settings.3]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\userinterface\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -iapplication\inc -iboardsupport\inc -istm8s_stdperiph_driver\inc -iuserinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,23,18,59,49
-
-[Root.Config.1.Settings.4]
-String.2.0=Assembling $(InputFile)...
-String.3.0=castm8 $(ToolsetIncOpts) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,9,25,11,4,58
-
-[Root.Config.1.Settings.5]
-String.2.0=Running Pre-Link step
-String.6.0=2017,9,25,11,4,58
-String.8.0=
-
-[Root.Config.1.Settings.6]
-String.2.0=Running Linker
-String.3.0=clnk -fakeRunConv -fakeInteger -fakeSemiAutoGen $(ToolsetLibOpts) -o $(OutputPath)$(TargetSName).sm8 -fakeOutFile$(ProjectSFile).elf -customCfgFile $(OutputPath)$(TargetSName).lkf -fakeVectFile..\..\environment\src\stm8_interrupt_vector.c -fakeStartupcrtsi0.sm8 
-String.3.1=cvdwarf $(OutputPath)$(TargetSName).sm8 -fakeVectAddr0x8000
-String.4.0=$(OutputPath)$(TargetFName)
-String.5.0=
-String.6.0=2017,11,7,5,19,35
-String.100.0=
-String.101.0=crtsi.st7
-String.102.0=+seg .const -b 0x8080 -m 0x1ff80 -n .const -it 
-String.102.1=+seg .text -a .const -n .text 
-String.102.2=+seg .eeprom -b 0x4000 -m 0x800 -n .eeprom 
-String.102.3=+seg .bsct -b 0x0 -m 0x100 -n .bsct 
-String.102.4=+seg .ubsct -a .bsct -n .ubsct 
-String.102.5=+seg .bit -a .ubsct -n .bit -id 
-String.102.6=+seg .share -a .bit -n .share -is 
-String.102.7=+seg .data -b 0x100 -m 0x1300 -n .data 
-String.102.8=+seg .bss -a .data -n .bss
-String.103.0=Code,Constants[0x8080-0x27fff]=.const,.text
-String.103.1=Eeprom[0x4000-0x47ff]=.eeprom
-String.103.2=Zero Page[0x0-0xff]=.bsct,.ubsct,.bit,.share
-String.103.3=Ram[0x100-0x13ff]=.data,.bss
-String.104.0=0x17ff
-Int.0=0
-Int.1=0
-
-[Root.Config.1.Settings.7]
-String.2.0=Running Post-Build step
-String.3.0=chex -o $(OutputPath)$(TargetSName).s19 $(OutputPath)$(TargetSName).sm8
-String.6.0=2017,9,25,11,4,58
-
-[Root.Config.1.Settings.8]
-String.2.0=Performing Custom Build on $(InputFile)
-String.6.0=2017,9,25,11,4,58
-
 [Root.Application]
 ElemType=Folder
 PathName=Application
 Child=Root.Application.Application\inc
 Next=Root.BoardSupport
 Config.0=Root.Application.Config.0
-Config.1=Root.Application.Config.1
 
 [Root.Application.Config.0]
 Settings.0.0=Root.Application.Config.0.Settings.0
@@ -232,24 +130,18 @@ Settings.0.1=Root.Application.Config.0.Settings.1
 Settings.0.2=Root.Application.Config.0.Settings.2
 Settings.0.3=Root.Application.Config.0.Settings.3
 
-[Root.Application.Config.1]
-Settings.1.0=Root.Application.Config.1.Settings.0
-Settings.1.1=Root.Application.Config.1.Settings.1
-Settings.1.2=Root.Application.Config.1.Settings.2
-Settings.1.3=Root.Application.Config.1.Settings.3
-
 [Root.Application.Config.0.Settings.0]
-String.6.0=2017,9,25,19,31,59
-String.8.0=Debug
+String.6.0=2017,11,19,17,40,3
+String.8.0=Output
 Int.0=0
 Int.1=0
 
 [Root.Application.Config.0.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +warn +modsl -customDebCompat -customOpt +fast -customC -pp -pc99 -customLst-l -dSTM8S207 -i..\..\environment\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\boardsupport\inc -i..\..\userinterface\inc -i..\..\application\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 +warn +modsl -customOpt +fast -customC -pp -pc99 -customLst-l -dSTM8S207 -i..\..\environment\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\boardsupport\inc -i..\..\userinterface\inc -i..\..\application\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,11,7,5,19,35
+String.6.0=2017,11,19,17,40,58
 
 [Root.Application.Config.0.Settings.2]
 String.2.0=Assembling $(InputFile)...
@@ -259,33 +151,6 @@ String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,10,2,13,22,33
 
 [Root.Application.Config.0.Settings.3]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Config.1.Settings.0]
-String.6.0=2017,9,25,19,31,59
-String.8.0=Release
-Int.0=0
-Int.1=0
-
-[Root.Application.Config.1.Settings.1]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\userinterface\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -iapplication\inc -iboardsupport\inc -istm8s_stdperiph_driver\inc -iuserinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,23,18,59,49
-
-[Root.Application.Config.1.Settings.2]
-String.2.0=Assembling $(InputFile)...
-String.3.0=castm8 $(ToolsetIncOpts) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Config.1.Settings.3]
 String.2.0=Performing Custom Build on $(InputFile)
 String.3.0=
 String.4.0=
@@ -322,21 +187,15 @@ ElemType=File
 PathName=..\..\application\src\coil_test.c
 Next=Root.Application.Application\src...\..\application\src\disp_test.c
 Config.0=Root.Application.Application\src...\..\application\src\coil_test.c.Config.0
-Config.1=Root.Application.Application\src...\..\application\src\coil_test.c.Config.1
 
 [Root.Application.Application\src...\..\application\src\coil_test.c.Config.0]
 Settings.0.0=Root.Application.Application\src...\..\application\src\coil_test.c.Config.0.Settings.0
 Settings.0.1=Root.Application.Application\src...\..\application\src\coil_test.c.Config.0.Settings.1
 Settings.0.2=Root.Application.Application\src...\..\application\src\coil_test.c.Config.0.Settings.2
 
-[Root.Application.Application\src...\..\application\src\coil_test.c.Config.1]
-Settings.1.0=Root.Application.Application\src...\..\application\src\coil_test.c.Config.1.Settings.0
-Settings.1.1=Root.Application.Application\src...\..\application\src\coil_test.c.Config.1.Settings.1
-Settings.1.2=Root.Application.Application\src...\..\application\src\coil_test.c.Config.1.Settings.2
-
 [Root.Application.Application\src...\..\application\src\coil_test.c.Config.0.Settings.0]
-String.6.0=2017,10,25,19,44,48
-String.8.0=Debug
+String.6.0=2017,11,19,17,40,3
+String.8.0=Output
 Int.0=1
 Int.1=0
 
@@ -355,47 +214,20 @@ String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,11,7,5,13,15
 String.8.0=Debug
 
-[Root.Application.Application\src...\..\application\src\coil_test.c.Config.1.Settings.0]
-String.6.0=2017,10,2,10,2,6
-String.8.0=Release
-Int.0=0
-Int.1=0
-
-[Root.Application.Application\src...\..\application\src\coil_test.c.Config.1.Settings.1]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Application\src...\..\application\src\coil_test.c.Config.1.Settings.2]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\userinterface\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -iapplication\inc -iboardsupport\inc -istm8s_stdperiph_driver\inc -iuserinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,23,18,59,49
-String.8.0=Release
-
 [Root.Application.Application\src...\..\application\src\disp_test.c]
 ElemType=File
 PathName=..\..\application\src\disp_test.c
-Next=Root.Application.Application\src...\..\application\src\eeprom_test.c
+Next=Root.Application.Application\src...\..\application\src\key_test.c
 Config.0=Root.Application.Application\src...\..\application\src\disp_test.c.Config.0
-Config.1=Root.Application.Application\src...\..\application\src\disp_test.c.Config.1
 
 [Root.Application.Application\src...\..\application\src\disp_test.c.Config.0]
 Settings.0.0=Root.Application.Application\src...\..\application\src\disp_test.c.Config.0.Settings.0
 Settings.0.1=Root.Application.Application\src...\..\application\src\disp_test.c.Config.0.Settings.1
 Settings.0.2=Root.Application.Application\src...\..\application\src\disp_test.c.Config.0.Settings.2
 
-[Root.Application.Application\src...\..\application\src\disp_test.c.Config.1]
-Settings.1.0=Root.Application.Application\src...\..\application\src\disp_test.c.Config.1.Settings.0
-Settings.1.1=Root.Application.Application\src...\..\application\src\disp_test.c.Config.1.Settings.1
-Settings.1.2=Root.Application.Application\src...\..\application\src\disp_test.c.Config.1.Settings.2
-
 [Root.Application.Application\src...\..\application\src\disp_test.c.Config.0.Settings.0]
-String.6.0=2017,10,25,19,48,47
-String.8.0=Debug
+String.6.0=2017,11,19,17,40,3
+String.8.0=Output
 Int.0=1
 Int.1=0
 
@@ -414,106 +246,20 @@ String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,11,7,5,13,15
 String.8.0=Debug
 
-[Root.Application.Application\src...\..\application\src\disp_test.c.Config.1.Settings.0]
-String.6.0=2017,10,2,10,2,6
-String.8.0=Release
-Int.0=0
-Int.1=0
-
-[Root.Application.Application\src...\..\application\src\disp_test.c.Config.1.Settings.1]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Application\src...\..\application\src\disp_test.c.Config.1.Settings.2]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\userinterface\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -iapplication\inc -iboardsupport\inc -istm8s_stdperiph_driver\inc -iuserinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,23,18,59,49
-String.8.0=Release
-
-[Root.Application.Application\src...\..\application\src\eeprom_test.c]
-ElemType=File
-PathName=..\..\application\src\eeprom_test.c
-Next=Root.Application.Application\src...\..\application\src\key_test.c
-Config.0=Root.Application.Application\src...\..\application\src\eeprom_test.c.Config.0
-Config.1=Root.Application.Application\src...\..\application\src\eeprom_test.c.Config.1
-
-[Root.Application.Application\src...\..\application\src\eeprom_test.c.Config.0]
-Settings.0.0=Root.Application.Application\src...\..\application\src\eeprom_test.c.Config.0.Settings.0
-Settings.0.1=Root.Application.Application\src...\..\application\src\eeprom_test.c.Config.0.Settings.1
-Settings.0.2=Root.Application.Application\src...\..\application\src\eeprom_test.c.Config.0.Settings.2
-
-[Root.Application.Application\src...\..\application\src\eeprom_test.c.Config.1]
-Settings.1.0=Root.Application.Application\src...\..\application\src\eeprom_test.c.Config.1.Settings.0
-Settings.1.1=Root.Application.Application\src...\..\application\src\eeprom_test.c.Config.1.Settings.1
-Settings.1.2=Root.Application.Application\src...\..\application\src\eeprom_test.c.Config.1.Settings.2
-
-[Root.Application.Application\src...\..\application\src\eeprom_test.c.Config.0.Settings.0]
-String.6.0=2017,10,2,20,3,2
-String.8.0=Debug
-Int.0=1
-Int.1=0
-
-[Root.Application.Application\src...\..\application\src\eeprom_test.c.Config.0.Settings.1]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Application\src...\..\application\src\eeprom_test.c.Config.0.Settings.2]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,11,7,5,13,15
-String.8.0=Debug
-
-[Root.Application.Application\src...\..\application\src\eeprom_test.c.Config.1.Settings.0]
-String.6.0=2017,10,2,20,2,16
-String.8.0=Release
-Int.0=0
-Int.1=0
-
-[Root.Application.Application\src...\..\application\src\eeprom_test.c.Config.1.Settings.1]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Application\src...\..\application\src\eeprom_test.c.Config.1.Settings.2]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\userinterface\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -iapplication\inc -iboardsupport\inc -istm8s_stdperiph_driver\inc -iuserinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,23,18,59,49
-String.8.0=Release
-
 [Root.Application.Application\src...\..\application\src\key_test.c]
 ElemType=File
 PathName=..\..\application\src\key_test.c
 Next=Root.Application.Application\src...\..\application\src\main.c
 Config.0=Root.Application.Application\src...\..\application\src\key_test.c.Config.0
-Config.1=Root.Application.Application\src...\..\application\src\key_test.c.Config.1
 
 [Root.Application.Application\src...\..\application\src\key_test.c.Config.0]
 Settings.0.0=Root.Application.Application\src...\..\application\src\key_test.c.Config.0.Settings.0
 Settings.0.1=Root.Application.Application\src...\..\application\src\key_test.c.Config.0.Settings.1
 Settings.0.2=Root.Application.Application\src...\..\application\src\key_test.c.Config.0.Settings.2
 
-[Root.Application.Application\src...\..\application\src\key_test.c.Config.1]
-Settings.1.0=Root.Application.Application\src...\..\application\src\key_test.c.Config.1.Settings.0
-Settings.1.1=Root.Application.Application\src...\..\application\src\key_test.c.Config.1.Settings.1
-Settings.1.2=Root.Application.Application\src...\..\application\src\key_test.c.Config.1.Settings.2
-
 [Root.Application.Application\src...\..\application\src\key_test.c.Config.0.Settings.0]
-String.6.0=2017,10,25,19,50,55
-String.8.0=Debug
+String.6.0=2017,11,19,17,40,3
+String.8.0=Output
 Int.0=1
 Int.1=0
 
@@ -532,27 +278,6 @@ String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,11,7,5,13,15
 String.8.0=Debug
 
-[Root.Application.Application\src...\..\application\src\key_test.c.Config.1.Settings.0]
-String.6.0=2017,10,25,19,32,26
-String.8.0=Release
-Int.0=0
-Int.1=0
-
-[Root.Application.Application\src...\..\application\src\key_test.c.Config.1.Settings.1]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Application\src...\..\application\src\key_test.c.Config.1.Settings.2]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\userinterface\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -iapplication\inc -iboardsupport\inc -istm8s_stdperiph_driver\inc -iuserinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,23,18,59,49
-String.8.0=Release
-
 [Root.Application.Application\src...\..\application\src\main.c]
 ElemType=File
 PathName=..\..\application\src\main.c
@@ -563,21 +288,15 @@ ElemType=File
 PathName=..\..\application\src\printf_test.c
 Next=Root.Application.Application\src...\..\application\src\reg.c
 Config.0=Root.Application.Application\src...\..\application\src\printf_test.c.Config.0
-Config.1=Root.Application.Application\src...\..\application\src\printf_test.c.Config.1
 
 [Root.Application.Application\src...\..\application\src\printf_test.c.Config.0]
 Settings.0.0=Root.Application.Application\src...\..\application\src\printf_test.c.Config.0.Settings.0
 Settings.0.1=Root.Application.Application\src...\..\application\src\printf_test.c.Config.0.Settings.1
 Settings.0.2=Root.Application.Application\src...\..\application\src\printf_test.c.Config.0.Settings.2
 
-[Root.Application.Application\src...\..\application\src\printf_test.c.Config.1]
-Settings.1.0=Root.Application.Application\src...\..\application\src\printf_test.c.Config.1.Settings.0
-Settings.1.1=Root.Application.Application\src...\..\application\src\printf_test.c.Config.1.Settings.1
-Settings.1.2=Root.Application.Application\src...\..\application\src\printf_test.c.Config.1.Settings.2
-
 [Root.Application.Application\src...\..\application\src\printf_test.c.Config.0.Settings.0]
-String.6.0=2017,10,2,20,3,2
-String.8.0=Debug
+String.6.0=2017,11,19,17,40,3
+String.8.0=Output
 Int.0=1
 Int.1=0
 
@@ -596,27 +315,6 @@ String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,11,7,5,13,15
 String.8.0=Debug
 
-[Root.Application.Application\src...\..\application\src\printf_test.c.Config.1.Settings.0]
-String.6.0=2017,10,2,20,2,16
-String.8.0=Release
-Int.0=0
-Int.1=0
-
-[Root.Application.Application\src...\..\application\src\printf_test.c.Config.1.Settings.1]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Application\src...\..\application\src\printf_test.c.Config.1.Settings.2]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\userinterface\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -iapplication\inc -iboardsupport\inc -istm8s_stdperiph_driver\inc -iuserinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,23,18,59,49
-String.8.0=Release
-
 [Root.Application.Application\src...\..\application\src\reg.c]
 ElemType=File
 PathName=..\..\application\src\reg.c
@@ -632,21 +330,15 @@ ElemType=File
 PathName=..\..\application\src\rotdip_test.c
 Next=Root.Application.Application\src...\..\application\src\sensor_test.c
 Config.0=Root.Application.Application\src...\..\application\src\rotdip_test.c.Config.0
-Config.1=Root.Application.Application\src...\..\application\src\rotdip_test.c.Config.1
 
 [Root.Application.Application\src...\..\application\src\rotdip_test.c.Config.0]
 Settings.0.0=Root.Application.Application\src...\..\application\src\rotdip_test.c.Config.0.Settings.0
 Settings.0.1=Root.Application.Application\src...\..\application\src\rotdip_test.c.Config.0.Settings.1
 Settings.0.2=Root.Application.Application\src...\..\application\src\rotdip_test.c.Config.0.Settings.2
 
-[Root.Application.Application\src...\..\application\src\rotdip_test.c.Config.1]
-Settings.1.0=Root.Application.Application\src...\..\application\src\rotdip_test.c.Config.1.Settings.0
-Settings.1.1=Root.Application.Application\src...\..\application\src\rotdip_test.c.Config.1.Settings.1
-Settings.1.2=Root.Application.Application\src...\..\application\src\rotdip_test.c.Config.1.Settings.2
-
 [Root.Application.Application\src...\..\application\src\rotdip_test.c.Config.0.Settings.0]
-String.6.0=2017,10,25,19,38,6
-String.8.0=Debug
+String.6.0=2017,11,19,17,40,3
+String.8.0=Output
 Int.0=1
 Int.1=0
 
@@ -665,47 +357,20 @@ String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,11,7,5,13,15
 String.8.0=Debug
 
-[Root.Application.Application\src...\..\application\src\rotdip_test.c.Config.1.Settings.0]
-String.6.0=2017,10,2,10,2,6
-String.8.0=Release
-Int.0=0
-Int.1=0
-
-[Root.Application.Application\src...\..\application\src\rotdip_test.c.Config.1.Settings.1]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Application\src...\..\application\src\rotdip_test.c.Config.1.Settings.2]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\userinterface\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -iapplication\inc -iboardsupport\inc -istm8s_stdperiph_driver\inc -iuserinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,23,18,59,49
-String.8.0=Release
-
 [Root.Application.Application\src...\..\application\src\sensor_test.c]
 ElemType=File
 PathName=..\..\application\src\sensor_test.c
 Next=Root.Application.Application\src...\..\application\src\switch_test.c
 Config.0=Root.Application.Application\src...\..\application\src\sensor_test.c.Config.0
-Config.1=Root.Application.Application\src...\..\application\src\sensor_test.c.Config.1
 
 [Root.Application.Application\src...\..\application\src\sensor_test.c.Config.0]
 Settings.0.0=Root.Application.Application\src...\..\application\src\sensor_test.c.Config.0.Settings.0
 Settings.0.1=Root.Application.Application\src...\..\application\src\sensor_test.c.Config.0.Settings.1
 Settings.0.2=Root.Application.Application\src...\..\application\src\sensor_test.c.Config.0.Settings.2
 
-[Root.Application.Application\src...\..\application\src\sensor_test.c.Config.1]
-Settings.1.0=Root.Application.Application\src...\..\application\src\sensor_test.c.Config.1.Settings.0
-Settings.1.1=Root.Application.Application\src...\..\application\src\sensor_test.c.Config.1.Settings.1
-Settings.1.2=Root.Application.Application\src...\..\application\src\sensor_test.c.Config.1.Settings.2
-
 [Root.Application.Application\src...\..\application\src\sensor_test.c.Config.0.Settings.0]
-String.6.0=2017,10,26,19,44,53
-String.8.0=Debug
+String.6.0=2017,11,19,17,40,3
+String.8.0=Output
 Int.0=1
 Int.1=0
 
@@ -724,47 +389,20 @@ String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,11,7,5,13,15
 String.8.0=Debug
 
-[Root.Application.Application\src...\..\application\src\sensor_test.c.Config.1.Settings.0]
-String.6.0=2017,10,26,19,1,47
-String.8.0=Release
-Int.0=0
-Int.1=0
-
-[Root.Application.Application\src...\..\application\src\sensor_test.c.Config.1.Settings.1]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Application\src...\..\application\src\sensor_test.c.Config.1.Settings.2]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\userinterface\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -iapplication\inc -iboardsupport\inc -istm8s_stdperiph_driver\inc -iuserinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,23,18,59,49
-String.8.0=Release
-
 [Root.Application.Application\src...\..\application\src\switch_test.c]
 ElemType=File
 PathName=..\..\application\src\switch_test.c
 Next=Root.Application.Application\src...\..\application\src\triac_test.c
 Config.0=Root.Application.Application\src...\..\application\src\switch_test.c.Config.0
-Config.1=Root.Application.Application\src...\..\application\src\switch_test.c.Config.1
 
 [Root.Application.Application\src...\..\application\src\switch_test.c.Config.0]
 Settings.0.0=Root.Application.Application\src...\..\application\src\switch_test.c.Config.0.Settings.0
 Settings.0.1=Root.Application.Application\src...\..\application\src\switch_test.c.Config.0.Settings.1
 Settings.0.2=Root.Application.Application\src...\..\application\src\switch_test.c.Config.0.Settings.2
 
-[Root.Application.Application\src...\..\application\src\switch_test.c.Config.1]
-Settings.1.0=Root.Application.Application\src...\..\application\src\switch_test.c.Config.1.Settings.0
-Settings.1.1=Root.Application.Application\src...\..\application\src\switch_test.c.Config.1.Settings.1
-Settings.1.2=Root.Application.Application\src...\..\application\src\switch_test.c.Config.1.Settings.2
-
 [Root.Application.Application\src...\..\application\src\switch_test.c.Config.0.Settings.0]
-String.6.0=2017,10,25,19,40,24
-String.8.0=Debug
+String.6.0=2017,11,19,17,40,3
+String.8.0=Output
 Int.0=1
 Int.1=0
 
@@ -783,47 +421,20 @@ String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,11,7,5,13,15
 String.8.0=Debug
 
-[Root.Application.Application\src...\..\application\src\switch_test.c.Config.1.Settings.0]
-String.6.0=2017,10,2,10,2,6
-String.8.0=Release
-Int.0=0
-Int.1=0
-
-[Root.Application.Application\src...\..\application\src\switch_test.c.Config.1.Settings.1]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Application\src...\..\application\src\switch_test.c.Config.1.Settings.2]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\userinterface\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -iapplication\inc -iboardsupport\inc -istm8s_stdperiph_driver\inc -iuserinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,23,18,59,49
-String.8.0=Release
-
 [Root.Application.Application\src...\..\application\src\triac_test.c]
 ElemType=File
 PathName=..\..\application\src\triac_test.c
 Next=Root.Application.Application\src...\..\application\src\turrpar_test.c
 Config.0=Root.Application.Application\src...\..\application\src\triac_test.c.Config.0
-Config.1=Root.Application.Application\src...\..\application\src\triac_test.c.Config.1
 
 [Root.Application.Application\src...\..\application\src\triac_test.c.Config.0]
 Settings.0.0=Root.Application.Application\src...\..\application\src\triac_test.c.Config.0.Settings.0
 Settings.0.1=Root.Application.Application\src...\..\application\src\triac_test.c.Config.0.Settings.1
 Settings.0.2=Root.Application.Application\src...\..\application\src\triac_test.c.Config.0.Settings.2
 
-[Root.Application.Application\src...\..\application\src\triac_test.c.Config.1]
-Settings.1.0=Root.Application.Application\src...\..\application\src\triac_test.c.Config.1.Settings.0
-Settings.1.1=Root.Application.Application\src...\..\application\src\triac_test.c.Config.1.Settings.1
-Settings.1.2=Root.Application.Application\src...\..\application\src\triac_test.c.Config.1.Settings.2
-
 [Root.Application.Application\src...\..\application\src\triac_test.c.Config.0.Settings.0]
-String.6.0=2017,10,25,20,50,57
-String.8.0=Debug
+String.6.0=2017,11,19,17,40,3
+String.8.0=Output
 Int.0=1
 Int.1=0
 
@@ -842,47 +453,20 @@ String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,11,7,5,13,15
 String.8.0=Debug
 
-[Root.Application.Application\src...\..\application\src\triac_test.c.Config.1.Settings.0]
-String.6.0=2017,10,2,10,2,6
-String.8.0=Release
-Int.0=0
-Int.1=0
-
-[Root.Application.Application\src...\..\application\src\triac_test.c.Config.1.Settings.1]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Application\src...\..\application\src\triac_test.c.Config.1.Settings.2]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\userinterface\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -iapplication\inc -iboardsupport\inc -istm8s_stdperiph_driver\inc -iuserinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,23,18,59,49
-String.8.0=Release
-
 [Root.Application.Application\src...\..\application\src\turrpar_test.c]
 ElemType=File
 PathName=..\..\application\src\turrpar_test.c
 Next=Root.Application.Application\src...\..\application\src\turrser_test.c
 Config.0=Root.Application.Application\src...\..\application\src\turrpar_test.c.Config.0
-Config.1=Root.Application.Application\src...\..\application\src\turrpar_test.c.Config.1
 
 [Root.Application.Application\src...\..\application\src\turrpar_test.c.Config.0]
 Settings.0.0=Root.Application.Application\src...\..\application\src\turrpar_test.c.Config.0.Settings.0
 Settings.0.1=Root.Application.Application\src...\..\application\src\turrpar_test.c.Config.0.Settings.1
 Settings.0.2=Root.Application.Application\src...\..\application\src\turrpar_test.c.Config.0.Settings.2
 
-[Root.Application.Application\src...\..\application\src\turrpar_test.c.Config.1]
-Settings.1.0=Root.Application.Application\src...\..\application\src\turrpar_test.c.Config.1.Settings.0
-Settings.1.1=Root.Application.Application\src...\..\application\src\turrpar_test.c.Config.1.Settings.1
-Settings.1.2=Root.Application.Application\src...\..\application\src\turrpar_test.c.Config.1.Settings.2
-
 [Root.Application.Application\src...\..\application\src\turrpar_test.c.Config.0.Settings.0]
-String.6.0=2017,10,2,11,18,35
-String.8.0=Debug
+String.6.0=2017,11,19,17,40,3
+String.8.0=Output
 Int.0=1
 Int.1=0
 
@@ -901,47 +485,20 @@ String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,11,7,5,13,15
 String.8.0=Debug
 
-[Root.Application.Application\src...\..\application\src\turrpar_test.c.Config.1.Settings.0]
-String.6.0=2017,10,2,10,2,6
-String.8.0=Release
-Int.0=0
-Int.1=0
-
-[Root.Application.Application\src...\..\application\src\turrpar_test.c.Config.1.Settings.1]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Application\src...\..\application\src\turrpar_test.c.Config.1.Settings.2]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\userinterface\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -iapplication\inc -iboardsupport\inc -istm8s_stdperiph_driver\inc -iuserinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,23,18,59,49
-String.8.0=Release
-
 [Root.Application.Application\src...\..\application\src\turrser_test.c]
 ElemType=File
 PathName=..\..\application\src\turrser_test.c
 Next=Root.Application.Application\src...\..\application\src\uv_test.c
 Config.0=Root.Application.Application\src...\..\application\src\turrser_test.c.Config.0
-Config.1=Root.Application.Application\src...\..\application\src\turrser_test.c.Config.1
 
 [Root.Application.Application\src...\..\application\src\turrser_test.c.Config.0]
 Settings.0.0=Root.Application.Application\src...\..\application\src\turrser_test.c.Config.0.Settings.0
 Settings.0.1=Root.Application.Application\src...\..\application\src\turrser_test.c.Config.0.Settings.1
 Settings.0.2=Root.Application.Application\src...\..\application\src\turrser_test.c.Config.0.Settings.2
 
-[Root.Application.Application\src...\..\application\src\turrser_test.c.Config.1]
-Settings.1.0=Root.Application.Application\src...\..\application\src\turrser_test.c.Config.1.Settings.0
-Settings.1.1=Root.Application.Application\src...\..\application\src\turrser_test.c.Config.1.Settings.1
-Settings.1.2=Root.Application.Application\src...\..\application\src\turrser_test.c.Config.1.Settings.2
-
 [Root.Application.Application\src...\..\application\src\turrser_test.c.Config.0.Settings.0]
-String.6.0=2017,10,25,20,59,40
-String.8.0=Debug
+String.6.0=2017,11,19,17,40,3
+String.8.0=Output
 Int.0=1
 Int.1=0
 
@@ -960,46 +517,19 @@ String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,11,7,5,13,15
 String.8.0=Debug
 
-[Root.Application.Application\src...\..\application\src\turrser_test.c.Config.1.Settings.0]
-String.6.0=2017,10,25,20,56,35
-String.8.0=Release
-Int.0=0
-Int.1=0
-
-[Root.Application.Application\src...\..\application\src\turrser_test.c.Config.1.Settings.1]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Application\src...\..\application\src\turrser_test.c.Config.1.Settings.2]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\userinterface\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -iapplication\inc -iboardsupport\inc -istm8s_stdperiph_driver\inc -iuserinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,23,18,59,49
-String.8.0=Release
-
 [Root.Application.Application\src...\..\application\src\uv_test.c]
 ElemType=File
 PathName=..\..\application\src\uv_test.c
 Config.0=Root.Application.Application\src...\..\application\src\uv_test.c.Config.0
-Config.1=Root.Application.Application\src...\..\application\src\uv_test.c.Config.1
 
 [Root.Application.Application\src...\..\application\src\uv_test.c.Config.0]
 Settings.0.0=Root.Application.Application\src...\..\application\src\uv_test.c.Config.0.Settings.0
 Settings.0.1=Root.Application.Application\src...\..\application\src\uv_test.c.Config.0.Settings.1
 Settings.0.2=Root.Application.Application\src...\..\application\src\uv_test.c.Config.0.Settings.2
 
-[Root.Application.Application\src...\..\application\src\uv_test.c.Config.1]
-Settings.1.0=Root.Application.Application\src...\..\application\src\uv_test.c.Config.1.Settings.0
-Settings.1.1=Root.Application.Application\src...\..\application\src\uv_test.c.Config.1.Settings.1
-Settings.1.2=Root.Application.Application\src...\..\application\src\uv_test.c.Config.1.Settings.2
-
 [Root.Application.Application\src...\..\application\src\uv_test.c.Config.0.Settings.0]
-String.6.0=2017,10,25,20,57,2
-String.8.0=Debug
+String.6.0=2017,11,19,17,40,3
+String.8.0=Output
 Int.0=1
 Int.1=0
 
@@ -1018,34 +548,12 @@ String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,11,7,5,13,15
 String.8.0=Debug
 
-[Root.Application.Application\src...\..\application\src\uv_test.c.Config.1.Settings.0]
-String.6.0=2017,10,2,10,2,6
-String.8.0=Release
-Int.0=0
-Int.1=0
-
-[Root.Application.Application\src...\..\application\src\uv_test.c.Config.1.Settings.1]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Application\src...\..\application\src\uv_test.c.Config.1.Settings.2]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\userinterface\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -iapplication\inc -iboardsupport\inc -istm8s_stdperiph_driver\inc -iuserinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,23,18,59,49
-String.8.0=Release
-
 [Root.BoardSupport]
 ElemType=Folder
 PathName=BoardSupport
 Child=Root.BoardSupport.BoardSupport\inc
 Next=Root.Environment
 Config.0=Root.BoardSupport.Config.0
-Config.1=Root.BoardSupport.Config.1
 
 [Root.BoardSupport.Config.0]
 Settings.0.0=Root.BoardSupport.Config.0.Settings.0
@@ -1053,24 +561,18 @@ Settings.0.1=Root.BoardSupport.Config.0.Settings.1
 Settings.0.2=Root.BoardSupport.Config.0.Settings.2
 Settings.0.3=Root.BoardSupport.Config.0.Settings.3
 
-[Root.BoardSupport.Config.1]
-Settings.1.0=Root.BoardSupport.Config.1.Settings.0
-Settings.1.1=Root.BoardSupport.Config.1.Settings.1
-Settings.1.2=Root.BoardSupport.Config.1.Settings.2
-Settings.1.3=Root.BoardSupport.Config.1.Settings.3
-
 [Root.BoardSupport.Config.0.Settings.0]
-String.6.0=2017,9,25,19,32,6
-String.8.0=Debug
+String.6.0=2017,11,19,17,40,3
+String.8.0=Output
 Int.0=0
 Int.1=0
 
 [Root.BoardSupport.Config.0.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +warn +modsl -customDebCompat -customOpt +fast -customC -pp -pc99 -customLst-l -dSTM8S207 -i..\..\environment\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\boardsupport\inc -i..\..\userinterface\inc -i..\..\application\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 +warn +modsl -customOpt +fast -customC -pp -pc99 -customLst-l -dSTM8S207 -i..\..\environment\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\boardsupport\inc -i..\..\userinterface\inc -i..\..\application\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,11,7,5,19,35
+String.6.0=2017,11,19,17,40,58
 
 [Root.BoardSupport.Config.0.Settings.2]
 String.2.0=Assembling $(InputFile)...
@@ -1080,33 +582,6 @@ String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,10,2,13,22,33
 
 [Root.BoardSupport.Config.0.Settings.3]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.BoardSupport.Config.1.Settings.0]
-String.6.0=2017,9,25,19,32,6
-String.8.0=Release
-Int.0=0
-Int.1=0
-
-[Root.BoardSupport.Config.1.Settings.1]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\userinterface\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -iapplication\inc -iboardsupport\inc -istm8s_stdperiph_driver\inc -iuserinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,23,18,59,49
-
-[Root.BoardSupport.Config.1.Settings.2]
-String.2.0=Assembling $(InputFile)...
-String.3.0=castm8 $(ToolsetIncOpts) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,9,25,11,4,58
-
-[Root.BoardSupport.Config.1.Settings.3]
 String.2.0=Performing Custom Build on $(InputFile)
 String.3.0=
 String.4.0=
@@ -1223,7 +698,6 @@ PathName=Environment
 Child=Root.Environment.Environment\inc
 Next=Root.STM8S_StdPeriph_Driver
 Config.0=Root.Environment.Config.0
-Config.1=Root.Environment.Config.1
 
 [Root.Environment.Config.0]
 Settings.0.0=Root.Environment.Config.0.Settings.0
@@ -1231,24 +705,18 @@ Settings.0.1=Root.Environment.Config.0.Settings.1
 Settings.0.2=Root.Environment.Config.0.Settings.2
 Settings.0.3=Root.Environment.Config.0.Settings.3
 
-[Root.Environment.Config.1]
-Settings.1.0=Root.Environment.Config.1.Settings.0
-Settings.1.1=Root.Environment.Config.1.Settings.1
-Settings.1.2=Root.Environment.Config.1.Settings.2
-Settings.1.3=Root.Environment.Config.1.Settings.3
-
 [Root.Environment.Config.0.Settings.0]
-String.6.0=2017,9,27,5,18,30
-String.8.0=Debug
+String.6.0=2017,11,19,17,40,3
+String.8.0=Output
 Int.0=0
 Int.1=0
 
 [Root.Environment.Config.0.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +warn +modsl -customDebCompat -customOpt +fast -customC -pp -pc99 -customLst-l -dSTM8S207 -i..\..\environment\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\boardsupport\inc -i..\..\userinterface\inc -i..\..\application\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 +warn +modsl -customOpt +fast -customC -pp -pc99 -customLst-l -dSTM8S207 -i..\..\environment\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\boardsupport\inc -i..\..\userinterface\inc -i..\..\application\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,11,7,5,19,35
+String.6.0=2017,11,19,17,40,58
 
 [Root.Environment.Config.0.Settings.2]
 String.2.0=Assembling $(InputFile)...
@@ -1258,33 +726,6 @@ String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,10,2,13,22,33
 
 [Root.Environment.Config.0.Settings.3]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Environment.Config.1.Settings.0]
-String.6.0=2017,9,27,5,18,30
-String.8.0=Release
-Int.0=0
-Int.1=0
-
-[Root.Environment.Config.1.Settings.1]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\userinterface\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -iapplication\inc -iboardsupport\inc -istm8s_stdperiph_driver\inc -iuserinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,23,18,59,49
-
-[Root.Environment.Config.1.Settings.2]
-String.2.0=Assembling $(InputFile)...
-String.3.0=castm8 $(ToolsetIncOpts) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,9,25,11,4,58
-
-[Root.Environment.Config.1.Settings.3]
 String.2.0=Performing Custom Build on $(InputFile)
 String.3.0=
 String.4.0=
@@ -1326,7 +767,6 @@ PathName=STM8S_StdPeriph_Driver
 Child=Root.STM8S_StdPeriph_Driver.STM8S_StdPeriph_Driver\inc
 Next=Root.UserInterface
 Config.0=Root.STM8S_StdPeriph_Driver.Config.0
-Config.1=Root.STM8S_StdPeriph_Driver.Config.1
 
 [Root.STM8S_StdPeriph_Driver.Config.0]
 Settings.0.0=Root.STM8S_StdPeriph_Driver.Config.0.Settings.0
@@ -1334,24 +774,18 @@ Settings.0.1=Root.STM8S_StdPeriph_Driver.Config.0.Settings.1
 Settings.0.2=Root.STM8S_StdPeriph_Driver.Config.0.Settings.2
 Settings.0.3=Root.STM8S_StdPeriph_Driver.Config.0.Settings.3
 
-[Root.STM8S_StdPeriph_Driver.Config.1]
-Settings.1.0=Root.STM8S_StdPeriph_Driver.Config.1.Settings.0
-Settings.1.1=Root.STM8S_StdPeriph_Driver.Config.1.Settings.1
-Settings.1.2=Root.STM8S_StdPeriph_Driver.Config.1.Settings.2
-Settings.1.3=Root.STM8S_StdPeriph_Driver.Config.1.Settings.3
-
 [Root.STM8S_StdPeriph_Driver.Config.0.Settings.0]
-String.6.0=2017,9,25,11,9,19
-String.8.0=Debug
+String.6.0=2017,11,19,17,40,3
+String.8.0=Output
 Int.0=0
 Int.1=0
 
 [Root.STM8S_StdPeriph_Driver.Config.0.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +warn +modsl -customDebCompat -customOpt +fast -customC -pp -pc99 -customLst-l -dSTM8S207 -i..\..\environment\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\boardsupport\inc -i..\..\userinterface\inc -i..\..\application\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 +warn +modsl -customOpt +fast -customC -pp -pc99 -customLst-l -dSTM8S207 -i..\..\environment\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\boardsupport\inc -i..\..\userinterface\inc -i..\..\application\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,11,7,5,19,35
+String.6.0=2017,11,19,17,40,58
 
 [Root.STM8S_StdPeriph_Driver.Config.0.Settings.2]
 String.2.0=Assembling $(InputFile)...
@@ -1361,33 +795,6 @@ String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,10,2,13,22,33
 
 [Root.STM8S_StdPeriph_Driver.Config.0.Settings.3]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.STM8S_StdPeriph_Driver.Config.1.Settings.0]
-String.6.0=2017,9,25,11,9,19
-String.8.0=Release
-Int.0=0
-Int.1=0
-
-[Root.STM8S_StdPeriph_Driver.Config.1.Settings.1]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\userinterface\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -iapplication\inc -iboardsupport\inc -istm8s_stdperiph_driver\inc -iuserinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,23,18,59,49
-
-[Root.STM8S_StdPeriph_Driver.Config.1.Settings.2]
-String.2.0=Assembling $(InputFile)...
-String.3.0=castm8 $(ToolsetIncOpts) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,9,25,11,4,58
-
-[Root.STM8S_StdPeriph_Driver.Config.1.Settings.3]
 String.2.0=Performing Custom Build on $(InputFile)
 String.3.0=
 String.4.0=
@@ -1603,7 +1010,6 @@ ElemType=Folder
 PathName=UserInterface
 Child=Root.UserInterface.UserInterface\inc
 Config.0=Root.UserInterface.Config.0
-Config.1=Root.UserInterface.Config.1
 
 [Root.UserInterface.Config.0]
 Settings.0.0=Root.UserInterface.Config.0.Settings.0
@@ -1611,24 +1017,18 @@ Settings.0.1=Root.UserInterface.Config.0.Settings.1
 Settings.0.2=Root.UserInterface.Config.0.Settings.2
 Settings.0.3=Root.UserInterface.Config.0.Settings.3
 
-[Root.UserInterface.Config.1]
-Settings.1.0=Root.UserInterface.Config.1.Settings.0
-Settings.1.1=Root.UserInterface.Config.1.Settings.1
-Settings.1.2=Root.UserInterface.Config.1.Settings.2
-Settings.1.3=Root.UserInterface.Config.1.Settings.3
-
 [Root.UserInterface.Config.0.Settings.0]
-String.6.0=2017,9,25,19,32,22
-String.8.0=Debug
+String.6.0=2017,11,19,17,40,3
+String.8.0=Output
 Int.0=0
 Int.1=0
 
 [Root.UserInterface.Config.0.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +warn +modsl -customDebCompat -customOpt +fast -customC -pp -pc99 -customLst-l -dSTM8S207 -i..\..\environment\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\boardsupport\inc -i..\..\userinterface\inc -i..\..\application\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 +warn +modsl -customOpt +fast -customC -pp -pc99 -customLst-l -dSTM8S207 -i..\..\environment\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\boardsupport\inc -i..\..\userinterface\inc -i..\..\application\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,11,7,5,19,35
+String.6.0=2017,11,19,17,40,58
 
 [Root.UserInterface.Config.0.Settings.2]
 String.2.0=Assembling $(InputFile)...
@@ -1638,33 +1038,6 @@ String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,10,2,13,22,33
 
 [Root.UserInterface.Config.0.Settings.3]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.UserInterface.Config.1.Settings.0]
-String.6.0=2017,9,25,19,32,22
-String.8.0=Release
-Int.0=0
-Int.1=0
-
-[Root.UserInterface.Config.1.Settings.1]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\userinterface\inc -i..\..\stm8s_stdperiph_driver\inc -i..\..\environment\inc -i..\..\boardsupport\inc -i..\..\application\inc -iapplication\inc -iboardsupport\inc -istm8s_stdperiph_driver\inc -iuserinterface\inc $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,10,23,18,59,49
-
-[Root.UserInterface.Config.1.Settings.2]
-String.2.0=Assembling $(InputFile)...
-String.3.0=castm8 $(ToolsetIncOpts) -o$(IntermPath)$(InputName).$(ObjectExt) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,9,25,11,4,58
-
-[Root.UserInterface.Config.1.Settings.3]
 String.2.0=Performing Custom Build on $(InputFile)
 String.3.0=
 String.4.0=
