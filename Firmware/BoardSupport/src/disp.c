@@ -7,9 +7,6 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-//#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "bsp.h"
 
 /* Private define ------------------------------------------------------------*/
@@ -366,7 +363,6 @@ void DISP_UpperPutStr(char *pStr, uint8_t startDispNo)
       DisplayBuff[dispBuffOffset + count] = UppDispCalcSegment(pStr[count]);
     }
   }
-  //printf("\n\r%s", pStr);
 }
 
 /**

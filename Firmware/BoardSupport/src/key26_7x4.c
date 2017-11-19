@@ -8,9 +8,6 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-//#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "bsp.h"
 
 /* Private define ------------------------------------------------------------*/
@@ -316,7 +313,7 @@ static void KpdScan(KEY_VAL_MAP_T * pKeyValueMap, KEY_INFO_T * pKeyInfo)
     {
       uint8_t retVal = 0;
       
-      SetScanLine(scanLine + 1);
+      SetScanLine((uint8_t)(scanLine + 1));
       retVal = GetReturnVal();
       
       if(retVal == 0)

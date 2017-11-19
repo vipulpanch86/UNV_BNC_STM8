@@ -57,7 +57,6 @@ static const char * KEYS_STATE[] =
 void KeyCallBack(uint8_t keyNb, uint8_t keyState)
 {
   printf("\n\r%s, St: %s", KEYS_STR[keyNb], KEYS_STATE[keyState]);
-  //printf("\n\rKey: %u, St: %u", (uint32_t)keyNb, (uint32_t)keyState);
 }
 
 /* Public functions ----------------------------------------------------------*/
@@ -71,7 +70,6 @@ void key_test(void)
   /* BSP Initialization -----------------------------------------*/
   BSP_Init();
   KPD_Init(KPD_TYPE_17_9X2, 20, KeyCallBack);
-  //KPD_AddEventListener(KeyCallBack);
   
   printf("\r\nKEYPAD Test");
 

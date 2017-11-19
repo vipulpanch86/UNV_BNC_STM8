@@ -1,11 +1,8 @@
 /**
   ******************************************************************************
-  * @file    main.c
+  * @file    disp_test.c
   * @author  Vipul Panchal
-  * @version  V1.0.0
-  * @date     11-August-2015
-  * @brief   This file contains the main function for Currency counting
-  *          application.
+  * @brief   This file contains the function for testing Display
   ******************************************************************************
   */
 
@@ -31,18 +28,13 @@ void DISP_Update(void)
   char buffer[32];
   
   sprintf(buffer, "%05d", (int)(uppercounter));
-  //printf("\n\r%s", &buffer[0]);
   DISP_UpperPutStr(&buffer[0], 0);
-  //DISP_UpperPutStr("HELLO", 0);
 
   sprintf(buffer, "%03d", (int)(1000 - lowercounter));
-  //printf("\n\r%s", &buffer[0]);
   DISP_LowerPutStr(&buffer[0], 0);
-  //DISP_LowerPutStr("1234", 0);
+
   sprintf(buffer, "%04d", (int)(turretcounter));
-  //printf("\n\r%s", &buffer[0]);
   DISP_TurrPutStr(&buffer[0], 0);
-  //DISP_TurrPutStr("ABCD", 0);
   
   uppercounter++;
   uppercounter %= 100000;

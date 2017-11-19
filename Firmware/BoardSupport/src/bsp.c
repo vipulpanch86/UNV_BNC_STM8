@@ -311,11 +311,6 @@ void BSP_EepromInit(void)
   */
 void BSP_Init(void)
 {
-//  CLK_DeInit();
-  
-  /* Clock divider to HSI/1 */
-//  CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1);
-  
   /* GPIO configuration */
   GPIO_Config();
 
@@ -377,16 +372,12 @@ uint8_t BSP_ReadRotDipSwitch(void)
   */
 void BSP_ReadFromFlash(uint16_t size, uint8_t *pData)
 {
-#ifdef RET_MEM_FLASH
   uint16_t cnt;
 
   for(cnt = 0; cnt < size; cnt++)
   {
     pData[cnt] = FLASH_ReadByte(DATA_START_ADDR + cnt);
   }
-#else
-  EE_ReadBuffer(pData, 0, &size);
-#endif
 }
 
 /**
@@ -397,7 +388,6 @@ void BSP_ReadFromFlash(uint16_t size, uint8_t *pData)
   */
 void BSP_WriteToFlash(uint16_t size, uint8_t *pData)
 {
-#ifdef RET_MEM_FLASH
   uint16_t cnt;
 
   FLASH_Unlock(FLASH_MEMTYPE_DATA);
@@ -411,14 +401,5 @@ void BSP_WriteToFlash(uint16_t size, uint8_t *pData)
   }
 
   FLASH_Lock(FLASH_MEMTYPE_DATA);
-#else
-  /* Disable Write Protect */
-  BSP_ClrGPIO(EE_I2C_WP_GPIO_PORT, EE_I2C_WP_GPIO_PIN);
-
-  EE_WriteBuffer(pData, 0, size);
-
-  /* Enable Write Protect */
-  BSP_SetGPIO(EE_I2C_WP_GPIO_PORT, EE_I2C_WP_GPIO_PIN);
-#endif
 }
 /***********************END OF FILE************************/

@@ -9,7 +9,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s.h"
-//#include "stdio.h"
 /**
   * @addtogroup UART1_Printf
   * @{

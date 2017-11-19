@@ -2,17 +2,12 @@
   ******************************************************************************
   * @file    key_18_3x7.c
   * @author  Vipul Panchal
-  * @version V1.0.0
-  * @date    31-July-2017
   * @brief   Contains the functions to handle matrix keypad scanning,
   *          read/write keypad status specific to 18 keys 3x7 keypad
   ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
-//#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "bsp.h"
 
 /* Private define ------------------------------------------------------------*/

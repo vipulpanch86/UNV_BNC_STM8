@@ -15,12 +15,8 @@
 #define DISP_EXEC_MS (1)
 #define KPD_SCAN_MS  (1)
 #define BUZZ_EXEC_MS (100)
-#define RET_EXEC_MS  (1)
 #define SNR_EXEC_MS  (1)
 #define UI_EXEC_MS   (10)
-
-//#define STUB_ROT_DIP_SW
-//#define ROT_DIP_SW  (1)
 
 /* Private define ------------------------------------------------------------*/
 #ifdef _RAISONANCE_
@@ -215,26 +211,22 @@ static uint8_t WaitLastNoteCount = 0;
   */
 void DisplayKeypadInit(void) 
 {
-  #ifdef STUB_ROT_DIP_SW
-  uint8_t rotDipSwitchPos = ROT_DIP_SW;
-  #else
   uint8_t rotDipSwitchPos = BSP_ReadRotDipSwitch();
-  #endif
   
-//  printf("\n\rDip = %u", (uint32_t)rotDipSwitchPos);
+#ifdef DEBUG 
+  printf("\n\rDip = %u", (uint32_t)rotDipSwitchPos);
+#endif
+
   rotDipSwitchPos = (uint8_t)((rotDipSwitchPos >= DISP_KPD_TYPE_MAX) ? 
                               (DISP_KPD_TYPE_MAX - 1) : (rotDipSwitchPos));
   
   FlagValueCount = DISP_KPD_TYPE_MAP[rotDipSwitchPos].valueEnable;
   DISP_Init(DISP_KPD_TYPE_MAP[rotDipSwitchPos].dispIndex);
   KPD_Init(DISP_KPD_TYPE_MAP[rotDipSwitchPos].kpdIndex, 20, UI_KeyCallBack);
-  
-//  printf("\n\rdisp upper max val = 0x%X", (uint32_t)DISP_UPPER_MAX_VALUE);
-//  printf("\n\rdisp lower max val = %u", (uint32_t)DISP_LOWER_MAX_VALUE);
 }
 
 
-#if 1
+#ifndef TEST_PERIPHERAL
 /**
   * @brief  Main program.
   * @param  None
@@ -247,9 +239,8 @@ void main(void)
   /* BSP Initialization -----------------------------------------*/
   BSP_Init();
   
+  /* Power DElay 1.5 Seconds */
   BSP_DelayMs(1500);
-  /* Initialize the I2C EEPROM driver ----------------------------------------*/
-  //EE_Init();  
   
   /* Initialize Display & Keypad */
   DisplayKeypadInit();
@@ -274,9 +265,7 @@ void main(void)
   {
     static uint32_t BkupDispExecTime = 0;
     static uint32_t BkupKpdScanTime = 0;
-//    static uint32_t BkupTurrExecTime = 0;
     static uint32_t BkupBuzzExecTime = 0;
-    static uint32_t BkupRetExecTime = 0;
     static uint32_t BkupSnrExecTime = 0;
     static uint32_t BkupUiExecTime = 0;
     
@@ -310,12 +299,6 @@ void main(void)
     {
       BSP_AdcExec();
     }
-
-    if((sysTime - BkupRetExecTime) >= RET_EXEC_MS)
-    {
-      BkupRetExecTime = sysTime;
-      RET_Exec();
-    }
     
     if((sysTime - BkupSnrExecTime) >= SNR_EXEC_MS)
     {
@@ -337,7 +320,7 @@ void main(void)
 }
 #endif
 
-#if 0
+#ifdef TEST_PERIPHERAL
 /**
   * @brief  Main program.
   * @param  None
@@ -350,7 +333,6 @@ int main(void)
 }
 #endif
 
-#if 0
 /**
   * @brief Retargets the C library printf function to the UART.
   * @param c Character to send
@@ -383,7 +365,7 @@ GETCHAR_PROTOTYPE
     c = UART1_ReceiveData8();
   return (c);
 }
-#endif
+
 #ifdef USE_FULL_ASSERT
 
 /**

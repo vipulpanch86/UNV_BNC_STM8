@@ -1,16 +1,12 @@
 /**
   ******************************************************************************
   * @file    ui_processhome.c
-  * @author  Mahajan Electronics Team
-  * @version V1.0.0
-  * @date    16-August-2015
+  * @author  Vipul Panchal
   * @brief   This file contains ui home process function
   ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include <string.h>
-
 #include "bsp.h"
 #include "ui.h"
 
@@ -226,11 +222,11 @@ static void HomeDispCounter(void)
     {
       if(TopDispValue > dispUppMaxResln)
       {
-        xsprintf((char *)&strTopDisp[0], "%lu%c", TopDispValue / (dispUppMaxResln + 1), DISP_WRAP_CHAR);
+        sprintf((char *)&strTopDisp[0], "%lu%c", TopDispValue / (dispUppMaxResln + 1), DISP_WRAP_CHAR);
       }
       else
       {
-        xsprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT, TopDispValue);
+        sprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT, TopDispValue);
       }
     }
     else
@@ -247,37 +243,37 @@ static void HomeDispCounter(void)
 
         if(lacsDispEn == TRUE)
         {
-          xsprintf((char *)&strTopDisp[0], "%lu%c", TopDispValue / (dispUppMaxResln + 1), DISP_WRAP_CHAR);
+          sprintf((char *)&strTopDisp[0], "%lu%c", TopDispValue / (dispUppMaxResln + 1), DISP_WRAP_CHAR);
         }
         else
         {
-          xsprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT,
+          sprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT,
                   TopDispValue % (dispUppMaxResln + 1));
         }
       }
       else
       {
-        xsprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT, TopDispValue);
+        sprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT, TopDispValue);
       }
     }
   }
   else
   {
-    xsprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT, TopDispValue);
+    sprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT, TopDispValue);
     strTopDisp[0] = (char)charCountMode[cntMode];
   }
 
   /* Bottom Display */
   if(BotDispValue > 0)
   {
-    xsprintf((char *)&strBotDisp[0], DISP_LOWER_STR_FORMAT, BotDispValue);
+    sprintf((char *)&strBotDisp[0], DISP_LOWER_STR_FORMAT, BotDispValue);
   }
 
   DISP_UpperPutStr((char *)&strTopDisp[0], 0);
   DISP_LowerPutStr((char *)&strBotDisp[0], 0);
 
   DISP_TurrPutStr((char *)&strTopDisp[DISP_UPPER_MAX_NB - DISP_TURRET_MAX_NB], 0);
-  TURR_PutVal((uint16_t)(TopDispValue % 10000)); /* Pending - Magic Number */
+  TURR_PutVal((uint16_t)(TopDispValue % (DISP_TURRET_MAX_VALUE + 1)));
 }
 
 /**
@@ -291,12 +287,10 @@ static uint8_t ProcHomeTestKeypad(void *param, UI_MSG_T *pMsg)
 #define KEY_CHECK_REFRESH    500
 #define BEEP_ON_TIME         200
 
-  //static uint8_t BeepOn = FALSE;
 
   switch(pMsg->message)
   {
     case UIMSG_INIT:
-      //BeepOn = FALSE;
       UI_SetRefreshMsg(KEY_CHECK_REFRESH * 2);
       break;
 
@@ -624,7 +618,6 @@ static uint8_t ProcHomeTestStart(void *param, UI_MSG_T *pMsg)
 
       return(SwitchHomeSubProcess(param, &msg));
     }
-    //break;
 
     case UIMSG_SW_CAM:
     {
@@ -689,7 +682,6 @@ static uint8_t ProcHomeTestEnd(void *param, UI_MSG_T *pMsg)
 
       return(SwitchHomeSubProcess(param, &msg));
     }
-    //break;
 
     default:
       break;
@@ -1324,7 +1316,7 @@ static uint8_t ProcHomeEdit(void *param, UI_MSG_T *pMsg)
 
   DISP_LowerClear();
 
-  xsprintf(&string[0], DISP_LOWER_STR_FORMAT, EditVal);
+  sprintf(&string[0], DISP_LOWER_STR_FORMAT, EditVal);
   DISP_LowerPutStr(&string[0], 0);
 
   return UI_RC_CONTINUE;
@@ -1382,7 +1374,6 @@ static uint8_t ProcHomeStartHMotor(void *param, UI_MSG_T *pMsg)
 
       return(SwitchHomeSubProcess(param, &msg));
     }
-    //break;
 
     case UIMSG_SW_CAM:
     {
@@ -1439,7 +1430,6 @@ static uint8_t ProcHomeStartHMotor(void *param, UI_MSG_T *pMsg)
 static uint8_t ProcHomeStartSMotor(void *param, UI_MSG_T *pMsg)
 {
 #define SENSOR_TIMEOUT  (500)
-//  char string[8];
 
   uint32_t accSensorCount = 0;
   uint8_t flagAutoCount = AUTO_GetFlag();
@@ -1480,7 +1470,6 @@ static uint8_t ProcHomeStartSMotor(void *param, UI_MSG_T *pMsg)
 
       return(SwitchHomeSubProcess(param, &msg));
     }
-    //break;
 
     case UIMSG_COUNTER:
     {
@@ -1760,7 +1749,6 @@ static uint8_t ProcHomeStartSCoil(void *param, UI_MSG_T *pMsg)
 
       return (SwitchHomeSubProcess(param, &msg));
     }
-    //break;
 
     case UIMSG_SW_RESET:
     {
@@ -1822,7 +1810,6 @@ static uint8_t ProcHomeStopHMotor(void *param, UI_MSG_T *pMsg)
       
       return(SwitchHomeSubProcess(param, &msg));
     }
-    //break;
 
     case UIMSG_SW_CAM:
     {
@@ -1932,41 +1919,23 @@ static uint8_t ProcHomeStopHMotor(void *param, UI_MSG_T *pMsg)
   */
 static uint8_t ProcHomeWriteMemory(void *param, UI_MSG_T *pMsg)
 {
-#define  MEMORY_WRITE_TIME  100
-
   switch(pMsg->message)
   {
     case UIMSG_INIT:
     {
- //     DISP_ClearAll();
-      
-      RET_WriteRetEnbale(TRUE);
-/*
-      UI_SetRefreshMsg(MEMORY_WRITE_TIME);
-    }
-    break;
-
-    case UIMSG_REFRESH:
-    {
-*/
       UI_MSG_T msg = {0, UIMSG_INIT};
-
-//      RET_WriteRetEnbale(FALSE);
 
       pfProcHome = PF_PROC_HOME_LIST[PROC_HOME_IDLE];
       HomeDispCounter();
       
       return (SwitchHomeSubProcess(param, &msg));
     }
-    //break;
 
     default:
       break;
   }
 
   return UI_RC_CONTINUE;
-
-#undef  MEMORY_WRITE_TIME
 }
 
 /**

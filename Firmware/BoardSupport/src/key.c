@@ -8,9 +8,6 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-//#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "bsp.h"
 
 /* External Declaration-------------------------------------------------------*/
@@ -36,9 +33,7 @@ static const KPD_TYPE_T * KeypadType[KPD_TYPE_MAX_NB] =
 /* Private variables ---------------------------------------------------------*/
 static  KEY_INFO_T KeyInfo[KPD_KEY_MAX];
 static const KPD_TYPE_T * pKeypad = NULL;
-//static  uint8_t    KeyScanNo      = 0;
 static  uint8_t    DebounceTime   = 0;
-//static  uint32_t   KeyScanTimer   = 0;
 static  void (* KeypadCB)(uint8_t, uint8_t);
 
 /* Private function prototypes -----------------------------------------------*/
@@ -68,9 +63,6 @@ void KPD_Init(uint8_t index, uint8_t debounce, void (* cb)(uint8_t, uint8_t))
 
   DebounceTime = (uint8_t)((debounce < 1) ? (1) : (debounce));
   KeypadCB = cb;
-  
-//  KeyScanTimer = 0;
-//  KeyScanNo = 0;
 
   for(key = 0; key < KPD_KEY_MAX; key++)
   {

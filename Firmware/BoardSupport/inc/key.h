@@ -13,15 +13,6 @@
 extern "C" {
 #endif
 
-#define OPEN           (0)
-#define CLOSED         (1)
-
-#define LOW            (0)
-#define HIGH           (1)
-
-//#define FALSE          (0)
-//#define TRUE           (1)
-
 /* Key Press Status */
 #define KPD_KEY_RELEASED               (0)
 #define KPD_KEY_PRESSED                (1)
@@ -68,18 +59,6 @@ typedef enum
   KPD_KEY_UNITS,
   KPD_KEY_MAX
 } KPD_KEY_LIST_T;  
-
-/* Pending - Temporary dor avoiding Compilation problems */
-#if (0)
-#define KPD_KEY_V10    (KPD_KEY_DIG1)
-#define KPD_KEY_V20    (KPD_KEY_DIG2)
-#define KPD_KEY_V50    (KPD_KEY_DIG3)
-#define KPD_KEY_V100   (KPD_KEY_DIG4)
-#define KPD_KEY_V500   (KPD_KEY_DIG5)
-#define KPD_KEY_V1000  (KPD_KEY_DIG6)
-#define KPD_KEY_TENS   (KPD_KEY_UP)
-#define KPD_KEY_UNITS  (KPD_KEY_DOWN)
-#endif
 
 typedef enum 
 {

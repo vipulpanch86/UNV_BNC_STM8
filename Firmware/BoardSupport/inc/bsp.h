@@ -12,15 +12,12 @@
 #define __BSP_H
 
 /* Includes ------------------------------------------------------------------*/
-//#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 /* Contains the description of all STM8 hardware registers */
 #include "stm8s.h"
-
-/* Small footprint Printf handler */
-#include "xprintf.h"
 
 /* Private define ------------------------------------------------------------*/
 #define BSP_SW_VERSION        100
@@ -30,6 +27,8 @@
 
 #define LOW                   (0)
 #define HIGH                  (1)
+
+#define BIT(n)                (1<<(n))
 
 #define CONN_PIN3_GPIO_PORT   (GPIOD)
 #define CONN_PIN3_GPIO_PIN    (GPIO_PIN_0)
@@ -415,7 +414,6 @@ void BSP_EepromInit(void);
 #include "key.h"
 #include "switch.h"
 #include "turret.h"
-#include "eeprom.h"
 
 #endif /* __BSP_H */
 

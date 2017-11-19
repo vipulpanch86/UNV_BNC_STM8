@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    ui_processuvset.c
   * @author  Vipul Panchal
-  * @version V1.0.0
-  * @date    29-October-2015
   * @brief   This file contains ui UV Setting process function
   ******************************************************************************
   */
@@ -242,14 +240,14 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
       }
     }    
 
-    xsprintf((char *)&string[0], DISP_LOWER_STR_FORMAT, EditVal);
+    sprintf((char *)&string[0], DISP_LOWER_STR_FORMAT, EditVal);
   }
   else
   {
     uint32_t uvLevel = 0;
 
     REG_GetValue(&uvLevel, REG_ID_UV_LVL);
-    xsprintf((char *)&string[0], DISP_LOWER_STR_FORMAT, uvLevel);
+    sprintf((char *)&string[0], DISP_LOWER_STR_FORMAT, uvLevel);
   }
 
   DISP_ClearAll();
@@ -272,31 +270,16 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
   */
 static uint8_t ProcUvsetWrite(void *param, UI_MSG_T *pMsg)
 {
-#define  MEMORY_WRITE_TIME  700
-
   switch(pMsg->message)
   {
     case UIMSG_INIT:
     {
-      DISP_ClearAll();
-
-      RET_WriteRetEnbale(TRUE);
-
-      UI_SetRefreshMsg(MEMORY_WRITE_TIME);
-    }
-    break;
-
-    case UIMSG_REFRESH:
-    {
       UI_MSG_T msg = {0, UIMSG_INIT};
-
-      RET_WriteRetEnbale(FALSE);
 
       pfProcUvset = PF_PROC_UVSET_LIST[PROC_UVSET_EDIT];
 
       return (pfProcUvset(param, &msg));
     }
-    //break;
 
     default:
       break;

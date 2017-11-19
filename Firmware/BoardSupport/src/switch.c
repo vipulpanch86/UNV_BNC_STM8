@@ -7,9 +7,6 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-//#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "bsp.h"
 
 /* Private define ------------------------------------------------------------*/
@@ -151,9 +148,8 @@ void SW_Scan(void)
   /* Scan and set switch State */  
   for(swNo = 0; swNo < SW_MAX; swNo++)
   {
-    volatile uint8_t swPressState = ((SW_GPIO_PORT[swNo]->IDR & \
-                     SW_GPIO_PIN[swNo]) == 0) ?  CLOSED : OPEN;
-    //printf("\n\rSW = %d, IDR = %d", (int)swNo, (int)SW_GPIO_PORT[swNo]->IDR);
+    volatile uint8_t swPressState = (uint8_t)(((SW_GPIO_PORT[swNo]->IDR & \
+                     SW_GPIO_PIN[swNo]) == 0) ?  CLOSED : OPEN);
     /* Check if the switch state is changed */
     if(swPressState != SwInfo[swNo].press)
     {

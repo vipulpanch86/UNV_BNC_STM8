@@ -1,9 +1,7 @@
 /**
   ******************************************************************************
   * @file    ui_processsetm.c
-  * @author  Mahajan Electronics Team
-  * @version V1.0.0
-  * @date    11-November-2015
+  * @author  Vipul Panchal
   * @brief   This file contains ui Set Mode process function
   ******************************************************************************
   */

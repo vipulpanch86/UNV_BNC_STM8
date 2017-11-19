@@ -42,8 +42,6 @@ extern "C" {
 /* Display Wrap Character Definition */
 #define DISP_WRAP_CHAR       (pDisp->valWrapChar)
   
-/* Pending - need to decide proper place */
-#define BIT(n)  (1<<(n))
   
 typedef void ( *F_DISP_INIT )( void );
 typedef void ( *F_DISP_WRITE )( uint8_t, uint16_t );

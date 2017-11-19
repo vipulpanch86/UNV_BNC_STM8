@@ -1,10 +1,8 @@
 /**
   ******************************************************************************
-  * @file    ui_processcount.c
-  * @author  Mahajan Electronics Team
-  * @version V1.0.0
-  * @date    16-August-2015
-  * @brief   This file contains ui count process function
+  * @file    ui_processcntlg.c
+  * @author  Vipul Panchal
+  * @brief   This file contains ui count log process function
   ******************************************************************************
   */
 
@@ -95,7 +93,7 @@ uint8_t UI_ProcessCntlg(void *pParam, UI_MSG_T *pMsg)
 
   DISP_ClearAll();
 
-  xsprintf((char *)&string[0], DISP_LOWER_STR_FORMAT, cntLog);
+  sprintf((char *)&string[0], DISP_LOWER_STR_FORMAT, cntLog);
   DISP_LowerPutStr((char *)&string[0], 0);
 
   DISP_UpperPutStr((char *)pCntLogtrings[cntLogType], 0);
