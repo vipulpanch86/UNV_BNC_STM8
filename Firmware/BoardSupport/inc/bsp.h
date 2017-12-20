@@ -221,6 +221,9 @@
 #define EE_DIRECTION_TX        (0)
 #define EE_DIRECTION_RX        (1)
 
+#define WELCOME_MSG_SIZE        16
+#define WELCOME_MSG_ADDR        0x004000
+
 /**
   * @brief  Writes high level to the specified GPIO pins.
   * @param  GPIOx : Select the GPIO peripheral number (x = A to I).

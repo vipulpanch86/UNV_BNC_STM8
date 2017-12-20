@@ -82,6 +82,10 @@
 #if (UI_PROC_ISWT_DEF == 1)
   #include "ui_processiswitch.c"
 #endif
+
+#if (UI_PROC_WMSG_DEF == 1)
+  #include "ui_processmsgset.c"
+#endif
 /**
   * @}
   */
@@ -171,6 +175,10 @@ const UI_PROC_PF UI_PROCESS_INFO_LIST[] =
 
   #if (UI_PROC_ISWT_DEF == 1)
   UI_ProcessISwitch,
+  #endif
+
+  #if (UI_PROC_WMSG_DEF == 1)
+  UI_ProcessMsgSet,
   #endif
 };
 

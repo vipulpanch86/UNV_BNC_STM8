@@ -483,7 +483,7 @@ static uint8_t ProcHomeWelcomeMsg(void *param, UI_MSG_T *pMsg)
 #define WELCOME_MSG_INTERVAL   (250)
 
   static uint8_t msgStartCharNo, msgStartDispNo, msgNbDispChar;
-  static const char *pStrWelcomeMsg = (char *)FLASH_DATA_START_PHYSICAL_ADDRESS;
+  static const char *pStrWelcomeMsg = (char *)WELCOME_MSG_ADDR;
   uint32_t powerOnDone = FALSE;
   REG_GetValue(&powerOnDone, REG_ID_POWER_ON_FLAG);
 
@@ -1347,6 +1347,7 @@ static uint8_t ProcHomeStartHMotor(void *param, UI_MSG_T *pMsg)
 
       if(flagUVDetect == TRUE)
       {
+        UV_SetAmbientValue(BSP_GetADC());
         BSP_UV_DetectEnable(TRUE);
       }
 

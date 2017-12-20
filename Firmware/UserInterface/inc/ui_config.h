@@ -126,6 +126,7 @@ extern "C" {
 #define UI_PROC_SCOIL_DEF      1
 #define UI_PROC_HSWT_DEF       1
 #define UI_PROC_ISWT_DEF       1
+#define UI_PROC_WMSG_DEF       1
 
 /**
   * @}

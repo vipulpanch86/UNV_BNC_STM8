@@ -100,6 +100,10 @@ typedef enum
   UI_PROC_ISWT_ID,
   #endif
 
+  #if (UI_PROC_WMSG_DEF == 1)
+  UI_PROC_WMSG_ID,
+  #endif
+
   UI_PROC_MAX_ITEM
 
 } UI_PROC_ID_LIST;

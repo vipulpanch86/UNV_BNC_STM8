@@ -416,10 +416,14 @@ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21)
   */
 INTERRUPT_HANDLER(ADC2_IRQHandler, 22)
 {
-
+  uint16_t adcVal;
+  extern uint16_t AdcValue;
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
+  adcVal = ADC2_GetConversionValue();
+  AdcValue = adcVal;//(AdcValue >> 1) + (adcVal >> 1);//(AdcValue >> 2) + (adcVal >> 2);
+  ADC2_ClearITPendingBit();
   return;
 
 }

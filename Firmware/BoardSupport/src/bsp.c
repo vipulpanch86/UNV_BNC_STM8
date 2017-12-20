@@ -203,9 +203,11 @@ static void UV_Config(void)
   ADC2_DeInit();
 
   /* Init ADC2 peripheral */
-  ADC2_Init(ADC2_CONVERSIONMODE_SINGLE, ADC2_CHANNEL_5, ADC2_PRESSEL_FCPU_D18, \
+  ADC2_Init(ADC2_CONVERSIONMODE_CONTINUOUS, ADC2_CHANNEL_5, ADC2_PRESSEL_FCPU_D18, \
             ADC2_EXTTRIG_TIM, DISABLE, ADC2_ALIGN_RIGHT, ADC2_SCHMITTTRIG_CHANNEL5, \
             DISABLE);
+  /* Enable EOC interrupt */
+  ADC2_ITConfig(ENABLE);
 
   /* Start ADC2 Conversion */
   ADC2_StartConversion();
@@ -255,7 +257,7 @@ void BSP_AdcExec(void)
   ADC2_ClearFlag();
   adcVal = ADC2_GetConversionValue();
   ADC2_StartConversion();
-  AdcValue = (AdcValue >> 1) + (AdcValue >> 2) + (adcVal >> 2);
+  AdcValue = (AdcValue >> 1) + (adcVal >> 1); //(AdcValue >> 2) + (adcVal >> 2);
 }
 
 /**

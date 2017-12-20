@@ -101,6 +101,7 @@ void DISP_Disable(void);
 void DISP_LowerClear(void);
 void DISP_LowerPutStr(char *pStr, uint8_t startDispNo);
 void DISP_UpperClear(void);
+void DISP_UpperPutChar(char chr, uint8_t dispNo);
 void DISP_UpperPutStr(char *pStr, uint8_t startDispNo);
 void DISP_TurrClear(void);
 void DISP_TurrPutStr(char *pStr, uint8_t startDispNo);

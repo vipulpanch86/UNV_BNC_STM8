@@ -8,7 +8,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "bsp.h"
-#include "ui.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -27,12 +26,12 @@ void uv_test(void)
 {
   /* BSP Initialization -----------------------------------------*/
   BSP_Init();
-  BSP_UV_DetectEnable(TRUE);
+  //BSP_UV_DetectEnable(TRUE);
   printf("\r\nUV Test");
 
   while(1)
   {
-    BSP_AdcExec();
+    //BSP_AdcExec();
     
     static uint32_t BkupAdcPrintTime = 0;
     uint32_t sysTime = BSP_GetSysTime();

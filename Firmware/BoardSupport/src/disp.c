@@ -342,6 +342,21 @@ void DISP_UpperClear(void)
 }
 
 /**
+  * @brief  Displays a Character on the Upper display
+  * @param  chr - Character to be displayed
+  *         dispNo - Display No. on which character to be displayed
+  * @retval None
+  */
+void DISP_UpperPutChar(char chr, uint8_t dispNo)
+{
+ if(dispNo < pDisp->uppMaxSel)
+  {
+    uint8_t dispBuffOffset = (uint8_t)(UPPER_DISP_BUFF_OFFSET +dispNo);
+
+    DisplayBuff[dispBuffOffset] = UppDispCalcSegment(chr);
+  }
+}
+/**
   * @brief  Displays a String on the Upper display
   * @param  pStr - Pointer to the String to be displayed
   *         startDispNo - Start Display No.

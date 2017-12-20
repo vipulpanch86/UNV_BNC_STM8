@@ -106,6 +106,14 @@ const UI_MENU_INFO_T MENU_MAIN_CHILD_INFO[] =
     UI_TYPE_PROCESS
   },
   #endif
+
+  #if (UI_PROC_WMSG_DEF == 1)
+  {
+    "MSGSET",
+    UI_PROC_WMSG_ID,
+    UI_TYPE_PROCESS
+  },
+  #endif
 };
 
 /**
