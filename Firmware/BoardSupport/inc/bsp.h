@@ -204,23 +204,8 @@
 #define UV_ENB_GPIO_PIN       (GPIO_PIN_4)
 
 /**
-  * @brief  I2C EEPROM Interface pins
+  * @brief Welcome Message Definition
   */  
-#define EE_I2C                 (I2C)
-#define EE_I2C_CLK             (CLK_PERIPHERAL_I2C)
-   
-#define EE_I2C_SCL_GPIO_PORT   (GPIOE)                 /* GPIOE */
-#define EE_I2C_SCL_GPIO_PIN    (GPIO_PIN_1)  /* PE.01 */
-
-#define EE_I2C_SDA_GPIO_PORT   (GPIOE)                 /* GPIOE */
-#define EE_I2C_SDA_GPIO_PIN    (GPIO_PIN_2)  /* PE.02 */
-
-#define EE_I2C_WP_GPIO_PORT    (GPIOE)                 /* GPIOE */
-#define EE_I2C_WP_GPIO_PIN     (GPIO_PIN_0)  /* PE.00 */
-
-#define EE_DIRECTION_TX        (0)
-#define EE_DIRECTION_RX        (1)
-
 #define WELCOME_MSG_SIZE        16
 #define WELCOME_MSG_ADDR        0x004000
 
@@ -409,8 +394,6 @@ void BSP_AdcExec(void);
 uint8_t BSP_ReadRotDipSwitch(void);
 void BSP_ReadFromFlash(uint16_t size, uint8_t *pData);
 void BSP_WriteToFlash(uint16_t size, uint8_t *pData);
-void BSP_EepromDeInit(void);
-void BSP_EepromInit(void);
 
 #include "main.h"
 #include "disp.h"

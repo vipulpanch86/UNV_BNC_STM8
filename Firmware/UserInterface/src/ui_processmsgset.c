@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    ui_processmsgset.c
   * @author  Vipul Panchal
-  * @version V1.0.0
-  * @date    20-December-2017
   * @brief   This file contains ui Message Setting process function
   ******************************************************************************
   */
@@ -116,7 +114,7 @@ uint8_t UI_ProcessMsgSet(void *pParam, UI_MSG_T *pMsg)
     break;
 
     case UIMSG_SW_RESET:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_SW_PRESS)
       {
         uint8_t cnt;
        

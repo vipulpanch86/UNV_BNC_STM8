@@ -13,7 +13,7 @@
 #define CPU_CLOCK_SPEED   24000000ul
 #define TIM4_PERIOD       187
 #define DATA_START_ADDR   0x004080
-#define RET_MEM_FLASH
+
 /* Private typedef -----------------------------------------------------------*/
 /* Private constants----------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -260,51 +260,6 @@ void BSP_AdcExec(void)
   AdcValue = (AdcValue >> 1) + (adcVal >> 1);
 }
 
-/**
-  * @brief  DeInitializes peripherals used by the I2C EEPROM driver.
-  * @param  None
-  * @retval None
-  */
-void BSP_EepromDeInit(void)
-{
-  /* EE_I2C Peripheral Disable */
-  I2C_Cmd(DISABLE);
-
-  /* EE_I2C DeInit */
-  I2C_DeInit();
-
-  /*!< EE_I2C Peripheral clock disable */
-  CLK_PeripheralClockConfig(EE_I2C_CLK, DISABLE);
-
-  /*!< GPIO configuration */
-  /*!< Configure EE_I2C pins: SCL */
-  GPIO_Init(EE_I2C_SCL_GPIO_PORT, EE_I2C_SCL_GPIO_PIN, GPIO_MODE_IN_PU_NO_IT);
-
-  /*!< Configure EE_I2C pins: SDA */
-  GPIO_Init(EE_I2C_SDA_GPIO_PORT, EE_I2C_SDA_GPIO_PIN, GPIO_MODE_IN_PU_NO_IT);
-}
-
-/**
-  * @brief  Initializes peripherals used by the I2C EEPROM driver.
-  * @param  None
-  * @retval None
-  */
-void BSP_EepromInit(void)
-{
-  /*!< Configure EE_I2C pins: SCL */
-  GPIO_Init(EE_I2C_SCL_GPIO_PORT, EE_I2C_SCL_GPIO_PIN, GPIO_MODE_OUT_OD_HIZ_FAST);
-
-  /*!< Configure EE_I2C pins: SDA */
-  GPIO_Init(EE_I2C_SDA_GPIO_PORT, EE_I2C_SDA_GPIO_PIN, GPIO_MODE_OUT_OD_HIZ_FAST);  
-  
-  /*!< Configure EE_WP pin: WP */
-  GPIO_Init(EE_I2C_WP_GPIO_PORT, EE_I2C_WP_GPIO_PIN, GPIO_MODE_OUT_PP_HIGH_SLOW);
-  
-   /*!< EE_I2C Peripheral clock enable */
-  CLK_PeripheralClockConfig(EE_I2C_CLK, ENABLE);
-
-}
-
 /* Public functions ----------------------------------------------------------*/
 /**
   * @brief  Initialzation Board for Functionallity
@@ -349,6 +304,7 @@ void BSP_DelayMs(uint16_t delay)
   
   while(labs(SystemTimer - backupSysTmr) < delay);
 }
+
 /**
   * @brief  Reads Rotary DIP switch
   * @param  None
@@ -366,6 +322,7 @@ uint8_t BSP_ReadRotDipSwitch(void)
   
   return (dipSwitchVal) ;
 }
+
 /**
   * @brief  Reads from Flash
   * @param  size - No of bytes to be read

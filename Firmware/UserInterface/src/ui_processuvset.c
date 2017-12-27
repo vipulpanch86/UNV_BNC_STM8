@@ -286,8 +286,6 @@ static uint8_t ProcUvsetWrite(void *param, UI_MSG_T *pMsg)
   }
 
   return UI_RC_CONTINUE;
-
-#undef  MEMORY_WRITE_TIME
 }
 
 /* Public functions ----------------------------------------------------------*/

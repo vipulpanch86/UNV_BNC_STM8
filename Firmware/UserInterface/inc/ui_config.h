@@ -56,12 +56,6 @@ extern "C" {
 #define UIMSG_SW_CAM         (2 + SW_CAM)
 #define UIMSG_SW_AUTO        (2 + SW_AUTO)
 
-
-
-
-
-
-
 /* UI Key Messages (8-63) */
 #define UIMSG_KEY_DIG0       (8 + KPD_KEY_DIG0)
 #define UIMSG_KEY_DIG1       (8 + KPD_KEY_DIG1)
