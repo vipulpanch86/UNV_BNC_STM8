@@ -422,7 +422,7 @@ INTERRUPT_HANDLER(ADC2_IRQHandler, 22)
      it is recommended to set a breakpoint on the following instruction.
   */
   adcVal = ADC2_GetConversionValue();
-  AdcValue = adcVal;//(AdcValue >> 1) + (adcVal >> 1);//(AdcValue >> 2) + (adcVal >> 2);
+  AdcValue = adcVal;
   ADC2_ClearITPendingBit();
   return;
 

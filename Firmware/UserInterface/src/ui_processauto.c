@@ -81,7 +81,8 @@ static void AutoDispCounter(uint8_t state)
   char string[8];
 
   DISP_ClearAll();
-
+  TURR_Clear();
+  
   switch(state)
   {
     case PROC_AUTO_START_H_MOTOR:
@@ -109,12 +110,14 @@ static void AutoDispCounter(uint8_t state)
         {
           DISP_UpperPutStr(&string[0], 0);
         }
+        DISP_TurrPutStr((char *)&string[DISP_UPPER_MAX_NB - DISP_TURRET_MAX_NB], 0);
+        TURR_PutVal((uint16_t)(AutoAccumulateCount % (DISP_TURRET_MAX_VALUE + 1)));
       }
       else
       {
         DISP_UpperPutStr("A", 0);
       }
-
+      
       BlinkOn = TRUE;
     }
     break;
@@ -147,6 +150,9 @@ static void AutoDispCounter(uint8_t state)
           {
             DISP_UpperPutStr((char *)&string[0], 0);
           }
+          
+          DISP_TurrPutStr((char *)&string[DISP_UPPER_MAX_NB - DISP_TURRET_MAX_NB], 0);
+          TURR_PutVal((uint16_t)(AutoAccumulateCount % (DISP_TURRET_MAX_VALUE + 1)));
         }
         else
         {
@@ -187,6 +193,7 @@ static uint8_t ProcAutoStartHMotor(void *param, UI_MSG_T *pMsg)
 
       BSP_H_MotorEnable(TRUE);
       BSP_V_PumpEnable(TRUE);
+      BSP_UV_DetectEnable(TRUE);
 
       UI_SetRefreshMsg(CAM_SW_TIMEOUT);
     }
@@ -199,6 +206,7 @@ static uint8_t ProcAutoStartHMotor(void *param, UI_MSG_T *pMsg)
 
       pfProcAuto = PF_PROC_AUTO_LIST[PROC_AUTO_ERROR_01];
 
+      BSP_UV_DetectEnable(FALSE);
       BSP_H_MotorEnable(FALSE);
       BSP_V_PumpEnable(FALSE);
 
@@ -228,6 +236,7 @@ static uint8_t ProcAutoStartHMotor(void *param, UI_MSG_T *pMsg)
         UI_MSG_T msg = {0, UIMSG_INIT};
         pfProcAuto = PF_PROC_AUTO_LIST[PROC_AUTO_STOP_H_MOTOR];
 
+        BSP_UV_DetectEnable(FALSE);
         BSP_H_MotorEnable(FALSE);
         BSP_V_PumpEnable(FALSE);
 
@@ -266,8 +275,7 @@ static uint8_t ProcAutoStartSMotor(void *param, UI_MSG_T *pMsg)
       SENSOR_SetEnable(TRUE);
       
       BSP_S_MotorEnable(TRUE);
-      BSP_V_PumpEnable(TRUE);
-
+      
       UI_SetRefreshMsg(FREE_RUN_TIMEOUT);
     }
     break;
@@ -285,9 +293,10 @@ static uint8_t ProcAutoStartSMotor(void *param, UI_MSG_T *pMsg)
 
         UI_SetRefreshMsg(0);
 
+        BSP_UV_DetectEnable(FALSE);
         BSP_S_MotorEnable(FALSE);
         BSP_V_PumpEnable(FALSE);
-
+        
         SENSOR_SetEnable(FALSE);
 
         return(SwitchAutoSubProcess(param, &msg));
@@ -300,6 +309,7 @@ static uint8_t ProcAutoStartSMotor(void *param, UI_MSG_T *pMsg)
       UI_MSG_T msg = {0, UIMSG_INIT};
       pfProcAuto = PF_PROC_AUTO_LIST[PROC_AUTO_START_B_COIL];
 
+      BSP_UV_DetectEnable(FALSE);
       BSP_V_PumpEnable(FALSE);
       BSP_S_MotorEnable(FALSE);
 
@@ -315,6 +325,7 @@ static uint8_t ProcAutoStartSMotor(void *param, UI_MSG_T *pMsg)
         UI_MSG_T msg = {0, UIMSG_INIT};
         pfProcAuto = PF_PROC_AUTO_LIST[PROC_AUTO_STOP_H_MOTOR];
 
+        BSP_UV_DetectEnable(FALSE);
         BSP_V_PumpEnable(FALSE);
         BSP_S_MotorEnable(FALSE);
 

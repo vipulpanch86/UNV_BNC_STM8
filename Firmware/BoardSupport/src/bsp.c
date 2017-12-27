@@ -257,7 +257,7 @@ void BSP_AdcExec(void)
   ADC2_ClearFlag();
   adcVal = ADC2_GetConversionValue();
   ADC2_StartConversion();
-  AdcValue = (AdcValue >> 1) + (adcVal >> 1); //(AdcValue >> 2) + (adcVal >> 2);
+  AdcValue = (AdcValue >> 1) + (adcVal >> 1);
 }
 
 /**

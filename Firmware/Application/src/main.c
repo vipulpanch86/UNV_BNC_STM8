@@ -121,7 +121,6 @@ static uint8_t UvDetected = FALSE;
 static uint32_t BkupSensorCounter = 0;
 static uint8_t WaitLastNoteCount = 0;
 
-
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 /* Public functions ----------------------------------------------------------*/
@@ -150,10 +149,6 @@ static uint8_t WaitLastNoteCount = 0;
       WaitLastNoteCount = WAIT_FOR_SENSOR_DISABLE_MS;
       BspSensorCounter = 0;
       UvDetected = FALSE;
-
-      #ifdef DEBUG 
-      printf("\r\nAmbientValue = %u", (unsigned int)AmbientUvValue);
-      #endif
       
       if(stampEnable == FALSE)
       {
@@ -169,14 +164,10 @@ static uint8_t WaitLastNoteCount = 0;
     if(bspSensorCounter != BkupSensorCounter)
     {
       UI_MSG_T msg = {0, UIMSG_COUNTER};
-      uint16_t adcValue = BSP_GetADC();
+
       SensorCounter += (bspSensorCounter - BkupSensorCounter);
       BkupSensorCounter = bspSensorCounter;
       
-      #ifdef DEBUG 
-      printf("\r\n%u, %u", (unsigned int)bspSensorCounter, (unsigned int)adcValue);
-      #endif
-
       WaitLastNoteCount = WAIT_FOR_SENSOR_DISABLE_MS;
       UI_PostMessage(&msg);
     }
@@ -279,7 +270,6 @@ void main(void)
     static uint32_t BkupDispExecTime = 0;
     static uint32_t BkupKpdScanTime = 0;
     static uint32_t BkupBuzzExecTime = 0;
-    static uint32_t BkupUvExecTime = 0;
     static uint32_t BkupSnrExecTime = 0;
     static uint32_t BkupUiExecTime = 0;
     
@@ -308,12 +298,7 @@ void main(void)
       BkupBuzzExecTime = sysTime;
       BSP_BuzzerExec();
     }
-/*  
-    if(ADC2_GetFlagStatus())
-    {
-      BSP_AdcExec();
-    }
-*/    
+	   
     if((sysTime - BkupSnrExecTime) >= SNR_EXEC_MS)
     {
       BkupSnrExecTime = sysTime;
