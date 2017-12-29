@@ -132,8 +132,8 @@ static void HomeDispCounter(void)
   static uint8_t  lacsDispEn = TRUE;
   static uint32_t BkupSysTimer = 0;
 
-  uint32_t TopDispValue, BotDispValue;
-  uint8_t strTopDisp[8], strBotDisp[8];
+  char str[8];
+  uint32_t TopDispValue, BotDispValue, TurrDispValue;
   uint32_t noteSetCount = 0, valueCounter = 0, accSensorCount = 0;
 
   uint8_t flagAutoCount = AUTO_GetFlag();
@@ -151,6 +151,7 @@ static void HomeDispCounter(void)
 
   /* Clear all Display */
   DISP_ClearAll();
+  TURR_Clear();
   
   DISP_Led(DISP_LED_ADD, (uint8_t)flagAddCount);
   DISP_Led(DISP_LED_AUTO, (uint8_t)flagAutoCount);
@@ -190,9 +191,6 @@ static void HomeDispCounter(void)
      If Add Flag is TRUE, show Added Count on 16 Seg &  Running Count on 7seg,  No display for Set Count
      If Add Flag is FALSE, show Running Count on 16seg and set count on 7seg
   */
-  memset(&strTopDisp[0], ' ', sizeof(strTopDisp));
-  memset(&strBotDisp[0], ' ', sizeof(strBotDisp));
-
   if(flagAddCount == TRUE)
   {
     TopDispValue = accSensorCount;
@@ -212,8 +210,11 @@ static void HomeDispCounter(void)
       BotDispValue = noteSetCount;
     }
   }
+  
+  TurrDispValue = sensorCounter;
 
   /* Top Display */
+  memset(&str[0], ' ', sizeof(str));
   /* Division by 10 for First Character of Mode */
   if(TopDispValue > (dispUppMaxResln / 10))
   {
@@ -222,11 +223,11 @@ static void HomeDispCounter(void)
     {
       if(TopDispValue > dispUppMaxResln)
       {
-        sprintf((char *)&strTopDisp[0], "%lu%c", TopDispValue / (dispUppMaxResln + 1), DISP_WRAP_CHAR);
+        sprintf((char *)&str[0], "%lu%c", TopDispValue / (dispUppMaxResln + 1), DISP_WRAP_CHAR);
       }
       else
       {
-        sprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT, TopDispValue);
+        sprintf((char *)&str[0], DISP_UPPER_STR_FORMAT, TopDispValue);
       }
     }
     else
@@ -243,37 +244,42 @@ static void HomeDispCounter(void)
 
         if(lacsDispEn == TRUE)
         {
-          sprintf((char *)&strTopDisp[0], "%lu%c", TopDispValue / (dispUppMaxResln + 1), DISP_WRAP_CHAR);
+          sprintf((char *)&str[0], "%lu%c", TopDispValue / (dispUppMaxResln + 1), DISP_WRAP_CHAR);
         }
         else
         {
-          sprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT,
+          sprintf((char *)&str[0], DISP_UPPER_STR_FORMAT,
                   TopDispValue % (dispUppMaxResln + 1));
         }
       }
       else
       {
-        sprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT, TopDispValue);
+        sprintf((char *)&str[0], DISP_UPPER_STR_FORMAT, TopDispValue);
       }
     }
   }
   else
   {
-    sprintf((char *)&strTopDisp[0], DISP_UPPER_STR_FORMAT, TopDispValue);
-    strTopDisp[0] = (char)charCountMode[cntMode];
+    sprintf((char *)&str[0], DISP_UPPER_STR_FORMAT, TopDispValue);
+    str[0] = (char)charCountMode[cntMode];
   }
+  
+  DISP_UpperPutStr((char *)&str[0], 0);
 
   /* Bottom Display */
+  memset(&str[0], ' ', sizeof(str));
   if(BotDispValue > 0)
   {
-    sprintf((char *)&strBotDisp[0], DISP_LOWER_STR_FORMAT, BotDispValue);
+    sprintf((char *)&str[0], DISP_LOWER_STR_FORMAT, BotDispValue);
   }
-
-  DISP_UpperPutStr((char *)&strTopDisp[0], 0);
-  DISP_LowerPutStr((char *)&strBotDisp[0], 0);
-
-  DISP_TurrPutStr((char *)&strTopDisp[DISP_UPPER_MAX_NB - DISP_TURRET_MAX_NB], 0);
-  TURR_PutVal((uint16_t)(TopDispValue % (DISP_TURRET_MAX_VALUE + 1)));
+  DISP_LowerPutStr((char *)&str[0], 0);
+  
+  /* Turret Display */
+  memset(&str[0], ' ', sizeof(str));
+  sprintf((char *)&str[0], DISP_TURR_STR_FORMAT, 
+          (uint32_t)(TurrDispValue % (DISP_TURRET_MAX_VALUE + 1)));
+  DISP_TurrPutStr((char *)&str[DISP_UPPER_MAX_NB - DISP_TURRET_MAX_NB], 0);
+  TURR_PutVal((uint16_t)(TurrDispValue % (DISP_TURRET_MAX_VALUE + 1)));
 }
 
 /**
