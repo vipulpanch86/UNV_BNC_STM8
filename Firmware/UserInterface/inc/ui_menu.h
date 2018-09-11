@@ -41,7 +41,7 @@ extern "C" {
 /* UI Menu Info Structure */
 typedef struct
 {
-  const char *pString;
+  uint8_t    str_idx;
   uint8_t    index;
   uint8_t    type;
 } UI_MENU_INFO_T;
@@ -109,4 +109,4 @@ void UI_MenuInit(void);
   * @}
   */
 
-/************************ (C) COPYRIGHT Crompton Greaves ******END OF FILE*****/
+/**********************************END OF FILE*********************************/

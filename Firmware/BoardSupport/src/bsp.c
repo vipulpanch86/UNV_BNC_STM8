@@ -179,7 +179,7 @@ static void UART1_Config(void)
 
   UART1_Init((uint32_t)9600, UART1_WORDLENGTH_8D, UART1_STOPBITS_1,
              UART1_PARITY_NO, UART1_SYNCMODE_CLOCK_DISABLE,
-             UART1_MODE_TXRX_ENABLE);
+             UART1_MODE_TX_ENABLE);
 
   /* Enable UART */
   UART1_Cmd(ENABLE);

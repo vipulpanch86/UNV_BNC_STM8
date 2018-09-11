@@ -14,8 +14,8 @@ extern "C" {
 #endif
 
 /* Key Press Status */
-#define KPD_KEY_RELEASED               (0)
-#define KPD_KEY_PRESSED                (1)
+#define KEY_RELEASED                   (0)
+#define KEY_PRESSED                    (1)
 
 /* Key Status Definition */
 #define KEY_STATE_IDLE                 (0)
@@ -68,6 +68,7 @@ typedef enum
   KPD_TYPE_18_3X7,
   KPD_TYPE_26_7X4_NOVAL,
   KPD_TYPE_26_7X4_VAL,
+  KPD_TYPE_15_4X4,
   KPD_TYPE_MAX_NB
 }KPD_TYPE_NB_T;
 

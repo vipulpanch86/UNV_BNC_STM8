@@ -34,7 +34,7 @@ uint8_t UI_ProcessHSwitch(void *pParam, UI_MSG_T *pMsg)
 
     case UIMSG_SW_CAM:
     {
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         BSP_EnableBuzzer(KEY_PRESS_BUZZ_TIME);
 
@@ -47,8 +47,9 @@ uint8_t UI_ProcessHSwitch(void *pParam, UI_MSG_T *pMsg)
     }
     break;
 
+  case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         startHopper = FALSE;
       }

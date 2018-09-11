@@ -17,6 +17,7 @@ extern KPD_TYPE_T KeypadType_17_9x2;
 extern KPD_TYPE_T KeypadType_18_3x7;
 extern KPD_TYPE_T KeypadType_26_7x4_NoVal;
 extern KPD_TYPE_T KeypadType_26_7x4_Val;
+extern KPD_TYPE_T KeypadType_15_4x4;
 
 /* Private constants----------------------------------------------------------*/
 /* Keypad info table */
@@ -28,6 +29,7 @@ static const KPD_TYPE_T * KeypadType[KPD_TYPE_MAX_NB] =
   &KeypadType_18_3x7,
   &KeypadType_26_7x4_NoVal,
   &KeypadType_26_7x4_Val,
+  &KeypadType_15_4x4
 };
 
 /* Private variables ---------------------------------------------------------*/
@@ -146,11 +148,11 @@ uint8_t KPD_IsPressed(uint8_t key)
 
   if(KeyInfo[key].state == KEY_STATE_PRESSED)
   {
-    return KPD_KEY_PRESSED;
+    return KEY_PRESSED;
   }
   else
   {
-    return KPD_KEY_RELEASED;
+    return KEY_RELEASED;
   }
 }
 

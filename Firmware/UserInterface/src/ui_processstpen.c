@@ -42,8 +42,8 @@ static UI_PROC_PF pfProcStpen = NULL;
   */
 static uint8_t ProcStpenEdit(void *pParam, UI_MSG_T *pMsg)
 {
-  static const char *LOWER_STR[] = {"DIS", "EN"};
-  static const char *UPPER_STR[] = {"DISBL", "ENBLE"};
+  const char *lower_str;
+  const char *upper_str;
 
   static uint32_t stampEnable = FALSE;
 
@@ -53,14 +53,17 @@ static uint8_t ProcStpenEdit(void *pParam, UI_MSG_T *pMsg)
     {
       REG_GetValue(&stampEnable, REG_ID_STAMP_EN_FLAG);
 
+    lower_str = (stampEnable == 0) ? UI_GetString(UI_STR_DIS) :
+          UI_GetString(UI_STR_EN);
+          
       DISP_ClearAll();
-      DISP_LowerPutStr((char *)LOWER_STR[stampEnable], 0);
+      DISP_LowerPutStr((char *)lower_str, 0);
     }
     break;
 
     case UIMSG_KEY_UP:
     case UIMSG_KEY_DOWN:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         stampEnable = stampEnable == FALSE ? TRUE : FALSE;
       }
@@ -68,7 +71,7 @@ static uint8_t ProcStpenEdit(void *pParam, UI_MSG_T *pMsg)
 
     case UIMSG_KEY_BACK:
     case UIMSG_KEY_NEXT:
-      if((uint8_t)pMsg->param == UI_KEY_RELEASE)
+      if((uint8_t)pMsg->param == UI_RELEASE)
       {
         stampEnable = stampEnable == FALSE ? TRUE : FALSE;
       }
@@ -76,14 +79,14 @@ static uint8_t ProcStpenEdit(void *pParam, UI_MSG_T *pMsg)
     
     case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         return UI_RC_FINISH;
       }
       break;
 
     case UIMSG_KEY_ENT:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
         pfProcStpen = PF_PROC_STPEN_LIST[PROC_STPEN_WRITE];
@@ -106,8 +109,11 @@ static uint8_t ProcStpenEdit(void *pParam, UI_MSG_T *pMsg)
       break;
   }
 
+  upper_str = (stampEnable == 0) ? UI_GetString(UI_STR_DISABLE) :
+        UI_GetString(UI_STR_ENABLE);
+
   DISP_UpperClear();
-  DISP_UpperPutStr((char *)UPPER_STR[stampEnable], 0);
+  DISP_UpperPutStr((char *)upper_str, 0);
 
   return UI_RC_CONTINUE;
 }

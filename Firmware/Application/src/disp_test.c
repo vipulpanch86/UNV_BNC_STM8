@@ -17,9 +17,9 @@
   
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-static uint32_t uppercounter = 99999;
-static uint16_t lowercounter = 9999;
-static uint16_t turretcounter = 9999;
+static uint32_t uppercounter = 0;
+static uint16_t lowercounter = 0;
+//static uint16_t turretcounter = 9999;
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 void DISP_Update(void)
@@ -27,23 +27,23 @@ void DISP_Update(void)
 
   char buffer[32];
   
-  sprintf(buffer, "%05d", (int)(uppercounter));
+  sprintf(buffer, "%04d", (int)(uppercounter));
   DISP_UpperPutStr(&buffer[0], 0);
 
-  sprintf(buffer, "%03d", (int)(1000 - lowercounter));
+  sprintf(buffer, "%03d", (int)(lowercounter));
   DISP_LowerPutStr(&buffer[0], 0);
 
-  sprintf(buffer, "%04d", (int)(turretcounter));
-  DISP_TurrPutStr(&buffer[0], 0);
+//  sprintf(buffer, "%04d", (int)(turretcounter));
+//  DISP_TurrPutStr(&buffer[0], 0);
   
   uppercounter++;
-  uppercounter %= 100000;
+  uppercounter %= 10000;
   
   lowercounter++;
   lowercounter %= 1000;
   
-  turretcounter++;
-  turretcounter %= 10000;
+//  turretcounter++;
+//  turretcounter %= 10000;
 }
 /* Public functions ----------------------------------------------------------*/
 /**
@@ -55,8 +55,12 @@ void disp_test(void)
 {
   /* BSP Initialization -----------------------------------------*/
   BSP_Init();
-  DISP_Init(DISP_TYPE_T8X5B8X3_T1);
+  
+  printf("\r\nDISPLAY TEST\r\n");
+  
+  DISP_Init(DISP_TYPE_T8X4B8X3);
 
+  
   
   while(1)
   {

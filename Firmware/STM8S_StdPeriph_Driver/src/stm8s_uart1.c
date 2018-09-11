@@ -49,7 +49,7 @@
   * @brief  Deinitializes the UART peripheral.
   * @param  None
   * @retval None
-	*/
+  */
 void UART1_DeInit(void)
 {
   /* Clear the Idle Line Detected bit in the status register by a read

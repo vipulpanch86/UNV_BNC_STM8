@@ -416,9 +416,9 @@ void UI_ProcessMsg(void)
           UI_UpdateMenu();
           break;
 
-        case UIMSG_KEY_BACK:
         case UIMSG_KEY_UP:
-          if((uint8_t)msg.param == UI_KEY_PRESS)
+        case UIMSG_KEY_NEXT:
+          if((uint8_t)msg.param == UI_PRESS)
           {
             /* Scroll down */
             uint8_t curChildNo = CurContext.child;
@@ -442,9 +442,9 @@ void UI_ProcessMsg(void)
           }
           break;
 
-        case UIMSG_KEY_NEXT:
         case UIMSG_KEY_DOWN:
-          if((uint8_t)msg.param == UI_KEY_PRESS)
+        case UIMSG_KEY_BACK:
+          if((uint8_t)msg.param == UI_PRESS)
           {
             /* Scroll up */
             uint8_t curChildNo = CurContext.child;
@@ -472,7 +472,7 @@ void UI_ProcessMsg(void)
         case UIMSG_SW_RESET:
 
           /* Go Back to the Previous Menu */
-          if((uint8_t)msg.param == UI_SW_PRESS)
+          if((uint8_t)msg.param == UI_PRESS)
           {
             if(RestoreContext() == UI_SUCCESS)
             {
@@ -494,7 +494,7 @@ void UI_ProcessMsg(void)
 
         case UIMSG_KEY_ENT:
           /* Enter the Menu */
-          if((uint8_t)msg.param == UI_KEY_PRESS)
+          if((uint8_t)msg.param == UI_PRESS)
           {
             UI_MENU_INFO_T *pChild;
             pChild = UI_GetMenuChildInfo(CurContext.menu, CurContext.child);
@@ -568,4 +568,4 @@ void UI_ProcessMsg(void)
   * @}
   */
 
-/************************ (C) COPYRIGHT Crompton Greaves ******END OF FILE*****/
+/**********************************END OF FILE*********************************/

@@ -25,15 +25,16 @@ uint8_t UI_ProcessISwitch(void *pParam, UI_MSG_T *pMsg)
   switch(pMsg->message)
   {
     case UIMSG_SW_AUTO:
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         BSP_EnableBuzzer(KEY_PRESS_BUZZ_TIME);
       }
 
       break;
 
+  case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         return UI_RC_FINISH;
       }

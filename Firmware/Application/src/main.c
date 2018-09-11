@@ -43,6 +43,7 @@ typedef struct
   uint8_t dispIndex;
   uint8_t kpdIndex;
   uint8_t valueEnable;
+  uint8_t strTypeIdx;
   
 }DISP_KPD_TYPE_T;
 
@@ -55,6 +56,7 @@ typedef enum
   DISP_T16X5B8X4__KPD_18_3X7_VAL,
   DISP_T16X7B8X4__KPD_26_7X4_NOVAL,
   DISP_T16X7B8X4__KPD_26_7X4_VAL,
+  DISP_T8X4B8X3__KPD_15_4X4,
   DISP_KPD_TYPE_MAX
 } DISP_KPD_BOARD_INDEX_T;
   
@@ -66,43 +68,57 @@ static const DISP_KPD_TYPE_T DISP_KPD_TYPE_MAP[DIP_SW_MAX_POS] =
     {
       .dispIndex   = DISP_TYPE_T8X5B8X3_T1, 
       .kpdIndex    = KPD_TYPE_6_6X1,
-      .valueEnable = FALSE
+      .valueEnable = FALSE,
+      .strTypeIdx  = UI_STR_TYPE_SIZE_5
     },
   [DISP_T8X5B8X3__KPD_7_7X1] = 
     {
       .dispIndex   = DISP_TYPE_T8X5B8X3_T2, 
       .kpdIndex    = KPD_TYPE_7_7X1,
-      .valueEnable = FALSE
+      .valueEnable = FALSE,
+      .strTypeIdx  = UI_STR_TYPE_SIZE_5
     },
   [DISP_T8X5B8X3__KPD_17_9X2] = 
     {
       .dispIndex   = DISP_TYPE_T8X5B8X3_T3, 
       .kpdIndex    = KPD_TYPE_17_9X2,
-      .valueEnable = FALSE
+      .valueEnable = FALSE,
+      .strTypeIdx  = UI_STR_TYPE_SIZE_5
     },
   [DISP_T16X5B8X4__KPD_18_3X7_NOVAL] = 
     {
       .dispIndex   = DISP_TYPE_T16X5B8X4, 
       .kpdIndex    = KPD_TYPE_18_3X7,
-      .valueEnable = FALSE
+      .valueEnable = FALSE,
+      .strTypeIdx  = UI_STR_TYPE_SIZE_5
     },
   [DISP_T16X5B8X4__KPD_18_3X7_VAL] = 
     {
       .dispIndex   = DISP_TYPE_T16X5B8X4, 
       .kpdIndex    = KPD_TYPE_18_3X7,
-      .valueEnable = TRUE
+      .valueEnable = TRUE,
+      .strTypeIdx  = UI_STR_TYPE_SIZE_5
     },
   [DISP_T16X7B8X4__KPD_26_7X4_NOVAL] = 
     {
       .dispIndex   = DISP_TYPE_T16X7B8X4_T1, 
       .kpdIndex    = KPD_TYPE_26_7X4_NOVAL,
-      .valueEnable = FALSE
+      .valueEnable = FALSE,
+    .strTypeIdx  = UI_STR_TYPE_SIZE_7
     },
   [DISP_T16X7B8X4__KPD_26_7X4_VAL] = 
     {
       .dispIndex   = DISP_TYPE_T16X7B8X4_T2, 
       .kpdIndex    = KPD_TYPE_26_7X4_VAL,
-      .valueEnable = TRUE
+      .valueEnable = TRUE,
+    .strTypeIdx  = UI_STR_TYPE_SIZE_7
+    },
+  [DISP_T8X4B8X3__KPD_15_4X4] = 
+    {
+      .dispIndex   = DISP_TYPE_T8X4B8X3, 
+      .kpdIndex    = KPD_TYPE_15_4X4,
+      .valueEnable = FALSE,
+    .strTypeIdx  = UI_STR_TYPE_SIZE_4
     },
 };
 
@@ -120,6 +136,7 @@ static uint8_t SensorExecState = SENSOR_EXEC_WAIT_COUNTING_EN;
 static uint8_t UvDetected = FALSE;
 static uint32_t BkupSensorCounter = 0;
 static uint8_t WaitLastNoteCount = 0;
+static uint8_t DispKpdType = 0;
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -221,12 +238,12 @@ void DisplayKeypadInit(void)
   printf("\n\rDip = %u", (uint32_t)rotDipSwitchPos);
 #endif
 
-  rotDipSwitchPos = (uint8_t)((rotDipSwitchPos >= DISP_KPD_TYPE_MAX) ? 
+  DispKpdType = (uint8_t)((rotDipSwitchPos >= DISP_KPD_TYPE_MAX) ? 
                               (DISP_KPD_TYPE_MAX - 1) : (rotDipSwitchPos));
   
-  FlagValueCount = DISP_KPD_TYPE_MAP[rotDipSwitchPos].valueEnable;
-  DISP_Init(DISP_KPD_TYPE_MAP[rotDipSwitchPos].dispIndex);
-  KPD_Init(DISP_KPD_TYPE_MAP[rotDipSwitchPos].kpdIndex, 20, UI_KeyCallBack);
+  FlagValueCount = DISP_KPD_TYPE_MAP[DispKpdType].valueEnable;
+  DISP_Init(DISP_KPD_TYPE_MAP[DispKpdType].dispIndex);
+  KPD_Init(DISP_KPD_TYPE_MAP[DispKpdType].kpdIndex, 20, UI_KeyCallBack);
 }
 
 
@@ -243,7 +260,7 @@ void main(void)
   /* BSP Initialization -----------------------------------------*/
   BSP_Init();
   
-  /* Power DElay 1.5 Seconds */
+  /* Power ON Delay 1.5 Seconds */
   BSP_DelayMs(1500);
   
   /* Initialize Display & Keypad */
@@ -264,7 +281,8 @@ void main(void)
   }
 
   UI_Init();
-
+  UI_SetStringType(DISP_KPD_TYPE_MAP[DispKpdType].strTypeIdx);
+  
   while(1)
   {
     static uint32_t BkupDispExecTime = 0;
@@ -298,7 +316,7 @@ void main(void)
       BkupBuzzExecTime = sysTime;
       BSP_BuzzerExec();
     }
-	   
+     
     if((sysTime - BkupSnrExecTime) >= SNR_EXEC_MS)
     {
       BkupSnrExecTime = sysTime;
@@ -327,8 +345,8 @@ void main(void)
   */
 int main(void)
 {
-  extern void uv_test(void);
-  uv_test();
+  extern void disp_test(void);
+  disp_test();
 }
 #endif
 

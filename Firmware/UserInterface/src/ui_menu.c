@@ -53,7 +53,7 @@ const UI_MENU_INFO_T MENU_MAIN_CHILD_INFO[] =
 {
   #if (UI_PROC_AUTO_DEF == 1)
   {
-    "AUTO",
+    UI_STR_AUTO,
     UI_PROC_AUTO_ID,
     UI_TYPE_PROCESS
   },
@@ -61,7 +61,7 @@ const UI_MENU_INFO_T MENU_MAIN_CHILD_INFO[] =
 
   #if (UI_MENU_MANL_DEF == 1)
   {
-    "MANUL",
+    UI_STR_MANUAL,
     UI_MENU_MANL_ID,
     UI_TYPE_MENU
   },
@@ -69,7 +69,7 @@ const UI_MENU_INFO_T MENU_MAIN_CHILD_INFO[] =
 
   #if (UI_PROC_SETM_DEF == 1)
   {
-    "SETMODE",
+    UI_STR_SETMODE,
     UI_PROC_SETM_ID,
     UI_TYPE_PROCESS
   },
@@ -77,7 +77,7 @@ const UI_MENU_INFO_T MENU_MAIN_CHILD_INFO[] =
 
   #if (UI_PROC_CNTLG_DEF == 1)
   {
-    "CNTLG",
+    UI_STR_COUNT_LOG,
     UI_PROC_CNTLG_ID,
     UI_TYPE_PROCESS
   },
@@ -85,7 +85,7 @@ const UI_MENU_INFO_T MENU_MAIN_CHILD_INFO[] =
 
   #if (UI_PROC_STPEN_DEF == 1)
   {
-    "STAMP",
+    UI_STR_STAMP,
     UI_PROC_STPEN_ID,
     UI_TYPE_PROCESS
   },
@@ -93,7 +93,7 @@ const UI_MENU_INFO_T MENU_MAIN_CHILD_INFO[] =
 
   #if (UI_PROC_UVSET_DEF == 1)
   {
-    "UVSET",
+    UI_STR_UVSET,
     UI_PROC_UVSET_ID,
     UI_TYPE_PROCESS
   },
@@ -101,7 +101,7 @@ const UI_MENU_INFO_T MENU_MAIN_CHILD_INFO[] =
 
   #if (UI_PROC_UVENB_DEF == 1)
   {
-    "UV",
+    UI_STR_UV,
     UI_PROC_UVENB_ID,
     UI_TYPE_PROCESS
   },
@@ -109,7 +109,7 @@ const UI_MENU_INFO_T MENU_MAIN_CHILD_INFO[] =
 
   #if (UI_PROC_WMSG_DEF == 1)
   {
-    "MSGSET",
+    UI_STR_MSG_SET,
     UI_PROC_WMSG_ID,
     UI_TYPE_PROCESS
   },
@@ -124,7 +124,7 @@ const UI_MENU_INFO_T MENU_MANL_CHILD_INFO[] =
 {
   #if (UI_MENU_MOTOR_DEF == 1)
   {
-    "MOTOR",
+    UI_STR_MOTOR,
     UI_MENU_MOTOR_ID,
     UI_TYPE_MENU
   },
@@ -132,7 +132,7 @@ const UI_MENU_INFO_T MENU_MANL_CHILD_INFO[] =
 
   #if (UI_MENU_COIL_DEF == 1)
   {
-    "COIL",
+    UI_STR_COIL,
     UI_MENU_COIL_ID,
     UI_TYPE_MENU
   },
@@ -140,7 +140,7 @@ const UI_MENU_INFO_T MENU_MANL_CHILD_INFO[] =
 
   #if (UI_PROC_KBRD_DEF == 1)
   {
-    "K-BRD",
+    UI_STR_KEYBOARD,
     UI_PROC_KBRD_ID,
     UI_TYPE_PROCESS
   },
@@ -148,7 +148,7 @@ const UI_MENU_INFO_T MENU_MANL_CHILD_INFO[] =
 
   #if (UI_MENU_SWTCH_DEF == 1)
   {
-    "SWTCH",
+    UI_STR_SWITCH,
     UI_MENU_SWTCH_ID,
     UI_TYPE_MENU
   },
@@ -156,7 +156,7 @@ const UI_MENU_INFO_T MENU_MANL_CHILD_INFO[] =
 
   #if (UI_PROC_SEG_DEF == 1)
   {
-    "SEG",
+    UI_STR_SEGMENT,
     UI_PROC_SEG_ID,
     UI_TYPE_PROCESS
   },
@@ -173,7 +173,7 @@ const UI_MENU_INFO_T MENU_MOTOR_CHILD_INFO[] =
 {
   #if (UI_PROC_PUMP_DEF == 1)
   {
-    "PUMP",
+    UI_STR_PUMP,
     UI_PROC_PUMP_ID,
     UI_TYPE_PROCESS
   },
@@ -181,7 +181,7 @@ const UI_MENU_INFO_T MENU_MOTOR_CHILD_INFO[] =
 
   #if (UI_PROC_HOPPR_DEF == 1)
   {
-    "HOPPR",
+    UI_STR_HOPPER,
     UI_PROC_HOPPR_ID,
     UI_TYPE_PROCESS
   },
@@ -189,7 +189,7 @@ const UI_MENU_INFO_T MENU_MOTOR_CHILD_INFO[] =
 
   #if (UI_PROC_SPNDL_DEF == 1)
   {
-    "SPNDL",
+    UI_STR_SPINDLE,
     UI_PROC_SPNDL_ID,
     UI_TYPE_PROCESS
   },
@@ -205,7 +205,7 @@ const UI_MENU_INFO_T MENU_COIL_CHILD_INFO[] =
 {
   #if (UI_PROC_BCOIL_DEF == 1)
   {
-    "BCOIL",
+    UI_STR_BCOIL,
     UI_PROC_BCOIL_ID,
     UI_TYPE_PROCESS
   },
@@ -213,7 +213,7 @@ const UI_MENU_INFO_T MENU_COIL_CHILD_INFO[] =
 
   #if (UI_PROC_SCOIL_DEF == 1)
   {
-    "SCOIL",
+    UI_STR_SCOIL,
     UI_PROC_SCOIL_ID,
     UI_TYPE_PROCESS
   },
@@ -229,7 +229,7 @@ const UI_MENU_INFO_T MENU_SWTCH_CHILD_INFO[] =
 {
   #if (UI_PROC_HSWT_DEF == 1)
   {
-    "H-SWT",
+    UI_STR_SW_CAM,
     UI_PROC_HSWT_ID,
     UI_TYPE_PROCESS
   },
@@ -237,7 +237,7 @@ const UI_MENU_INFO_T MENU_SWTCH_CHILD_INFO[] =
 
   #if (UI_PROC_ISWT_DEF == 1)
   {
-    "I-SWT",
+    UI_STR_SW_AUTO,
     UI_PROC_ISWT_ID,
     UI_TYPE_PROCESS
   },
@@ -493,7 +493,7 @@ void UI_UpdateMenu(void)
 
     /* Update Menu String */
     DISP_ClearAll();
-    DISP_UpperPutStr((char *)pChild->pString, 0);
+    DISP_UpperPutStr(UI_GetString(pChild->str_idx), 0);
   }
 }
 
@@ -529,4 +529,4 @@ void UI_MenuInit(void)
   * @}
   */
 
-/************************ (C) COPYRIGHT Crompton Greaves ******END OF FILE*****/
+/**********************************END OF FILE*********************************/

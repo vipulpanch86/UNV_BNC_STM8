@@ -51,7 +51,7 @@ String.107.0=$(ProjectSFile).elf
 Int.108=0
 
 [Root.Config.0.Settings.1]
-String.6.0=2017,12,27,22,44,56
+String.6.0=2018,9,11,19,43,32
 String.100.0=$(TargetFName)
 String.101.0=D:\Currency_Counter\UNV_BNC_STM8\Firmware\Project\STVD_Cosmic\Debug
 String.102.0=
@@ -208,7 +208,7 @@ String.6.0=2017,9,25,11,4,58
 
 [Root.Application.Application\src...\..\application\src\coil_test.c.Config.0.Settings.2]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 -i..\..\userinterface\inc  +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,11,7,5,13,15
@@ -218,65 +218,11 @@ String.8.0=Debug
 ElemType=File
 PathName=..\..\application\src\disp_test.c
 Next=Root.Application.Application\src...\..\application\src\key_test.c
-Config.0=Root.Application.Application\src...\..\application\src\disp_test.c.Config.0
-
-[Root.Application.Application\src...\..\application\src\disp_test.c.Config.0]
-Settings.0.0=Root.Application.Application\src...\..\application\src\disp_test.c.Config.0.Settings.0
-Settings.0.1=Root.Application.Application\src...\..\application\src\disp_test.c.Config.0.Settings.1
-Settings.0.2=Root.Application.Application\src...\..\application\src\disp_test.c.Config.0.Settings.2
-
-[Root.Application.Application\src...\..\application\src\disp_test.c.Config.0.Settings.0]
-String.6.0=2017,11,19,17,40,3
-String.8.0=Output
-Int.0=1
-Int.1=0
-
-[Root.Application.Application\src...\..\application\src\disp_test.c.Config.0.Settings.1]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Application\src...\..\application\src\disp_test.c.Config.0.Settings.2]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,11,7,5,13,15
-String.8.0=Debug
 
 [Root.Application.Application\src...\..\application\src\key_test.c]
 ElemType=File
 PathName=..\..\application\src\key_test.c
 Next=Root.Application.Application\src...\..\application\src\main.c
-Config.0=Root.Application.Application\src...\..\application\src\key_test.c.Config.0
-
-[Root.Application.Application\src...\..\application\src\key_test.c.Config.0]
-Settings.0.0=Root.Application.Application\src...\..\application\src\key_test.c.Config.0.Settings.0
-Settings.0.1=Root.Application.Application\src...\..\application\src\key_test.c.Config.0.Settings.1
-Settings.0.2=Root.Application.Application\src...\..\application\src\key_test.c.Config.0.Settings.2
-
-[Root.Application.Application\src...\..\application\src\key_test.c.Config.0.Settings.0]
-String.6.0=2017,11,19,17,40,3
-String.8.0=Output
-Int.0=1
-Int.1=0
-
-[Root.Application.Application\src...\..\application\src\key_test.c.Config.0.Settings.1]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Application\src...\..\application\src\key_test.c.Config.0.Settings.2]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,11,7,5,13,15
-String.8.0=Debug
 
 [Root.Application.Application\src...\..\application\src\main.c]
 ElemType=File
@@ -287,33 +233,6 @@ Next=Root.Application.Application\src...\..\application\src\printf_test.c
 ElemType=File
 PathName=..\..\application\src\printf_test.c
 Next=Root.Application.Application\src...\..\application\src\reg.c
-Config.0=Root.Application.Application\src...\..\application\src\printf_test.c.Config.0
-
-[Root.Application.Application\src...\..\application\src\printf_test.c.Config.0]
-Settings.0.0=Root.Application.Application\src...\..\application\src\printf_test.c.Config.0.Settings.0
-Settings.0.1=Root.Application.Application\src...\..\application\src\printf_test.c.Config.0.Settings.1
-Settings.0.2=Root.Application.Application\src...\..\application\src\printf_test.c.Config.0.Settings.2
-
-[Root.Application.Application\src...\..\application\src\printf_test.c.Config.0.Settings.0]
-String.6.0=2017,11,19,17,40,3
-String.8.0=Output
-Int.0=1
-Int.1=0
-
-[Root.Application.Application\src...\..\application\src\printf_test.c.Config.0.Settings.1]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Application\src...\..\application\src\printf_test.c.Config.0.Settings.2]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,11,7,5,13,15
-String.8.0=Debug
 
 [Root.Application.Application\src...\..\application\src\reg.c]
 ElemType=File
@@ -351,7 +270,7 @@ String.6.0=2017,9,25,11,4,58
 
 [Root.Application.Application\src...\..\application\src\rotdip_test.c.Config.0.Settings.2]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 -i..\..\userinterface\inc  +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,11,7,5,13,15
@@ -383,7 +302,7 @@ String.6.0=2017,9,25,11,4,58
 
 [Root.Application.Application\src...\..\application\src\sensor_test.c.Config.0.Settings.2]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 -i..\..\userinterface\inc  +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,11,7,5,13,15
@@ -415,7 +334,7 @@ String.6.0=2017,9,25,11,4,58
 
 [Root.Application.Application\src...\..\application\src\switch_test.c.Config.0.Settings.2]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 -i..\..\userinterface\inc  +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,11,7,5,13,15
@@ -447,7 +366,7 @@ String.6.0=2017,9,25,11,4,58
 
 [Root.Application.Application\src...\..\application\src\triac_test.c.Config.0.Settings.2]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 -i..\..\userinterface\inc  +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,11,7,5,13,15
@@ -479,7 +398,7 @@ String.6.0=2017,9,25,11,4,58
 
 [Root.Application.Application\src...\..\application\src\turrpar_test.c.Config.0.Settings.2]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 -i..\..\userinterface\inc  +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,11,7,5,13,15
@@ -511,7 +430,7 @@ String.6.0=2017,9,25,11,4,58
 
 [Root.Application.Application\src...\..\application\src\turrser_test.c.Config.0.Settings.2]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 -i..\..\userinterface\inc  +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2017,11,7,5,13,15
@@ -520,33 +439,6 @@ String.8.0=Debug
 [Root.Application.Application\src...\..\application\src\uv_test.c]
 ElemType=File
 PathName=..\..\application\src\uv_test.c
-Config.0=Root.Application.Application\src...\..\application\src\uv_test.c.Config.0
-
-[Root.Application.Application\src...\..\application\src\uv_test.c.Config.0]
-Settings.0.0=Root.Application.Application\src...\..\application\src\uv_test.c.Config.0.Settings.0
-Settings.0.1=Root.Application.Application\src...\..\application\src\uv_test.c.Config.0.Settings.1
-Settings.0.2=Root.Application.Application\src...\..\application\src\uv_test.c.Config.0.Settings.2
-
-[Root.Application.Application\src...\..\application\src\uv_test.c.Config.0.Settings.0]
-String.6.0=2017,11,19,17,40,3
-String.8.0=Output
-Int.0=1
-Int.1=0
-
-[Root.Application.Application\src...\..\application\src\uv_test.c.Config.0.Settings.1]
-String.2.0=Performing Custom Build on $(InputFile)
-String.3.0=
-String.4.0=
-String.5.0=
-String.6.0=2017,9,25,11,4,58
-
-[Root.Application.Application\src...\..\application\src\uv_test.c.Config.0.Settings.2]
-String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -no -customC-pp -pp -customLst -l $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
-String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
-String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2017,11,7,5,13,15
-String.8.0=Debug
 
 [Root.BoardSupport]
 ElemType=Folder
@@ -641,6 +533,11 @@ Next=Root.BoardSupport.BoardSupport\src...\..\boardsupport\src\disp_t16x7b8x4.c
 [Root.BoardSupport.BoardSupport\src...\..\boardsupport\src\disp_t16x7b8x4.c]
 ElemType=File
 PathName=..\..\boardsupport\src\disp_t16x7b8x4.c
+Next=Root.BoardSupport.BoardSupport\src...\..\boardsupport\src\disp_t8x4b8x3.c
+
+[Root.BoardSupport.BoardSupport\src...\..\boardsupport\src\disp_t8x4b8x3.c]
+ElemType=File
+PathName=..\..\boardsupport\src\disp_t8x4b8x3.c
 Next=Root.BoardSupport.BoardSupport\src...\..\boardsupport\src\disp_t8x5b8x3_t12.c
 
 [Root.BoardSupport.BoardSupport\src...\..\boardsupport\src\disp_t8x5b8x3_t12.c]
@@ -656,6 +553,11 @@ Next=Root.BoardSupport.BoardSupport\src...\..\boardsupport\src\key.c
 [Root.BoardSupport.BoardSupport\src...\..\boardsupport\src\key.c]
 ElemType=File
 PathName=..\..\boardsupport\src\key.c
+Next=Root.BoardSupport.BoardSupport\src...\..\boardsupport\src\key15_4x4.c
+
+[Root.BoardSupport.BoardSupport\src...\..\boardsupport\src\key15_4x4.c]
+ElemType=File
+PathName=..\..\boardsupport\src\key15_4x4.c
 Next=Root.BoardSupport.BoardSupport\src...\..\boardsupport\src\key17_9x2.c
 
 [Root.BoardSupport.BoardSupport\src...\..\boardsupport\src\key17_9x2.c]
@@ -1073,6 +975,11 @@ Next=Root.UserInterface.UserInterface\inc...\..\userinterface\inc\ui_process.h
 [Root.UserInterface.UserInterface\inc...\..\userinterface\inc\ui_process.h]
 ElemType=File
 PathName=..\..\userinterface\inc\ui_process.h
+Next=Root.UserInterface.UserInterface\inc...\..\userinterface\inc\ui_string.h
+
+[Root.UserInterface.UserInterface\inc...\..\userinterface\inc\ui_string.h]
+ElemType=File
+PathName=..\..\userinterface\inc\ui_string.h
 
 [Root.UserInterface.UserInterface\src]
 ElemType=Folder
@@ -1097,3 +1004,8 @@ Next=Root.UserInterface.UserInterface\src...\..\userinterface\src\ui_process.c
 [Root.UserInterface.UserInterface\src...\..\userinterface\src\ui_process.c]
 ElemType=File
 PathName=..\..\userinterface\src\ui_process.c
+Next=Root.UserInterface.UserInterface\src...\..\userinterface\src\ui_string.c
+
+[Root.UserInterface.UserInterface\src...\..\userinterface\src\ui_string.c]
+ElemType=File
+PathName=..\..\userinterface\src\ui_string.c

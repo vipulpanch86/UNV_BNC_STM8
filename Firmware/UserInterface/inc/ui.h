@@ -111,6 +111,7 @@ void UI_ProcessMsg(void);
 #include "ui_config.h"
 #include "ui_menu.h"
 #include "ui_process.h"
+#include "ui_string.h"
 
 #ifdef __cplusplus
 }
@@ -126,4 +127,4 @@ void UI_ProcessMsg(void);
   * @}
   */
 
-/************************ (C) COPYRIGHT Crompton Greaves ******END OF FILE*****/
+/**********************************END OF FILE*********************************/

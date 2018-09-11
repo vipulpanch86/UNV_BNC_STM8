@@ -312,9 +312,9 @@ uint16_t FLASH_ReadOptionByte(uint16_t Address)
   value_optbyte_complement = *(((NEAR uint8_t*)Address) + 1); /* Read option byte complement */
   
   /* Read-out protection option byte */
-  if(Address == 0x4800)	 
+  if(Address == 0x4800)   
   {
-    res_value =	 value_optbyte;
+    res_value =   value_optbyte;
   }
   else
   {
@@ -625,7 +625,7 @@ IN_RAM(void FLASH_EraseBlock(uint16_t BlockNum, FLASH_MemType_TypeDef FLASH_MemT
 #elif defined(STM8S105) || defined(STM8S005) || defined(STM8S103) || defined(STM8S003) || \
   defined (STM8S903) || defined (STM8AF626x) || defined (STM8AF622x)
     pwFlash = (PointerAttr uint32_t *)(MemoryAddressCast)(startaddress + ((uint32_t)BlockNum * FLASH_BLOCK_SIZE));
-#endif	/* STM8S208, STM8S207 */
+#endif  /* STM8S208, STM8S207 */
   
   /* Enable erase block mode */
   FLASH->CR2 |= FLASH_CR2_ERASE;

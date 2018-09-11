@@ -32,7 +32,7 @@ uint8_t UI_ProcessSetM(void * pParam, UI_MSG_T * pMsg)
 
     case UIMSG_KEY_UP:
     case UIMSG_KEY_DOWN:
-      if((uint8_t)pMsg->param == UI_KEY_RELEASE)
+      if((uint8_t)pMsg->param == UI_RELEASE)
       {
         flagAutoCount = (uint8_t)(flagAutoCount == FALSE ? TRUE : FALSE);
       }
@@ -40,21 +40,22 @@ uint8_t UI_ProcessSetM(void * pParam, UI_MSG_T * pMsg)
 
     case UIMSG_KEY_BACK:
     case UIMSG_KEY_NEXT:
-      if((uint8_t)pMsg->param == UI_KEY_RELEASE)
+      if((uint8_t)pMsg->param == UI_RELEASE)
       {
         flagAutoCount = (uint8_t)(flagAutoCount == FALSE ? TRUE : FALSE);
       }
       break;
 
+  case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
-      if((uint8_t)pMsg->param == UI_SW_RELEASE)
+      if((uint8_t)pMsg->param == UI_RELEASE)
       {
         return UI_RC_FINISH;
       }
       break;
 
     case UIMSG_KEY_ENT:
-      if((uint8_t)pMsg->param == UI_KEY_RELEASE)
+      if((uint8_t)pMsg->param == UI_RELEASE)
       {
         AUTO_SetFlag(flagAutoCount);
       }

@@ -168,7 +168,7 @@ static void AutoDispCounter(uint8_t state)
 
     case PROC_AUTO_ERROR_01:
     {
-      DISP_UpperPutStr("ERR-1", 0);
+      DISP_UpperPutStr(UI_GetString(UI_STR_ERROR_1), 0);
     }
     break;
   }
@@ -215,7 +215,7 @@ static uint8_t ProcAutoStartHMotor(void *param, UI_MSG_T *pMsg)
     
     case UIMSG_SW_CAM:
     {
-      if((uint8_t)pMsg->param == UI_SW_RELEASE)
+      if((uint8_t)pMsg->param == UI_RELEASE)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
         pfProcAuto = PF_PROC_AUTO_LIST[PROC_AUTO_START_S_MOTOR];
@@ -229,9 +229,10 @@ static uint8_t ProcAutoStartHMotor(void *param, UI_MSG_T *pMsg)
     }
     break;
 
+  case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
     {
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
         pfProcAuto = PF_PROC_AUTO_LIST[PROC_AUTO_STOP_H_MOTOR];
@@ -318,9 +319,10 @@ static uint8_t ProcAutoStartSMotor(void *param, UI_MSG_T *pMsg)
       return(SwitchAutoSubProcess(param, &msg));
     }
     
+  case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
     {
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
         pfProcAuto = PF_PROC_AUTO_LIST[PROC_AUTO_STOP_H_MOTOR];
@@ -418,7 +420,7 @@ static uint8_t ProcAutoStopHMotor(void *param, UI_MSG_T *pMsg)
 
     case UIMSG_SW_CAM:
     {
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
 
@@ -550,9 +552,10 @@ static uint8_t ProcAutoAddDelay(void *param, UI_MSG_T *pMsg)
     }
     break;
 
+  case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
     {
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         uint32_t sensorCounter = 0;
 
@@ -632,9 +635,10 @@ static uint8_t ProcAutoBeep(void *param, UI_MSG_T *pMsg)
     }
     break;
 
+  case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
     {
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
         pfProcAuto = PF_PROC_AUTO_LIST[PROC_AUTO_ADD_DELAY];

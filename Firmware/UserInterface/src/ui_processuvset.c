@@ -64,7 +64,7 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
     break;
 
     case UIMSG_KEY_DIG0:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 0;
         EditEnable = TRUE;
@@ -72,7 +72,7 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
       break;
 
     case UIMSG_KEY_DIG1:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 1;
         EditEnable = TRUE;
@@ -80,7 +80,7 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
       break;
 
     case UIMSG_KEY_DIG2:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 2;
         EditEnable = TRUE;
@@ -88,7 +88,7 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
       break;
 
     case UIMSG_KEY_DIG3:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 3;
         EditEnable = TRUE;
@@ -96,7 +96,7 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
       break;
 
     case UIMSG_KEY_DIG4:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 4;
         EditEnable = TRUE;
@@ -104,7 +104,7 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
       break;
 
     case UIMSG_KEY_DIG5:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 5;
         EditEnable = TRUE;
@@ -112,7 +112,7 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
       break;
 
     case UIMSG_KEY_DIG6:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 6;
         EditEnable = TRUE;
@@ -120,7 +120,7 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
       break;
 
     case UIMSG_KEY_DIG7:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 7;
         EditEnable = TRUE;
@@ -128,7 +128,7 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
       break;
 
     case UIMSG_KEY_DIG8:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 8;
         EditEnable = TRUE;
@@ -136,7 +136,7 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
       break;
 
     case UIMSG_KEY_DIG9:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 9;
         EditEnable = TRUE;
@@ -144,7 +144,7 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
       break;
 
     case UIMSG_KEY_TENS:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = KEY_TENS;
         EditEnable = TRUE;
@@ -152,7 +152,7 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
       break;
 
     case UIMSG_KEY_UNITS:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = KEY_UNITS;
         EditEnable = TRUE;
@@ -161,7 +161,7 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
     
     case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         if(EditEnable == TRUE)
         {
@@ -183,7 +183,7 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
       break;
 
     case UIMSG_KEY_ENT:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
         pfProcUvset = PF_PROC_UVSET_LIST[PROC_UVSET_WRITE];
@@ -252,7 +252,7 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
 
   DISP_ClearAll();
 
-  DISP_UpperPutStr("UVSET", 0);
+  DISP_UpperPutStr(UI_GetString(UI_STR_UVSET), 0);
   DISP_LowerPutStr((char *)&string[0], 0);
 
   return UI_RC_CONTINUE;

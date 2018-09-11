@@ -114,8 +114,9 @@ uint8_t UI_ProcessSegment(void *pParam, UI_MSG_T *pMsg)
     }
     break;
 
+  case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         UI_SetRefreshMsg(0);
         return UI_RC_FINISH;

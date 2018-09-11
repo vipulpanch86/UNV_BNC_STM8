@@ -33,13 +33,10 @@ extern "C" {
 /** @addtogroup UI_Callback_Exported_Constants
   * @{
   */
-/* Status definitions of a Keypad */
-#define  UI_KEY_PRESS          0
-#define  UI_KEY_RELEASE        1
+/* Status definitions of a Keypad / Switches */
+#define  UI_PRESS          0
+#define  UI_RELEASE        1
 
-/* Status definitions of a Switches */
-#define  UI_SW_PRESS           0
-#define  UI_SW_RELEASE         1
 /**
   * @}
   */

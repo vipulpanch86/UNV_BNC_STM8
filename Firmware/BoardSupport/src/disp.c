@@ -56,6 +56,7 @@ extern DISP_TYPE_T DispInfoT16x7B8x4_t2;
 extern DISP_TYPE_T DispInfoT8x5B8x3_t1;
 extern DISP_TYPE_T DispInfoT8x5B8x3_t2;
 extern DISP_TYPE_T DispInfoT8x5B8x3_t3;
+extern DISP_TYPE_T DispInfoT8x4B8x3;
 
 /* Private constants----------------------------------------------------------*/
 /* Font Table of 16 Segment Display for Numbers */
@@ -159,6 +160,7 @@ static const DISP_TYPE_T * DisplayType[DISP_TYPE_MAX_NB] =
   &DispInfoT16x5B8x4,
   &DispInfoT16x7B8x4_t1,
   &DispInfoT16x7B8x4_t2,
+  &DispInfoT8x4B8x3,
 };
 
 /* Private variables ---------------------------------------------------------*/

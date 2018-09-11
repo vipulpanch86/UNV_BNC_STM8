@@ -142,4 +142,4 @@ UI_PROC_PF UI_GetProcessInfo(uint16_t processId);
   * @}
   */
 
-/************************ (C) COPYRIGHT Crompton Greaves ******END OF FILE*****/
+/**********************************END OF FILE*********************************/

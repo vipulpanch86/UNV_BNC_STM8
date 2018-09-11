@@ -20,6 +20,7 @@ static const char CharacterList[] =
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
   'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
   '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+  '-', '.'
 };
 
 static uint8_t GetCharIndex(char character)
@@ -68,7 +69,7 @@ uint8_t UI_ProcessMsgSet(void *pParam, UI_MSG_T *pMsg)
   /* Up Scrolls the current character from the list */
     case UIMSG_KEY_UP:
     case UIMSG_KEY_NEXT:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         CursorCharIdx = (uint8_t)(((CursorCharIdx + 1) >= sizeof(CharacterList)) ?
                                      0 : (CursorCharIdx + 1)); 
@@ -80,7 +81,7 @@ uint8_t UI_ProcessMsgSet(void *pParam, UI_MSG_T *pMsg)
   /* Down Scrolls the current character from the list */
     case UIMSG_KEY_DOWN:
     case UIMSG_KEY_BACK:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         CursorCharIdx = (uint8_t)((CursorCharIdx == 0) ? 
                           (sizeof(CharacterList) - 1) : (CursorCharIdx - 1)); 
@@ -91,7 +92,7 @@ uint8_t UI_ProcessMsgSet(void *pParam, UI_MSG_T *pMsg)
     
   /* Moves MsgCursorPos forward */
     case UIMSG_KEY_ENT:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         MsgCursorPos = (uint8_t)(((MsgCursorPos + 1) >= WELCOME_MSG_SIZE) ?
                           0 : (MsgCursorPos + 1)); 
@@ -101,10 +102,9 @@ uint8_t UI_ProcessMsgSet(void *pParam, UI_MSG_T *pMsg)
     break;
     
   /* Moves MsgCursorPos backward */
-    case UIMSG_KEY_CLR:
     case UIMSG_KEY_MODE:
     case UIMSG_KEY_FUNC:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         MsgCursorPos = (uint8_t)((MsgCursorPos == 0) ? 
                         (WELCOME_MSG_SIZE - 1) : (MsgCursorPos - 1)); 
@@ -113,8 +113,9 @@ uint8_t UI_ProcessMsgSet(void *pParam, UI_MSG_T *pMsg)
       }
     break;
 
+    case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         uint8_t cnt;
        
@@ -156,7 +157,7 @@ uint8_t UI_ProcessMsgSet(void *pParam, UI_MSG_T *pMsg)
   /* Toggle Cursor Blinking */
   cursorBlinkOn = (uint8_t)((cursorBlinkOn == FALSE) ? TRUE : FALSE);
 
-  UI_SetRefreshMsg(500);
+  UI_SetRefreshMsg(CURSOR_BLINK_TIME);
   
   return UI_RC_CONTINUE;
 

@@ -46,8 +46,9 @@ uint8_t UI_ProcessSCoil(void *pParam, UI_MSG_T *pMsg)
       return UI_RC_FINISH;
     }
 
+  case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         if(stampEnable == TRUE)
         {

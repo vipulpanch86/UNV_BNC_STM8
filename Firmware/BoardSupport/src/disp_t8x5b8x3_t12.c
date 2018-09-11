@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    disp_t8x5b8x3.c
   * @author  Vipul Panchal
-  * @brief   This file contains display related functions
+  * @brief   This file contains display (type - 1 & 2) related functions
   *          specific to display top 5 (7Seg), bottom 3 (7Seg)
   ******************************************************************************
   */

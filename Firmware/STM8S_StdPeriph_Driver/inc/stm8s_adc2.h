@@ -157,7 +157,7 @@ typedef enum {
   * @brief  Macro used by the assert function to check the different external trigger values.
   */
 #define IS_ADC2_EXTTRIG_OK(EXTRIG) (((EXTRIG) == ADC2_EXTTRIG_TIM) || \
-								   ((EXTRIG) == ADC2_EXTTRIG_GPIO))
+                   ((EXTRIG) == ADC2_EXTTRIG_GPIO))
 
 /**
   * @brief  Macro used by the assert function to check the different alignment modes.

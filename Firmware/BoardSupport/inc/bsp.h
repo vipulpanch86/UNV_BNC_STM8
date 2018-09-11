@@ -99,6 +99,15 @@
 #define CONN_PIN26_GPIO_PORT  (GPIOC)
 #define CONN_PIN26_GPIO_PIN   (GPIO_PIN_1)
 
+#define CONN_PIN27_GPIO_PORT  (GPIOA)
+#define CONN_PIN27_GPIO_PIN   (GPIO_PIN_3)
+
+#define CONN_PIN28_GPIO_PORT  (GPIOA)
+#define CONN_PIN28_GPIO_PIN   (GPIO_PIN_4)
+
+#define CONN_PIN29_GPIO_PORT  (GPIOA)
+#define CONN_PIN29_GPIO_PIN   (GPIO_PIN_6)
+
 #define STAMP_GPIO_PORT       (GPIOE)
 #define STAMP_GPIO_PIN        (GPIO_PIN_4)
 
@@ -175,6 +184,7 @@
 
 #define SW_RST_GPIO_PORT      (CONN_PIN23_GPIO_PORT)
 #define SW_RST_GPIO_PIN       (CONN_PIN23_GPIO_PIN)
+
 
 /**
  * @brief Definition for TURRET COM port, connected to USART1

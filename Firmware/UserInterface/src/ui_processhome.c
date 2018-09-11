@@ -215,53 +215,37 @@ static void HomeDispCounter(void)
 
   /* Top Display */
   memset(&str[0], ' ', sizeof(str));
-  /* Division by 10 for First Character of Mode */
-  if(TopDispValue > (dispUppMaxResln / 10))
+  if(TopDispValue > dispUppMaxResln)
   {
-    /* Toggle Lacs & Thousand */
-    if(flagSensorEnable)
+    uint32_t SysTimer = BSP_GetSysTime();
+
+    if(flagSensorEnable == FALSE)
     {
-      if(TopDispValue > dispUppMaxResln)
+      /* Toggle Lacs & Thousand only in counting completed display*/
+      if(labs((int32_t)(SysTimer - BkupSysTimer)) >= 1000)
       {
-        sprintf((char *)&str[0], "%lu%c", TopDispValue / (dispUppMaxResln + 1), DISP_WRAP_CHAR);
-      }
-      else
-      {
-        sprintf((char *)&str[0], DISP_UPPER_STR_FORMAT, TopDispValue);
+        BkupSysTimer = SysTimer;
+        lacsDispEn = (uint8_t)((lacsDispEn == TRUE) ? FALSE : TRUE);
       }
     }
     else
     {
-      if(TopDispValue > dispUppMaxResln)
-      {
-        uint32_t SysTimer = BSP_GetSysTime();
+      lacsDispEn = FALSE;
+    }
 
-        if(labs((int32_t)(SysTimer - BkupSysTimer)) >= 1000)
-        {
-          BkupSysTimer = SysTimer;
-          lacsDispEn = (uint8_t)((lacsDispEn == TRUE) ? FALSE : TRUE);
-        }
-
-        if(lacsDispEn == TRUE)
-        {
-          sprintf((char *)&str[0], "%lu%c", TopDispValue / (dispUppMaxResln + 1), DISP_WRAP_CHAR);
-        }
-        else
-        {
-          sprintf((char *)&str[0], DISP_UPPER_STR_FORMAT,
-                  TopDispValue % (dispUppMaxResln + 1));
-        }
-      }
-      else
-      {
-        sprintf((char *)&str[0], DISP_UPPER_STR_FORMAT, TopDispValue);
-      }
+    if(lacsDispEn == TRUE)
+    {
+      sprintf((char *)&str[0], "%lu%c", TopDispValue / (dispUppMaxResln + 1), DISP_WRAP_CHAR);
+    }
+    else
+    {
+      sprintf((char *)&str[0], DISP_UPPER_STR_FORMAT,
+              TopDispValue % (dispUppMaxResln + 1));
     }
   }
   else
   {
     sprintf((char *)&str[0], DISP_UPPER_STR_FORMAT, TopDispValue);
-    str[0] = (char)charCountMode[cntMode];
   }
   
   DISP_UpperPutStr((char *)&str[0], 0);
@@ -278,7 +262,7 @@ static void HomeDispCounter(void)
   memset(&str[0], ' ', sizeof(str));
   sprintf((char *)&str[0], DISP_TURR_STR_FORMAT, 
           (uint32_t)(TurrDispValue % (DISP_TURRET_MAX_VALUE + 1)));
-  DISP_TurrPutStr((char *)&str[DISP_UPPER_MAX_NB - DISP_TURRET_MAX_NB], 0);
+  DISP_TurrPutStr((char *)&str[0], 0);
   TURR_PutVal((uint16_t)(TurrDispValue % (DISP_TURRET_MAX_VALUE + 1)));
 }
 
@@ -309,151 +293,151 @@ static uint8_t ProcHomeTestKeypad(void *param, UI_MSG_T *pMsg)
       if(KPD_IsPressed(KPD_KEY_DIG0) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("KEY-0", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_KEY_0), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_DIG1) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("KEY-1", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_KEY_1), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_DIG2) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("KEY-2", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_KEY_2), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_DIG3) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("KEY-3", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_KEY_3), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_DIG4) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("KEY-4", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_KEY_4), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_DIG5) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("KEY-5", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_KEY_5), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_DIG6) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("KEY-6", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_KEY_6), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_DIG7) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("KEY-7", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_KEY_7), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_DIG8) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("KEY-8", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_KEY_8), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_DIG9) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("KEY-9", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_KEY_9), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_ADD) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("ADD", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_ADD), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_ADD_UV) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("AD-UV", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_ADD_UV), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_VALM) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("VALUE", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_VALUE), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_UV) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("UV", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_UV), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_AUTO) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("AUTO", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_AUTO), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_MANUAL) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("MANL", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_MANUAL), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_MODE) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("MODE", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_MODE), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_FUNC) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("FUNC", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_FUNCTION), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_UP) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("UP", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_UP), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_DOWN) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("DOWN", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_DOWN), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_BACK) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("BACK", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_BACK), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_NEXT) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("NEXT", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_NEXT), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_ENT) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("ENTER", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_ENTER), 0);
       }
       else
       if(KPD_IsPressed(KPD_KEY_CLR) == KEY_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("CLEAR", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_CLEAR), 0);
       }
       else
       if(SW_IsPressed(SW_RESET) == SW_STATE_PRESSED)
       {
         BSP_EnableBuzzer(BEEP_ON_TIME);
-        DISP_UpperPutStr("RESET", 0);
+        DISP_UpperPutStr(UI_GetString(UI_STR_RESET), 0);
       }
       else
       {
@@ -556,8 +540,9 @@ static uint8_t ProcHomeWelcomeMsg(void *param, UI_MSG_T *pMsg)
     }
     break;
 
+    case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         if(powerOnDone == FALSE)
         {
@@ -627,7 +612,7 @@ static uint8_t ProcHomeTestStart(void *param, UI_MSG_T *pMsg)
 
     case UIMSG_SW_CAM:
     {
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
 
@@ -736,7 +721,7 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
 
     case UIMSG_KEY_AUTO:
     {
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         uint8_t flagAutoCount = AUTO_GetFlag();
         
@@ -749,7 +734,7 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
 
     case UIMSG_KEY_MANUAL:
     {
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         uint8_t flagAutoCount = AUTO_GetFlag();
         
@@ -762,7 +747,7 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
   
     case UIMSG_KEY_ADD:
     {
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         if(cntMode != COUNT_MODE_V)
         {
@@ -792,9 +777,10 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
 
     case UIMSG_KEY_ADD_UV:
     {
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
-        if(SW_IsPressed(SW_RESET) == SW_PRESSED)
+        if((SW_IsPressed(SW_RESET) == SW_PRESSED) || 
+            (KPD_IsPressed(KPD_KEY_CLR) == KEY_PRESSED))
         {
           UI_MSG_T msg = {0, UIMSG_INIT};
       
@@ -853,9 +839,10 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
     
     case UIMSG_KEY_FUNC:
     {
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
-        if(SW_IsPressed(SW_RESET) == SW_PRESSED)
+        if((SW_IsPressed(SW_RESET) == SW_PRESSED) || 
+            (KPD_IsPressed(KPD_KEY_CLR) == KEY_PRESSED))
         {
           if(UI_GetMenuNbTotalChild(UI_MENU_MAIN_ID) > 0)
           {
@@ -874,9 +861,10 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
         
     case UIMSG_KEY_MODE:
     {
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
-        if(SW_IsPressed(SW_RESET) == SW_PRESSED)
+        if((SW_IsPressed(SW_RESET) == SW_PRESSED) || 
+            (KPD_IsPressed(KPD_KEY_CLR) == KEY_PRESSED))
         {
           if(UI_GetMenuNbTotalChild(UI_MENU_MAIN_ID) > 0)
           {
@@ -922,7 +910,7 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
 
     case UIMSG_KEY_UV:
     {
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         uint32_t flagUVEnable = 0;
         REG_GetValue(&flagUVEnable, REG_ID_UV_EN_FLAG);
@@ -940,7 +928,7 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
 
     case UIMSG_KEY_VALM:
     {
-      if((uint8_t)pMsg->param == UI_KEY_RELEASE)
+      if((uint8_t)pMsg->param == UI_RELEASE)
       {
         uint8_t flagAddCount = ADD_GetFlag();
           
@@ -969,7 +957,7 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
 
       if(flagAutoCount == TRUE)
       {
-        if((uint8_t)pMsg->param == UI_SW_PRESS)
+        if((uint8_t)pMsg->param == UI_PRESS)
         {
           /* Auto Start */
           UI_MSG_T msg = {0, UIMSG_INIT};
@@ -992,7 +980,7 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
 
       if(flagAutoCount == FALSE)
       {
-        if((uint8_t)pMsg->param == UI_KEY_PRESS)
+        if((uint8_t)pMsg->param == UI_PRESS)
         {
           /* Manual Start */
           UI_MSG_T msg = {0, UIMSG_INIT};
@@ -1024,7 +1012,7 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
     case UIMSG_KEY_V500:
     case UIMSG_KEY_V1000:
 
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         if((cntMode == COUNT_MODE_C) ||
            (cntMode == COUNT_MODE_B))
@@ -1074,7 +1062,7 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
 
     case UIMSG_KEY_TENS:
     case UIMSG_KEY_UNITS:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         if((cntMode == COUNT_MODE_C) ||
            (cntMode == COUNT_MODE_B))
@@ -1090,8 +1078,9 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
 
       break;
 
+    case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         uint8_t cntMode = COUNTER_GetMode();
 
@@ -1151,84 +1140,84 @@ static uint8_t ProcHomeEdit(void *param, UI_MSG_T *pMsg)
   switch(pMsg->message)
   {
     case UIMSG_KEY_DIG0:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 0;
       }
       break;
 
     case UIMSG_KEY_DIG1:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 1;
       }
       break;
 
     case UIMSG_KEY_DIG2:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 2;
       }
       break;
 
     case UIMSG_KEY_DIG3:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 3;
       }
       break;
 
     case UIMSG_KEY_DIG4:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 4;
       }
       break;
 
     case UIMSG_KEY_DIG5:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 5;
       }
       break;
 
     case UIMSG_KEY_DIG6:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 6;
       }
       break;
 
     case UIMSG_KEY_DIG7:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 7;
       }
       break;
 
     case UIMSG_KEY_DIG8:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 8;
       }
       break;
 
     case UIMSG_KEY_DIG9:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = 9;
       }
       break;
 
     case UIMSG_KEY_TENS:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = KEY_TENS;
       }
       break;
 
     case UIMSG_KEY_UNITS:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         digitVal = KEY_UNITS;
       }
@@ -1236,7 +1225,7 @@ static uint8_t ProcHomeEdit(void *param, UI_MSG_T *pMsg)
 
     case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         if(EditVal < 10)
         {
@@ -1255,7 +1244,7 @@ static uint8_t ProcHomeEdit(void *param, UI_MSG_T *pMsg)
       break;
 
     case UIMSG_KEY_ENT:
-      if((uint8_t)pMsg->param == UI_KEY_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
         uint8_t cntMode = COUNTER_GetMode();
@@ -1384,7 +1373,7 @@ static uint8_t ProcHomeStartHMotor(void *param, UI_MSG_T *pMsg)
 
     case UIMSG_SW_CAM:
     {
-      if((uint8_t)pMsg->param == UI_SW_RELEASE)
+      if((uint8_t)pMsg->param == UI_RELEASE)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
         pfProcHome = PF_PROC_HOME_LIST[PROC_HOME_START_S_MOTOR];
@@ -1398,9 +1387,10 @@ static uint8_t ProcHomeStartHMotor(void *param, UI_MSG_T *pMsg)
     }
     break;
 
+    case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
     {
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         uint8_t flagUVDetect = UV_GetDetectFlag();
         UI_MSG_T msg = {0, UIMSG_INIT};
@@ -1623,9 +1613,10 @@ static uint8_t ProcHomeStartSMotor(void *param, UI_MSG_T *pMsg)
     }
     break;
 
+    case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
     {
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
         
@@ -1692,9 +1683,10 @@ static uint8_t ProcHomeStartBCoil(void *param, UI_MSG_T *pMsg)
     }
     break;
 
+    case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
     {
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
         
@@ -1757,9 +1749,10 @@ static uint8_t ProcHomeStartSCoil(void *param, UI_MSG_T *pMsg)
       return (SwitchHomeSubProcess(param, &msg));
     }
 
+    case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
     {
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
         
@@ -1805,6 +1798,7 @@ static uint8_t ProcHomeStopHMotor(void *param, UI_MSG_T *pMsg)
     }
     break;
     
+    case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
     break;
 
@@ -1820,7 +1814,7 @@ static uint8_t ProcHomeStopHMotor(void *param, UI_MSG_T *pMsg)
 
     case UIMSG_SW_CAM:
     {
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
         uint32_t accSensorCount = 0;
@@ -1982,9 +1976,10 @@ static uint8_t ProcHomeBeep(void *param, UI_MSG_T *pMsg)
     }
     break;
 
+    case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
     {
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
 
@@ -2023,7 +2018,7 @@ static uint8_t ProcHomeError01(void *param, UI_MSG_T *pMsg)
     {
       DISP_ClearAll();
 
-      DISP_UpperPutStr("ERR-1", 0);
+      DISP_UpperPutStr(UI_GetString(UI_STR_ERROR_1), 0);
     }
     break;
 
@@ -2069,9 +2064,10 @@ static uint8_t ProcHomeError02(void *param, UI_MSG_T *pMsg)
     }
     break;
 
+    case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
     {
-      if((uint8_t)pMsg->param == UI_SW_PRESS)
+      if((uint8_t)pMsg->param == UI_PRESS)
       {
         UI_MSG_T msg = {0, UIMSG_INIT};
 
@@ -2091,7 +2087,7 @@ static uint8_t ProcHomeError02(void *param, UI_MSG_T *pMsg)
 
   DISP_ClearAll();
 
-  DISP_UpperPutStr("ERR-2", 0);
+  DISP_UpperPutStr(UI_GetString(UI_STR_ERROR_2), 0);
 
   return UI_RC_CONTINUE;
 

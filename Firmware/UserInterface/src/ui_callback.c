@@ -196,7 +196,7 @@ void UI_KeyCallBack(uint8_t keyNb, uint8_t keyState)
       if(MSG_KEY_CODE[index].msg != UIMSG_INVALID)
       {
         msg.message = MSG_KEY_CODE[index].msg;
-        msg.param   = (uint8_t)UI_KEY_PRESS;
+        msg.param   = (uint8_t)UI_PRESS;
 
         if(MSG_KEY_CODE[index].buzz == TRUE)
         {
@@ -209,7 +209,7 @@ void UI_KeyCallBack(uint8_t keyNb, uint8_t keyState)
       if(MSG_KEY_CODE[index].msg != UIMSG_INVALID)
       {
         msg.message = MSG_KEY_CODE[index].msg;
-        msg.param   = (uint8_t)UI_KEY_RELEASE;
+        msg.param   = (uint8_t)UI_RELEASE;
       }
       break;
 
@@ -256,7 +256,7 @@ void UI_SwCallBack(uint8_t swNb, uint8_t swState)
       if(MSG_SW_CODE[index].msg != UIMSG_INVALID)
       {
         msg.message = MSG_SW_CODE[index].msg;
-        msg.param   = (uint8_t)UI_SW_PRESS;
+        msg.param   = (uint8_t)UI_PRESS;
 
         if(MSG_SW_CODE[index].buzz == TRUE)
         {
@@ -269,7 +269,7 @@ void UI_SwCallBack(uint8_t swNb, uint8_t swState)
       if(MSG_SW_CODE[index].msg != UIMSG_INVALID)
       {
         msg.message = MSG_SW_CODE[index].msg;
-        msg.param   = (uint8_t)UI_SW_RELEASE;
+        msg.param   = (uint8_t)UI_RELEASE;
       }
       break;
 
@@ -292,4 +292,4 @@ void UI_SwCallBack(uint8_t swNb, uint8_t swState)
   * @}
   */
 
-/************************ (C) COPYRIGHT Crompton Greaves ******END OF FILE*****/
+/**********************************END OF FILE*********************************/
