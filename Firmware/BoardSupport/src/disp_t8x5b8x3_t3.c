@@ -117,6 +117,7 @@ const DISP_TYPE_T DispInfoT8x5B8x3_t3 =
   .uppFmtStr = "%5lu",
   .lowFmtStr = "%3lu",
   .valWrapChar = 'L',
+  .modeCharEnable = TRUE,
   .dispInit   = DispInit,
   .dispWrite  = DispWrite
 };

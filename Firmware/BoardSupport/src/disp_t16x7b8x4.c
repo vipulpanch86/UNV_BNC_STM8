@@ -163,6 +163,7 @@ const DISP_TYPE_T DispInfoT16x7B8x4_t1 =
   .uppFmtStr = "%7lu",
   .lowFmtStr = "%4lu",
   .valWrapChar = 'C',
+  .modeCharEnable = TRUE,
   .dispInit = DispInit,
   .dispWrite = DispWrite
 };
@@ -180,6 +181,7 @@ const DISP_TYPE_T DispInfoT16x7B8x4_t2 =
   .uppFmtStr = "%7lu",
   .lowFmtStr = "%4lu",
   .valWrapChar = 'C',
+  .modeCharEnable = TRUE,
   .dispInit = DispInit,
   .dispWrite = DispWrite
 };

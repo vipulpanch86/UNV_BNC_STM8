@@ -42,6 +42,8 @@ extern "C" {
 /* Display Wrap Character Definition */
 #define DISP_WRAP_CHAR       (pDisp->valWrapChar)
   
+/* Display Mode Character Enable */
+#define DISP_MODE_CHAR_EN    (pDisp->modeCharEnable)
   
 typedef void ( *F_DISP_INIT )( void );
 typedef void ( *F_DISP_WRITE )( uint8_t, uint16_t );
@@ -58,6 +60,7 @@ typedef struct
   const char *    uppFmtStr;
   const char *    lowFmtStr;
   const char      valWrapChar;
+  const uint8_t   modeCharEnable;
   F_DISP_INIT     dispInit;
   F_DISP_WRITE    dispWrite;
 } DISP_TYPE_T;

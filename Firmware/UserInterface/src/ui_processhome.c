@@ -142,6 +142,7 @@ static void HomeDispCounter(void)
   uint8_t flagSensorEnable = SENSOR_GetEnable();
   uint8_t flagUVDetect = UV_GetDetectFlag();
   uint8_t cntMode = COUNTER_GetMode();
+  uint8_t modeCharEnable = DISP_MODE_CHAR_EN;
   uint32_t sensorCounter = SENSOR_GetCount();
   uint32_t dispUppMaxResln = DISP_UPPER_MAX_VALUE;
 
@@ -215,6 +216,15 @@ static void HomeDispCounter(void)
 
   /* Top Display */
   memset(&str[0], ' ', sizeof(str));
+  
+  /* Disable the mode character if the count value of 
+     Top display is greater than Max display resolution / 100
+     This is to allow a balnk character in between the 
+     mode character & counter display
+     */
+  modeCharEnable = (uint8_t)(TopDispValue > (dispUppMaxResln / 100) ?
+                    FALSE : modeCharEnable);
+                    
   if(TopDispValue > dispUppMaxResln)
   {
     uint32_t SysTimer = BSP_GetSysTime();
@@ -235,17 +245,39 @@ static void HomeDispCounter(void)
 
     if(lacsDispEn == TRUE)
     {
-      sprintf((char *)&str[0], "%lu%c", TopDispValue / (dispUppMaxResln + 1), DISP_WRAP_CHAR);
+      TopDispValue /= (dispUppMaxResln + 1);
+    }
+    else
+    {
+      TopDispValue %= (dispUppMaxResln + 1);
+    }
+  }
+  /* Mode char display and lacs display are mutually exclusive
+     as mode char display gets disabled when counter value is > max resolution / 100 */
+  if(modeCharEnable == TRUE)
+  {
+    sprintf((char *)&str[0], DISP_UPPER_STR_FORMAT, TopDispValue);
+    str[0] = (char)charCountMode[cntMode];
+  }
+  else
+  {
+    if(lacsDispEn == TRUE)
+    {
+      if(DISP_WRAP_CHAR != '\0')
+      {
+        sprintf((char *)&str[0], "%lu%c", 
+              TopDispValue, DISP_WRAP_CHAR);
+      }
+      else
+      {
+        sprintf((char *)&str[0], "%lu", TopDispValue);
+      }
     }
     else
     {
       sprintf((char *)&str[0], DISP_UPPER_STR_FORMAT,
-              TopDispValue % (dispUppMaxResln + 1));
+              TopDispValue);
     }
-  }
-  else
-  {
-    sprintf((char *)&str[0], DISP_UPPER_STR_FORMAT, TopDispValue);
   }
   
   DISP_UpperPutStr((char *)&str[0], 0);

@@ -173,6 +173,7 @@ const DISP_TYPE_T DispInfoT8x5B8x3_t1 =
   .uppFmtStr = "%5lu",
   .lowFmtStr = "%3lu",
   .valWrapChar = 'L',
+  .modeCharEnable = TRUE,
   .dispInit   = DispInit,
   .dispWrite  = DispWrite
 };
@@ -189,6 +190,7 @@ const DISP_TYPE_T DispInfoT8x5B8x3_t2 =
   .pLedBitmap = &LED_BITMAP_T2[0],
   .uppFmtStr = "%5lu",
   .lowFmtStr = "%3lu",
+  .modeCharEnable = TRUE,
   .dispInit   = DispInit,
   .dispWrite  = DispWrite
 };

@@ -216,7 +216,7 @@
 /**
   * @brief Welcome Message Definition
   */  
-#define WELCOME_MSG_SIZE        16
+#define WELCOME_MSG_SIZE        32
 #define WELCOME_MSG_ADDR        0x004000
 
 /**

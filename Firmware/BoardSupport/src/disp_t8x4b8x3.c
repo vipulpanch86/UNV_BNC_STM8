@@ -126,7 +126,8 @@ const DISP_TYPE_T DispInfoT8x4B8x3 =
   .pLedBitmap = &LED_BITMAP[0],
   .uppFmtStr = "%4lu",
   .lowFmtStr = "%3lu",
-  .valWrapChar = ' ',
+  .valWrapChar = '\0',
+  .modeCharEnable = FALSE,
   .dispInit   = DispInit,
   .dispWrite  = DispWrite
 };
