@@ -104,21 +104,21 @@ static const DISP_KPD_TYPE_T DISP_KPD_TYPE_MAP[DIP_SW_MAX_POS] =
       .dispIndex   = DISP_TYPE_T16X7B8X4_T1, 
       .kpdIndex    = KPD_TYPE_26_7X4_NOVAL,
       .valueEnable = FALSE,
-    .strTypeIdx  = UI_STR_TYPE_SIZE_7
+      .strTypeIdx  = UI_STR_TYPE_SIZE_7
     },
   [DISP_T16X7B8X4__KPD_26_7X4_VAL] = 
     {
       .dispIndex   = DISP_TYPE_T16X7B8X4_T2, 
       .kpdIndex    = KPD_TYPE_26_7X4_VAL,
       .valueEnable = TRUE,
-    .strTypeIdx  = UI_STR_TYPE_SIZE_7
+      .strTypeIdx  = UI_STR_TYPE_SIZE_7
     },
   [DISP_T8X4B8X3__KPD_15_4X4] = 
     {
       .dispIndex   = DISP_TYPE_T8X4B8X3, 
       .kpdIndex    = KPD_TYPE_15_4X4,
       .valueEnable = FALSE,
-    .strTypeIdx  = UI_STR_TYPE_SIZE_4
+      .strTypeIdx  = UI_STR_TYPE_SIZE_4
     },
 };
 

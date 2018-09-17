@@ -129,7 +129,7 @@ static void HomeDispCounter(void)
     DISP_LED_VALUE
   };
 
-  static uint8_t  lacsDispEn = TRUE;
+  static uint8_t  lacsDispEn = FALSE;
   static uint32_t BkupSysTimer = 0;
 
   char str[8];
@@ -222,15 +222,14 @@ static void HomeDispCounter(void)
      This is to allow a balnk character in between the 
      mode character & counter display
      */
-  modeCharEnable = (uint8_t)(TopDispValue > (dispUppMaxResln / 100) ?
+  modeCharEnable = (uint8_t)((TopDispValue > (dispUppMaxResln / 100)) ?
                     FALSE : modeCharEnable);
                     
   if(TopDispValue > dispUppMaxResln)
   {
-    uint32_t SysTimer = BSP_GetSysTime();
-
     if(flagSensorEnable == FALSE)
     {
+      uint32_t SysTimer = BSP_GetSysTime();
       /* Toggle Lacs & Thousand only in counting completed display*/
       if(labs((int32_t)(SysTimer - BkupSysTimer)) >= 1000)
       {
@@ -245,13 +244,18 @@ static void HomeDispCounter(void)
 
     if(lacsDispEn == TRUE)
     {
-      TopDispValue /= (dispUppMaxResln + 1);
+      TopDispValue = TopDispValue / (dispUppMaxResln + 1);
     }
     else
     {
-      TopDispValue %= (dispUppMaxResln + 1);
+      TopDispValue = TopDispValue % (dispUppMaxResln + 1);
     }
   }
+	else
+	{
+		lacsDispEn = FALSE;
+	}
+	
   /* Mode char display and lacs display are mutually exclusive
      as mode char display gets disabled when counter value is > max resolution / 100 */
   if(modeCharEnable == TRUE)

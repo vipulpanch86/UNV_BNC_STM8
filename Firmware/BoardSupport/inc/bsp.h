@@ -185,7 +185,6 @@
 #define SW_RST_GPIO_PORT      (CONN_PIN23_GPIO_PORT)
 #define SW_RST_GPIO_PIN       (CONN_PIN23_GPIO_PIN)
 
-
 /**
  * @brief Definition for TURRET COM port, connected to USART1
  */ 

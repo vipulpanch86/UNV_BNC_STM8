@@ -229,7 +229,7 @@ static uint8_t ProcAutoStartHMotor(void *param, UI_MSG_T *pMsg)
     }
     break;
 
-  case UIMSG_KEY_CLR:
+    case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
     {
       if((uint8_t)pMsg->param == UI_PRESS)
@@ -319,7 +319,7 @@ static uint8_t ProcAutoStartSMotor(void *param, UI_MSG_T *pMsg)
       return(SwitchAutoSubProcess(param, &msg));
     }
     
-  case UIMSG_KEY_CLR:
+    case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
     {
       if((uint8_t)pMsg->param == UI_PRESS)
@@ -552,7 +552,7 @@ static uint8_t ProcAutoAddDelay(void *param, UI_MSG_T *pMsg)
     }
     break;
 
-  case UIMSG_KEY_CLR:
+    case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
     {
       if((uint8_t)pMsg->param == UI_PRESS)
@@ -635,7 +635,7 @@ static uint8_t ProcAutoBeep(void *param, UI_MSG_T *pMsg)
     }
     break;
 
-  case UIMSG_KEY_CLR:
+    case UIMSG_KEY_CLR:
     case UIMSG_SW_RESET:
     {
       if((uint8_t)pMsg->param == UI_PRESS)
