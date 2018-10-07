@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm8s_i2c.h
   * @author  MCD Application Team
-  * @version V2.2.0
-  * @date    30-September-2014
+  * @version V2.3.0
+  * @date    16-June-2017
   * @brief  This file contains all functions prototype and macros for the I2C peripheral.
    ******************************************************************************
   * @attention
@@ -72,9 +72,9 @@ typedef enum
   */
 typedef enum
 {
-    I2C_IT_ERR     = (uint8_t)0x01,   /*!< Error Interruption */
-    I2C_IT_EVT     = (uint8_t)0x02,   /*!< Event Interruption */
-    I2C_IT_BUF     = (uint8_t)0x04   /*!< Buffer Interruption */
+    I2C_IT_ERR     = (uint8_t)0x01, 	/*!< Error Interruption */
+    I2C_IT_EVT     = (uint8_t)0x02, 	/*!< Event Interruption */
+    I2C_IT_BUF     = (uint8_t)0x04 	/*!< Buffer Interruption */
 } I2C_IT_TypeDef;
 
 /**
@@ -135,20 +135,20 @@ typedef enum
 typedef enum
 {
     /* SR1 register flags */
-    I2C_ITPENDINGBIT_TXEMPTY             = (uint16_t)0x1680,   /*!< Transmit Data Register Empty  */
-    I2C_ITPENDINGBIT_RXNOTEMPTY          = (uint16_t)0x1640,   /*!< Read Data Register Not Empty  */
-    I2C_ITPENDINGBIT_STOPDETECTION       = (uint16_t)0x1210,   /*!< Stop detected  */
-    I2C_ITPENDINGBIT_HEADERSENT          = (uint16_t)0x1208,   /*!< 10-bit Header sent */
-    I2C_ITPENDINGBIT_TRANSFERFINISHED    = (uint16_t)0x1204,   /*!< Data Byte Transfer Finished  */
-    I2C_ITPENDINGBIT_ADDRESSSENTMATCHED  = (uint16_t)0x1202,   /*!< Address Sent/Matched (master/slave)  */
-    I2C_ITPENDINGBIT_STARTDETECTION      = (uint16_t)0x1201,   /*!< Start bit sent  */
+    I2C_ITPENDINGBIT_TXEMPTY             = (uint16_t)0x1680, 	/*!< Transmit Data Register Empty  */
+    I2C_ITPENDINGBIT_RXNOTEMPTY          = (uint16_t)0x1640, 	/*!< Read Data Register Not Empty  */
+    I2C_ITPENDINGBIT_STOPDETECTION       = (uint16_t)0x1210, 	/*!< Stop detected  */
+    I2C_ITPENDINGBIT_HEADERSENT          = (uint16_t)0x1208, 	/*!< 10-bit Header sent */
+    I2C_ITPENDINGBIT_TRANSFERFINISHED    = (uint16_t)0x1204, 	/*!< Data Byte Transfer Finished  */
+    I2C_ITPENDINGBIT_ADDRESSSENTMATCHED  = (uint16_t)0x1202, 	/*!< Address Sent/Matched (master/slave)  */
+    I2C_ITPENDINGBIT_STARTDETECTION      = (uint16_t)0x1201, 	/*!< Start bit sent  */
 
     /* SR2 register flags */
-    I2C_ITPENDINGBIT_WAKEUPFROMHALT      = (uint16_t)0x2220,   /*!< Wake Up From Halt  */
-    I2C_ITPENDINGBIT_OVERRUNUNDERRUN     = (uint16_t)0x2108,   /*!< Overrun/Underrun  */
-    I2C_ITPENDINGBIT_ACKNOWLEDGEFAILURE  = (uint16_t)0x2104,   /*!< Acknowledge Failure  */
-    I2C_ITPENDINGBIT_ARBITRATIONLOSS     = (uint16_t)0x2102,   /*!< Arbitration Loss  */
-    I2C_ITPENDINGBIT_BUSERROR            = (uint16_t)0x2101    /*!< Misplaced Start or Stop condition */
+    I2C_ITPENDINGBIT_WAKEUPFROMHALT      = (uint16_t)0x2220, 	/*!< Wake Up From Halt  */
+    I2C_ITPENDINGBIT_OVERRUNUNDERRUN     = (uint16_t)0x2108, 	/*!< Overrun/Underrun  */
+    I2C_ITPENDINGBIT_ACKNOWLEDGEFAILURE  = (uint16_t)0x2104, 	/*!< Acknowledge Failure  */
+    I2C_ITPENDINGBIT_ARBITRATIONLOSS     = (uint16_t)0x2102, 	/*!< Arbitration Loss  */
+    I2C_ITPENDINGBIT_BUSERROR            = (uint16_t)0x2101  	/*!< Misplaced Start or Stop condition */
 } I2C_ITPendingBit_TypeDef;
 
 /**
@@ -341,7 +341,7 @@ typedef enum
 #endif
 
 /**
-  *@}
+  * @}
   */
 
 /* Exported macros -----------------------------------------------------------*/
@@ -426,17 +426,17 @@ typedef enum
   * @brief   Macro used by the assert function to check the different I2C possible pending bits.
   */
 #define IS_I2C_ITPENDINGBIT_OK(ITPENDINGBIT) \
-   (((ITPENDINGBIT) == I2C_ITPENDINGBIT_TXEMPTY)             || \
-    ((ITPENDINGBIT) == I2C_ITPENDINGBIT_RXNOTEMPTY)         || \
-    ((ITPENDINGBIT) == I2C_ITPENDINGBIT_STOPDETECTION)       || \
-    ((ITPENDINGBIT) == I2C_ITPENDINGBIT_HEADERSENT)         || \
-    ((ITPENDINGBIT) == I2C_ITPENDINGBIT_TRANSFERFINISHED)   || \
+   (((ITPENDINGBIT) == I2C_ITPENDINGBIT_TXEMPTY)   					|| \
+    ((ITPENDINGBIT) == I2C_ITPENDINGBIT_RXNOTEMPTY) 				|| \
+    ((ITPENDINGBIT) == I2C_ITPENDINGBIT_STOPDETECTION) 			|| \
+    ((ITPENDINGBIT) == I2C_ITPENDINGBIT_HEADERSENT) 				|| \
+    ((ITPENDINGBIT) == I2C_ITPENDINGBIT_TRANSFERFINISHED) 	|| \
     ((ITPENDINGBIT) == I2C_ITPENDINGBIT_ADDRESSSENTMATCHED) || \
-    ((ITPENDINGBIT) == I2C_ITPENDINGBIT_STARTDETECTION)     || \
-    ((ITPENDINGBIT) == I2C_ITPENDINGBIT_WAKEUPFROMHALT)       || \
-    ((ITPENDINGBIT) == I2C_ITPENDINGBIT_OVERRUNUNDERRUN)     || \
+    ((ITPENDINGBIT) == I2C_ITPENDINGBIT_STARTDETECTION) 		|| \
+    ((ITPENDINGBIT) == I2C_ITPENDINGBIT_WAKEUPFROMHALT)		 	|| \
+    ((ITPENDINGBIT) == I2C_ITPENDINGBIT_OVERRUNUNDERRUN) 		|| \
     ((ITPENDINGBIT) == I2C_ITPENDINGBIT_ACKNOWLEDGEFAILURE) || \
-    ((ITPENDINGBIT) == I2C_ITPENDINGBIT_ARBITRATIONLOSS)     || \
+    ((ITPENDINGBIT) == I2C_ITPENDINGBIT_ARBITRATIONLOSS) 		|| \
     ((ITPENDINGBIT) == I2C_ITPENDINGBIT_BUSERROR))
     
 /**

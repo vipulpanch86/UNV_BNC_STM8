@@ -251,11 +251,11 @@ static void HomeDispCounter(void)
       TopDispValue = TopDispValue % (dispUppMaxResln + 1);
     }
   }
-	else
-	{
-		lacsDispEn = FALSE;
-	}
-	
+  else
+  {
+    lacsDispEn = FALSE;
+  }
+  
   /* Mode char display and lacs display are mutually exclusive
      as mode char display gets disabled when counter value is > max resolution / 100 */
   if(modeCharEnable == TRUE)
@@ -1462,7 +1462,8 @@ static uint8_t ProcHomeStartHMotor(void *param, UI_MSG_T *pMsg)
   */
 static uint8_t ProcHomeStartSMotor(void *param, UI_MSG_T *pMsg)
 {
-#define SENSOR_TIMEOUT  (500)
+#define SENSOR_TIMEOUT_L1  (500)
+#define SENSOR_TIMEOUT_L2  (300)
 
   uint32_t accSensorCount = 0;
   uint8_t flagAutoCount = AUTO_GetFlag();
@@ -1480,7 +1481,7 @@ static uint8_t ProcHomeStartSMotor(void *param, UI_MSG_T *pMsg)
       SENSOR_SetEnable(TRUE);
       BSP_S_MotorEnable(TRUE);
 
-      UI_SetRefreshMsg(SENSOR_TIMEOUT);
+      UI_SetRefreshMsg(SENSOR_TIMEOUT_L1);
     }
     break;
 
@@ -1533,7 +1534,8 @@ static uint8_t ProcHomeStartSMotor(void *param, UI_MSG_T *pMsg)
         }
       }
 
-      UI_SetRefreshMsg(SENSOR_TIMEOUT);
+      UI_SetRefreshMsg((sensorCounter < 100) ? 
+                  SENSOR_TIMEOUT_L1 : SENSOR_TIMEOUT_L2);
     }
     break;
 
@@ -1680,7 +1682,8 @@ static uint8_t ProcHomeStartSMotor(void *param, UI_MSG_T *pMsg)
 
   return UI_RC_CONTINUE;
 
-#undef SENSOR_TIMEOUT
+#undef SENSOR_TIMEOUT_L1
+#undef SENSOR_TIMEOUT_L2
 }
 
 /**

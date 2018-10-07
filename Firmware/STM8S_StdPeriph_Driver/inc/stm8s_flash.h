@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm8s_flash.h
   * @author  MCD Application Team
-  * @version V2.2.0
-  * @date    30-September-2014
+  * @version V2.3.0
+  * @date    16-June-2017
   * @brief   This file contains all functions prototype and macros for the FLASH peripheral.
    ******************************************************************************
   * @attention
@@ -58,14 +58,14 @@
  #define FLASH_BLOCK_SIZE                  ((uint8_t)128)       /*!< Number of bytes in a block (common for Program and Data memories) */
 #endif /* STM8S105 or STM8AF626x */
 
-#if defined(STM8S103) || defined(STM8S003) || defined(STM8S903) || defined(STM8AF622x)
+#if defined(STM8S103) || defined(STM8S003) || defined(STM8S001) || defined(STM8S903) || defined(STM8AF622x)
  #define FLASH_PROG_END_PHYSICAL_ADDRESS   ((uint32_t)0x9FFF)   /*!< Program memory: end address */
  #define FLASH_PROG_BLOCKS_NUMBER          ((uint16_t)128)      /*!< Program memory: total number of blocks */
  #define FLASH_DATA_START_PHYSICAL_ADDRESS ((uint32_t)0x004000) /*!< Data EEPROM memory: start address */
  #define FLASH_DATA_END_PHYSICAL_ADDRESS   ((uint32_t)0x00427F) /*!< Data EEPROM memory: end address */
  #define FLASH_DATA_BLOCKS_NUMBER          ((uint16_t)10)       /*!< Data EEPROM memory: total number of blocks */
  #define FLASH_BLOCK_SIZE                  ((uint8_t)64)        /*!< Number of bytes in a block (common for Program and Data memories) */
-#endif /* STM8S103 or STM8S003 or STM8S903 or STM8AF622x*/
+#endif /* STM8S103 or STM8S003 or STM8S001 or STM8S903 or STM8AF622x*/
 
 #define FLASH_RASS_KEY1 ((uint8_t)0x56) /*!< First RASS key */
 #define FLASH_RASS_KEY2 ((uint8_t)0xAE) /*!< Second RASS key */
@@ -124,11 +124,11 @@ FLASH_LPMode_TypeDef;
   */
 typedef enum {
 #if defined (STM8S208) || defined(STM8S207) || defined(STM8S007) || defined(STM8S105) || \
-    defined(STM8S005) || defined (STM8AF52Ax) || defined (STM8AF62Ax) || defined(STM8AF626x)    
-    FLASH_STATUS_END_HIGH_VOLTAGE           = (uint8_t)0x40, /*!< End of high voltage */
+    defined(STM8S005) || defined (STM8AF52Ax) || defined (STM8AF62Ax) || defined(STM8AF626x)		
+		FLASH_STATUS_END_HIGH_VOLTAGE           = (uint8_t)0x40, /*!< End of high voltage */
 #endif /* STM8S208, STM8S207, STM8S105, STM8AF62Ax, STM8AF52Ax, STM8AF626x */
-    FLASH_STATUS_SUCCESSFUL_OPERATION       = (uint8_t)0x04, /*!< End of operation flag */
-    FLASH_STATUS_TIMEOUT = (uint8_t)0x02, /*!< Time out error */
+		FLASH_STATUS_SUCCESSFUL_OPERATION       = (uint8_t)0x04, /*!< End of operation flag */
+		FLASH_STATUS_TIMEOUT = (uint8_t)0x02, /*!< Time out error */
     FLASH_STATUS_WRITE_PROTECTION_ERROR     = (uint8_t)0x01 /*!< Write attempted to protected page */
 } FLASH_Status_TypeDef;
 
@@ -238,7 +238,7 @@ typedef enum {
                                  ((FLAG) == FLASH_FLAG_EOP) || \
                                  ((FLAG) == FLASH_FLAG_PUL) || \
                                  ((FLAG) == FLASH_FLAG_WR_PG_DIS))
-#else /* STM8S103, STM8S903, STM8AF622x */
+#else /* STM8S103, STM8S001, STM8S903, STM8AF622x */
  #define IS_FLASH_FLAGS_OK(FLAG) (((FLAG) == FLASH_FLAG_DUL) || \
                                  ((FLAG) == FLASH_FLAG_EOP) || \
                                  ((FLAG) == FLASH_FLAG_PUL) || \

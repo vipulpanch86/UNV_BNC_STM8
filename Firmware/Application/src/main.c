@@ -12,6 +12,7 @@
 #include "ui.h"
 
 /* Private typedef -----------------------------------------------------------*/
+#define IWDG_KICK_MS (250)
 #define DISP_EXEC_MS (1)
 #define KPD_SCAN_MS  (1)
 #define BUZZ_EXEC_MS (100)
@@ -283,8 +284,12 @@ void main(void)
   UI_Init();
   UI_SetStringType(DISP_KPD_TYPE_MAP[DispKpdType].strTypeIdx);
   
+  /* Watchdog Configuration */
+  BSP_WatchdogConfig();
+
   while(1)
   {
+    static uint32_t BkupIwdgKickTime = 0;
     static uint32_t BkupDispExecTime = 0;
     static uint32_t BkupKpdScanTime = 0;
     static uint32_t BkupBuzzExecTime = 0;
@@ -293,6 +298,13 @@ void main(void)
     
     uint32_t sysTime = BSP_GetSysTime();
     
+    if((sysTime - BkupIwdgKickTime) >= IWDG_KICK_MS)
+    {
+      BkupIwdgKickTime = sysTime;
+      /* Reload IWDG counter */
+      IWDG_ReloadCounter();
+    }
+      
     if((sysTime - BkupDispExecTime) >= DISP_EXEC_MS)
     {
       BkupDispExecTime = sysTime;
@@ -345,8 +357,8 @@ void main(void)
   */
 int main(void)
 {
-  extern void disp_test(void);
-  disp_test();
+  extern void uv_test(void);
+  uv_test();
 }
 #endif
 

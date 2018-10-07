@@ -22,23 +22,51 @@
   * @param  None
   * @retval None
   */
-void uv_test(void)
+void iwdg_test(void)
 {
+  static uint32_t BkupIwdgKickTime = 0;
+  
   /* BSP Initialization -----------------------------------------*/
   BSP_Init();
-  BSP_UV_DetectEnable(FALSE);
-  printf("\r\nUV Test");
 
+  /* Check if the system has resumed from IWDG reset */
+  if (RST_GetFlagStatus(RST_FLAG_IWDGF) != RESET)
+  {
+    /* IWDGF flag set */
+    /* Turn on LED1 */
+    printf("\r\nIWDG Reset");
+
+    /* Clear IWDGF Flag */
+    RST_ClearFlag(RST_FLAG_IWDGF);
+  }
+  
+  printf("\r\nIWDG Test");
+  
+  /* Watchdog Configuration */
+  BSP_WatchdogConfig();
+  
+  BkupIwdgKickTime = BSP_GetSysTime();
+  
   while(1)
   {
-    
-    static uint32_t BkupAdcPrintTime = 0;
     uint32_t sysTime = BSP_GetSysTime();
     
-    if((sysTime - BkupAdcPrintTime) >= 500)
+    if((sysTime - BkupIwdgKickTime) >= 250)
     {
-      BkupAdcPrintTime = sysTime;
-      printf("\r\nADC Val = %u", (unsigned int)BSP_GetADC());
+      BkupIwdgKickTime = sysTime;
+      
+      /* Reload IWDG counter */
+      IWDG_ReloadCounter();  
+      
+      printf("\r\nIWDG Kicked : %u", (unsigned int)BkupIwdgKickTime);
+    }
+    
+    if((SW_AUTO_GPIO_PORT->IDR & SW_AUTO_GPIO_PIN) == 0)
+    {
+      while(1)
+      {
+        printf("\r\nCurrentTime : %u", (unsigned int)BSP_GetSysTime());
+      }
     }
   }
 }

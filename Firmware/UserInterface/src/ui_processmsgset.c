@@ -49,7 +49,10 @@ uint8_t UI_ProcessMsgSet(void *pParam, UI_MSG_T *pMsg)
   const char * pStrWelcomeMsg = (char *)WELCOME_MSG_ADDR;
   static uint8_t MsgCursorPos = 0;
   static uint8_t CursorCharIdx = 0;
+  static uint8_t NewMessageEntry = 0;
+  static uint8_t NewMessageStart = 0;
   uint8_t dispCursorPos, dispStartPos;
+  uint8_t clearMsgBuff = FALSE;
   static uint8_t cursorBlinkOn = FALSE;
   static char welcomemsg[WELCOME_MSG_SIZE];
 
@@ -61,7 +64,9 @@ uint8_t UI_ProcessMsgSet(void *pParam, UI_MSG_T *pMsg)
       memset(&welcomemsg[0], 0x00, WELCOME_MSG_SIZE);
       strncpy(&welcomemsg[0], pStrWelcomeMsg, WELCOME_MSG_SIZE);
       MsgCursorPos = 0;
-      CursorCharIdx = GetCharIndex(welcomemsg[MsgCursorPos]);
+      CursorCharIdx = 0;//GetCharIndex(welcomemsg[MsgCursorPos]);
+      NewMessageEntry = FALSE;
+      NewMessageStart = FALSE;
       cursorBlinkOn = FALSE;
     }
     break;
@@ -71,6 +76,8 @@ uint8_t UI_ProcessMsgSet(void *pParam, UI_MSG_T *pMsg)
     case UIMSG_KEY_NEXT:
       if((uint8_t)pMsg->param == UI_PRESS)
       {
+        NewMessageEntry = TRUE;
+        clearMsgBuff = (uint8_t)((NewMessageStart == TRUE) ? FALSE : TRUE);
         CursorCharIdx = (uint8_t)(((CursorCharIdx + 1) >= sizeof(CharacterList)) ?
                                      0 : (CursorCharIdx + 1)); 
         welcomemsg[MsgCursorPos] = CharacterList[CursorCharIdx];
@@ -83,6 +90,8 @@ uint8_t UI_ProcessMsgSet(void *pParam, UI_MSG_T *pMsg)
     case UIMSG_KEY_BACK:
       if((uint8_t)pMsg->param == UI_PRESS)
       {
+        NewMessageEntry = TRUE;
+        clearMsgBuff = (uint8_t)((NewMessageStart == TRUE) ? FALSE : TRUE);
         CursorCharIdx = (uint8_t)((CursorCharIdx == 0) ? 
                           (sizeof(CharacterList) - 1) : (CursorCharIdx - 1)); 
         welcomemsg[MsgCursorPos] = CharacterList[CursorCharIdx];
@@ -94,9 +103,11 @@ uint8_t UI_ProcessMsgSet(void *pParam, UI_MSG_T *pMsg)
     case UIMSG_KEY_ENT:
       if((uint8_t)pMsg->param == UI_PRESS)
       {
+        NewMessageEntry = TRUE;
+        clearMsgBuff = (uint8_t)((NewMessageStart == TRUE) ? FALSE : TRUE);
         MsgCursorPos = (uint8_t)(((MsgCursorPos + 1) >= WELCOME_MSG_SIZE) ?
                           0 : (MsgCursorPos + 1)); 
-        CursorCharIdx = GetCharIndex(welcomemsg[MsgCursorPos]);
+        CursorCharIdx = 0;//GetCharIndex(welcomemsg[MsgCursorPos]);
         cursorBlinkOn = FALSE;
       }
     break;
@@ -106,6 +117,8 @@ uint8_t UI_ProcessMsgSet(void *pParam, UI_MSG_T *pMsg)
     case UIMSG_KEY_FUNC:
       if((uint8_t)pMsg->param == UI_PRESS)
       {
+        NewMessageEntry = TRUE;
+        clearMsgBuff = (uint8_t)((NewMessageStart == TRUE) ? FALSE : TRUE);
         MsgCursorPos = (uint8_t)((MsgCursorPos == 0) ? 
                         (WELCOME_MSG_SIZE - 1) : (MsgCursorPos - 1)); 
         CursorCharIdx = GetCharIndex(welcomemsg[MsgCursorPos]);
@@ -117,15 +130,18 @@ uint8_t UI_ProcessMsgSet(void *pParam, UI_MSG_T *pMsg)
     case UIMSG_SW_RESET:
       if((uint8_t)pMsg->param == UI_PRESS)
       {
-        uint8_t cnt;
-       
-        for(cnt = 0; cnt < (WELCOME_MSG_SIZE / 4); cnt++)
+        if(NewMessageEntry == TRUE)
         {
-          uint32_t *pWord = (uint32_t *)&welcomemsg[cnt * 4];
-          
-          FLASH_Unlock(FLASH_MEMTYPE_DATA);
-          FLASH_ProgramWord(WELCOME_MSG_ADDR + (cnt * 4), *pWord);
-          FLASH_Lock(FLASH_MEMTYPE_DATA);
+          uint8_t cnt;
+         
+          for(cnt = 0; cnt < (WELCOME_MSG_SIZE / 4); cnt++)
+          {
+            uint32_t *pWord = (uint32_t *)&welcomemsg[cnt * 4];
+            
+            FLASH_Unlock(FLASH_MEMTYPE_DATA);
+            FLASH_ProgramWord(WELCOME_MSG_ADDR + (cnt * 4), *pWord);
+            FLASH_Lock(FLASH_MEMTYPE_DATA);
+          }
         }
         return UI_RC_FINISH;
       }
@@ -133,6 +149,13 @@ uint8_t UI_ProcessMsgSet(void *pParam, UI_MSG_T *pMsg)
 
     default:
     break;
+  }
+  
+  if((NewMessageEntry == TRUE) && (clearMsgBuff == TRUE))
+  {
+    memset(&welcomemsg[0], 0x00, WELCOME_MSG_SIZE);
+    MsgCursorPos = 0;
+    NewMessageStart = TRUE;
   }
   
   /* Handle display */

@@ -55,7 +55,7 @@ String.6.0=2018,9,11,19,43,32
 String.100.0=$(TargetFName)
 String.101.0=D:\Currency_Counter\UNV_BNC_STM8\Firmware\Project\STVD_Cosmic\Debug
 String.102.0=
-String.103.0=
+String.103.0=..\..\application\src;
 
 [Root.Config.0.Settings.2]
 String.2.0=
@@ -217,6 +217,11 @@ String.8.0=Debug
 [Root.Application.Application\src...\..\application\src\disp_test.c]
 ElemType=File
 PathName=..\..\application\src\disp_test.c
+Next=Root.Application.Application\src...\..\application\src\iwdg_test.c
+
+[Root.Application.Application\src...\..\application\src\iwdg_test.c]
+ElemType=File
+PathName=..\..\application\src\iwdg_test.c
 Next=Root.Application.Application\src...\..\application\src\key_test.c
 
 [Root.Application.Application\src...\..\application\src\key_test.c]

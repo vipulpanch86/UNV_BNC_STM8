@@ -293,6 +293,62 @@ void BSP_Init(void)
   enableInterrupts();
 }
 
+
+/**
+  * @brief  Configures the IWDG to generate a Reset if it is not refreshed at the
+  *         correct time. 
+  * @param  None
+  * @retval None
+  */
+void BSP_WatchdogConfig(void)
+{
+  /* Enable IWDG (the LSI oscillator will be enabled by hardware) */
+  IWDG_Enable();
+  
+  /* IWDG timeout equal to 250 ms (the timeout may varies due to LSI frequency
+     dispersion) */
+  /* Enable write access to IWDG_PR and IWDG_RLR registers */
+  IWDG_WriteAccessCmd(IWDG_WriteAccess_Enable);
+  
+  /* IWDG counter clock: LSI/256 */
+  IWDG_SetPrescaler(IWDG_Prescaler_256);
+  
+  /*  
+    Independent Watchdog Prescaler – IWDG_PR and Independent Watchdog Reload Register – IWDG_RLR
+    These two registers define the watchdog window and can. 
+    The default values are IWDG_PR = 0 and IWDG_RLR = 0xff. 
+    This gives a watchdog window of approximately 16ms. 
+    To change the size of the watchdog window use the table 
+    below to determine the values which are appropriate for your application:
+    
+    Prescaler Divider  Prescaler Value (IWDG_PR)  Period when RL = 0  Period when RL = 0xff
+    4  0  62.5 us  15.90 ms
+    8  1  125 us  31.90 ms
+    16  2  250 us  63.70 ms
+    32  3  500 us  127 ms
+    64  4  1.00 ms  255 ms
+    128  5  2.00 ms  510 ms
+    256  6  4.00 ms  1.02 s
+    The programming reference for the STM8S gives the 
+    following formula for determining the exact reset period:
+    
+    T = 2 x TLSI x P x R
+    
+    where:
+    
+    T  Timeout period
+    TLSI  1 / fLSI
+    P  2(IWDG_PR + 2)
+    R  IWDG_RLR + 1
+    Additionally, the time between the last reset of the 
+    key register (i.e. writing 0xAA to IWDG_KR) is T + 6 x TLSI.
+  */
+  IWDG_SetReload((uint8_t)0xFF);
+  
+  /* Reload IWDG counter */
+  IWDG_ReloadCounter();
+}
+
 /**
   * @brief  Inserts Delay in Milliseconds
   * @param  Value in Milliseconds to crreate delay

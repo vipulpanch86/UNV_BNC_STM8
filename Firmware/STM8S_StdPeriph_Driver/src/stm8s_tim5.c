@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm8s_tim5.c
   * @author  MCD Application Team
-  * @version V2.2.0
-  * @date    30-September-2014
+  * @version V2.3.0
+  * @date    16-June-2017
   * @brief   This file contains all the functions for the TIM5 peripheral.
    ******************************************************************************
   * @attention
@@ -69,9 +69,9 @@ void TIM5_DeInit(void)
   TIM5->CCMR3 = (uint8_t)TIM5_CCMR3_RESET_VALUE;
   TIM5->CNTRH = (uint8_t)TIM5_CNTRH_RESET_VALUE;
   TIM5->CNTRL = (uint8_t)TIM5_CNTRL_RESET_VALUE;
-  TIM5->PSCR  = (uint8_t)TIM5_PSCR_RESET_VALUE;
-  TIM5->ARRH   = (uint8_t)TIM5_ARRH_RESET_VALUE;
-  TIM5->ARRL   = (uint8_t)TIM5_ARRL_RESET_VALUE;
+  TIM5->PSCR	= (uint8_t)TIM5_PSCR_RESET_VALUE;
+  TIM5->ARRH 	= (uint8_t)TIM5_ARRH_RESET_VALUE;
+  TIM5->ARRL 	= (uint8_t)TIM5_ARRL_RESET_VALUE;
   TIM5->CCR1H = (uint8_t)TIM5_CCR1H_RESET_VALUE;
   TIM5->CCR1L = (uint8_t)TIM5_CCR1L_RESET_VALUE;
   TIM5->CCR2H = (uint8_t)TIM5_CCR2H_RESET_VALUE;
@@ -1265,7 +1265,7 @@ static void TI3_Config(uint8_t TIM5_ICPolarity, uint8_t TIM5_ICSelection,
 /**
   * @brief  Enables the TIM5 internal Clock.
   * @par Parameters:
-  * None
+	* None
   * @retval None
   */
 void TIM5_InternalClockConfig(void)

@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm8s_tim1.c
   * @author  MCD Application Team
-  * @version V2.2.0
-  * @date    30-September-2014
+  * @version V2.3.0
+  * @date    16-June-2017
   * @brief   This file contains all the functions for the TIM1 peripheral.
    ******************************************************************************
   * @attention
@@ -957,9 +957,9 @@ void TIM1_SelectMasterSlaveMode(FunctionalState NewState)
   * @param   TIM1_EncoderMode specifies the TIM1 Encoder Mode.
   * This parameter can be one of the following values
   * - TIM1_ENCODERMODE_TI1: Counter counts on TI1FP1 edge
-  * depending on TI2FP2 level.
+	* depending on TI2FP2 level.
   * - TIM1_ENCODERMODE_TI2: Counter counts on TI2FP2 edge
-  *  depending on TI1FP1 level.
+  *	depending on TI1FP1 level.
   * - TIM1_ENCODERMODE_TI12: Counter counts on both TI1FP1 and
   * TI2FP2 edges depending on the level of the other input.
   * @param   TIM1_IC1Polarity specifies the IC1 Polarity.

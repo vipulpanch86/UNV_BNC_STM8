@@ -185,6 +185,11 @@
 #define SW_RST_GPIO_PORT      (CONN_PIN23_GPIO_PORT)
 #define SW_RST_GPIO_PIN       (CONN_PIN23_GPIO_PIN)
 
+/*
+#define SW_RST_GPIO_PORT      (CONN_PIN29_GPIO_PORT)
+#define SW_RST_GPIO_PIN       (CONN_PIN29_GPIO_PIN)
+*/
+
 /**
  * @brief Definition for TURRET COM port, connected to USART1
  */ 
@@ -397,6 +402,7 @@ extern __IO uint32_t BspSensorCounter;
 }
 
 void BSP_Init(void);
+void BSP_WatchdogConfig(void);
 void BSP_DelayMs(uint16_t delay);
 void BSP_BuzzerExec(void);
 void BSP_AdcExec(void);

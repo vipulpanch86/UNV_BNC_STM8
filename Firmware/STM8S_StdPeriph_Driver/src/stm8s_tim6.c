@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm8s_tim6.c
   * @author  MCD Application Team
-  * @version V2.2.0
-  * @date    30-September-2014
+  * @version V2.3.0
+  * @date    16-June-2017
   * @brief   This file contains all the functions for the TIM6 peripheral.
    ******************************************************************************
   * @attention
@@ -34,11 +34,6 @@
   */
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-
-
-/** @addtogroup STM8S_StdPeriph_Driver
-  * @{
-  */
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -56,20 +51,20 @@
   */
 void TIM6_DeInit(void)
 {
-  TIM6->CR1   = TIM6_CR1_RESET_VALUE;
-  TIM6->CR2   = TIM6_CR2_RESET_VALUE;
-  TIM6->SMCR   = TIM6_SMCR_RESET_VALUE;
-  TIM6->IER   = TIM6_IER_RESET_VALUE;
-  TIM6->CNTR   = TIM6_CNTR_RESET_VALUE;
-  TIM6->PSCR  = TIM6_PSCR_RESET_VALUE;
-  TIM6->ARR   = TIM6_ARR_RESET_VALUE;
-  TIM6->SR1   = TIM6_SR1_RESET_VALUE;
+  TIM6->CR1 	= TIM6_CR1_RESET_VALUE;
+  TIM6->CR2 	= TIM6_CR2_RESET_VALUE;
+  TIM6->SMCR 	= TIM6_SMCR_RESET_VALUE;
+  TIM6->IER 	= TIM6_IER_RESET_VALUE;
+  TIM6->CNTR 	= TIM6_CNTR_RESET_VALUE;
+  TIM6->PSCR	= TIM6_PSCR_RESET_VALUE;
+  TIM6->ARR 	= TIM6_ARR_RESET_VALUE;
+  TIM6->SR1 	= TIM6_SR1_RESET_VALUE;
 }
 
 /**
   * @brief  Initializes the TIM6 Time Base Unit according to the specified
   * parameters.
-  * @param   TIM6_Prescaler : This parameter can be any of the @Ref TIM5_Prescaler_TypeDef enumeration.
+  * @param   TIM6_Prescaler : This parameter can be any of the @ref TIM6_Prescaler_TypeDef enumeration.
   * @param   TIM6_Period : This parameter must be a value between 0x00 and 0xFF.
   * @retval None
   */

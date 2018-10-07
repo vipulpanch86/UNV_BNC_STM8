@@ -2,8 +2,8 @@
   ********************************************************************************
   * @file    stm8s_uart1.c
   * @author  MCD Application Team
-  * @version V2.2.0
-  * @date    30-September-2014
+  * @version V2.3.0
+  * @date    16-June-2017
   * @brief   This file contains all the functions for the UART1 peripheral.
    ******************************************************************************
   * @attention
@@ -40,7 +40,7 @@
 /* Private functions ---------------------------------------------------------*/
 /* Public functions ----------------------------------------------------------*/
 
-/** @}
+/**
   * @addtogroup UART1_Public_Functions
   * @{
   */
@@ -49,7 +49,7 @@
   * @brief  Deinitializes the UART peripheral.
   * @param  None
   * @retval None
-  */
+	*/
 void UART1_DeInit(void)
 {
   /* Clear the Idle Line Detected bit in the status register by a read
