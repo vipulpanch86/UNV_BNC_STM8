@@ -1,8 +1,8 @@
 #excludes output directory
-Firmware/Project/STVD_Cosmic/Ouput/
+Firmware/Project/STVD_Cosmic/Ouput/*
 
 #excludes Programmer setting directory
-Firmware/Project/STVD_Cosmic/UNV_BNC_Programmer/
+Firmware/Project/STVD_Cosmic/UNV_BNC_Programmer/*
 
 #excludes dependency file
 Firmware/Project/STVD_Cosmic/UNV_BNC.dep
