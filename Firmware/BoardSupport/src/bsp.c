@@ -19,7 +19,7 @@
 /* Private variables ---------------------------------------------------------*/
 uint8_t  BuzzerEnable = FALSE;
 uint32_t BuzzerOnTime = 0;
-uint16_t AdcValue = 0;
+__IO uint16_t AdcValue = 0;
 __IO uint32_t SystemTimer = 0;
 __IO uint32_t BspSensorCounter = 0;
 /* Private function prototypes -----------------------------------------------*/

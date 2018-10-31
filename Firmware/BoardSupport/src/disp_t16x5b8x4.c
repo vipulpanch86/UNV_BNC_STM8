@@ -53,8 +53,10 @@
 #define LED_V_20_BIT       BIT(9)
 #define LED_V_50_BIT       BIT(10)
 #define LED_V_100_BIT      BIT(11)
+#define LED_V_200_BIT      BIT(11)
 #define LED_V_500_BIT      BIT(12)
 #define LED_V_1000_BIT     BIT(13)
+#define LED_V_2000_BIT     BIT(13)
 
 /* Display Number of Segment declaraion */
 #define UPPER_MAX_SEL (5)
@@ -112,8 +114,10 @@ static const uint16_t LED_BITMAP[DISP_LED_MAX_NB] =
   /* DISP_LED_V_20    */ LED_V_20_BIT,
   /* DISP_LED_V_50    */ LED_V_50_BIT,
   /* DISP_LED_V_100   */ LED_V_100_BIT,
+  /* DISP_LED_V_200   */ LED_V_200_BIT,
   /* DISP_LED_V_500   */ LED_V_500_BIT,
-  /* DISP_LED_V_1000  */ LED_V_1000_BIT
+  /* DISP_LED_V_1000  */ LED_V_1000_BIT,
+  /* DISP_LED_V_2000  */ LED_V_2000_BIT
 };
 
 /* Public constants ----------------------------------------------------------*/

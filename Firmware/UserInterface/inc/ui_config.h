@@ -87,8 +87,10 @@ extern "C" {
 #define UIMSG_KEY_V20        (8 + KPD_KEY_V20)
 #define UIMSG_KEY_V50        (8 + KPD_KEY_V50)
 #define UIMSG_KEY_V100       (8 + KPD_KEY_V100)
+#define UIMSG_KEY_V200       (8 + KPD_KEY_V200)
 #define UIMSG_KEY_V500       (8 + KPD_KEY_V500)
 #define UIMSG_KEY_V1000      (8 + KPD_KEY_V1000)
+#define UIMSG_KEY_V2000      (8 + KPD_KEY_V2000)
 
 /* UI Application Specific Message (64-127) */
 #define UIMSG_COUNTER          64

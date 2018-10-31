@@ -135,8 +135,10 @@ static const uint16_t LED_BITMAP_T1[DISP_LED_MAX_NB] =
   /* DISP_LED_V_20    */ 0,
   /* DISP_LED_V_50    */ 0,
   /* DISP_LED_V_100   */ 0,
+  /* DISP_LED_V_200   */ 0,
   /* DISP_LED_V_500   */ 0,
-  /* DISP_LED_V_1000  */ 0
+  /* DISP_LED_V_1000  */ 0,
+  /* DISP_LED_V_2000  */ 0
 };
 
 /* Led bitmap table - Type 2 */
@@ -155,8 +157,10 @@ static const uint16_t LED_BITMAP_T2[DISP_LED_MAX_NB] =
   /* DISP_LED_V_20    */ 0,
   /* DISP_LED_V_50    */ 0,
   /* DISP_LED_V_100   */ 0,
+  /* DISP_LED_V_200   */ 0,
   /* DISP_LED_V_500   */ 0,
-  /* DISP_LED_V_1000  */ 0
+  /* DISP_LED_V_1000  */ 0,
+  /* DISP_LED_V_2000  */ 0
 };
 
 /* Public constants ----------------------------------------------------------*/

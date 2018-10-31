@@ -196,7 +196,8 @@ static uint8_t DispKpdType = 0;
       uint32_t uvThresValue = 0;
       REG_GetValue(&uvThresValue, REG_ID_UV_LVL);
       /* Add the ambient light value to UV Threshold value */
-      uvThresValue += AmbientUvValue;
+      //uvThresValue += AmbientUvValue;
+			uvThresValue *= 10;
       
       if(adcValue > uvThresValue)
       {

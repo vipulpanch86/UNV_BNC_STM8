@@ -64,9 +64,10 @@
 #define T2_LED_V_20_BIT       BIT(12)
 #define T2_LED_V_50_BIT       BIT(10)
 #define T2_LED_V_100_BIT      BIT(11)
+#define T2_LED_V_200_BIT      BIT(11)
 #define T2_LED_V_500_BIT      BIT(9)
 #define T2_LED_V_1000_BIT     BIT(13)
-
+#define T2_LED_V_2000_BIT     BIT(13)
 
 /* Display Number of Segment declaraion */
 #define UPPER_MAX_SEL (7)
@@ -125,8 +126,10 @@ static const uint16_t LED_BITMAP_T1[DISP_LED_MAX_NB] =
   /* DISP_LED_V_20    */ 0,
   /* DISP_LED_V_50    */ 0,
   /* DISP_LED_V_100   */ 0,
+  /* DISP_LED_V_200   */ 0,
   /* DISP_LED_V_500   */ 0,
-  /* DISP_LED_V_1000  */ 0
+  /* DISP_LED_V_1000  */ 0,
+  /* DISP_LED_V_2000  */ 0
 };
 
 /* LED Bitmap table for Display with Value */
@@ -145,8 +148,10 @@ static const uint16_t LED_BITMAP_T2[DISP_LED_MAX_NB] =
   /* DISP_LED_V_20    */ T2_LED_V_20_BIT,
   /* DISP_LED_V_50    */ T2_LED_V_50_BIT,
   /* DISP_LED_V_100   */ T2_LED_V_100_BIT,
+  /* DISP_LED_V_200   */ T2_LED_V_200_BIT,
   /* DISP_LED_V_500   */ T2_LED_V_500_BIT,
-  /* DISP_LED_V_1000  */ T2_LED_V_1000_BIT
+  /* DISP_LED_V_1000  */ T2_LED_V_1000_BIT,
+  /* DISP_LED_V_2000  */ T2_LED_V_2000_BIT
 };
 
 /* Public constants ----------------------------------------------------------*/

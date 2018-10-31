@@ -20,7 +20,7 @@
 #include "stm8s.h"
 
 /* Private define ------------------------------------------------------------*/
-#define BSP_SW_VERSION        100
+#define BSP_SW_VERSION        101
 
 #define OPEN                  (0)
 #define CLOSED                (1)
@@ -357,7 +357,7 @@
 }
   
 extern uint32_t BuzzerOnTime;
-extern uint16_t AdcValue;
+extern __IO uint16_t AdcValue;
 extern __IO uint32_t SystemTimer;
 extern __IO uint32_t BspSensorCounter;
 

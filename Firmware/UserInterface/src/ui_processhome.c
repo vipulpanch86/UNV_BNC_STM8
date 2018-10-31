@@ -178,6 +178,10 @@ static void HomeDispCounter(void)
     {
       DISP_Led(DISP_LED_V_100, TRUE);
     }
+    else if(noteSetCount == 200)
+    {
+      DISP_Led(DISP_LED_V_200, TRUE);
+    }
     else if(noteSetCount == 500)
     {
       DISP_Led(DISP_LED_V_500, TRUE);
@@ -185,6 +189,10 @@ static void HomeDispCounter(void)
     else if(noteSetCount == 1000)
     {
       DISP_Led(DISP_LED_V_1000, TRUE);
+    }
+    else if(noteSetCount == 2000)
+    {
+      DISP_Led(DISP_LED_V_2000, TRUE);
     }
   }
 
@@ -1045,8 +1053,10 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
     case UIMSG_KEY_V20:
     case UIMSG_KEY_V50:
     case UIMSG_KEY_V100:
+    case UIMSG_KEY_V200:
     case UIMSG_KEY_V500:
     case UIMSG_KEY_V1000:
+    case UIMSG_KEY_V2000:
 
       if((uint8_t)pMsg->param == UI_PRESS)
       {
@@ -1081,6 +1091,10 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
           {
             noteVCount = 100;
           }
+          else if(pMsg->message == UIMSG_KEY_V200)
+          {
+            noteVCount = 200;
+          }
           else if(pMsg->message == UIMSG_KEY_V500)
           {
             noteVCount = 500;
@@ -1089,7 +1103,11 @@ static uint8_t ProcHomeIdle(void *param, UI_MSG_T *pMsg)
           {
             noteVCount = 1000;
           }
-
+          else if(pMsg->message == UIMSG_KEY_V2000)
+          {
+            noteVCount = 2000;
+          }
+					
           REG_SetValue(&noteVCount, REG_ID_NOTE_V_COUNT);
         }
         standbyTimeCount = 0;

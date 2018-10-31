@@ -108,7 +108,7 @@ static const REG_INFO_T REG[] =
     FALSE,              /* Retention */
     0,                  /* Retntion Address*/
     10,                 /* Min  */
-    1000,               /* Max  */
+    2000,               /* Max  */
     DEF_NOTE_V_COUNT    /* Default value */
   },
   /* Accumulated Sensor Counter C Mode */
@@ -189,8 +189,8 @@ static const REG_INFO_T REG[] =
     TRUE,               /* Retention */
     RET_BASE + 8,       /* Retntion Address*/
     1,                  /* Min  */
-    255,                /* Max  */
-    20                  /* Default value */
+    10,                 /* Max  */
+    7                   /* Default value */
   }
 };
 
