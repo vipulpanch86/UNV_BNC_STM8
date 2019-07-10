@@ -188,9 +188,9 @@ static const REG_INFO_T REG[] =
     TRUE,               /* Read Write Enable*/
     TRUE,               /* Retention */
     RET_BASE + 8,       /* Retntion Address*/
-    1,                  /* Min  */
+    0,                  /* Min  */
     10,                 /* Max  */
-    7                   /* Default value */
+    5                   /* Default value */
   }
 };
 

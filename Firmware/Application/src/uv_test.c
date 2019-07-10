@@ -25,11 +25,12 @@
 void uv_test(void)
 {
 	uint8_t UV_On = 0;
+	unsigned int adcVal_uv_off = 0;
   /* BSP Initialization -----------------------------------------*/
   BSP_Init();
   
   printf("\r\nUV Test");
-/*
+
   while(1)
   {
     static uint32_t BkupAdcPrintTime = 0;
@@ -44,14 +45,25 @@ void uv_test(void)
 			BSP_UV_DetectEnable(FALSE);
 		}
     
-    if((sysTime - BkupAdcPrintTime) >= 500)
+    if((sysTime - BkupAdcPrintTime) >= 100)
     {
       BkupAdcPrintTime = sysTime;
-      printf("\r\nADC Val = %u, %u", (unsigned int)BSP_GetADC(), (unsigned int)UV_On);
+			
+			if(UV_On)
+			{
+				unsigned int adcVal_uv_on = (unsigned int)BSP_GetADC();
+			  adcVal_uv_on = (adcVal_uv_on > adcVal_uv_off)? (adcVal_uv_on -  adcVal_uv_off) : 0;
+				printf("\r\nADC Val = %u", (unsigned int)adcVal_uv_on);
+			}
+			else
+			{
+				adcVal_uv_off = (unsigned int)BSP_GetADC();
+			}
 			UV_On ^= 1;
+
     }
   }
-	*/
+	/*
 	BSP_UV_DetectEnable(TRUE);
 	while(1)
   {
@@ -61,6 +73,7 @@ void uv_test(void)
       printf("\r\nADC Val = %u", (unsigned int)adcVal);
     }
   }
+	*/
 }
 
 /***********************END OF FILE************************/

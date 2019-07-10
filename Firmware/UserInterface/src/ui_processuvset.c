@@ -210,7 +210,7 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
         }
         else
         {
-          EditVal = 0;
+          EditVal = EditMinVal;
         }
       }
       else if (digitVal == KEY_UNITS)
@@ -227,7 +227,7 @@ uint8_t ProcUvsetEdit(void *pParam, UI_MSG_T *pMsg)
           }
           else
           {
-            EditVal = 0;
+            EditVal = EditMinVal;
           }
         }
       }

@@ -196,9 +196,17 @@ static uint8_t DispKpdType = 0;
       uint32_t uvThresValue = 0;
       REG_GetValue(&uvThresValue, REG_ID_UV_LVL);
       /* Add the ambient light value to UV Threshold value */
-      //uvThresValue += AmbientUvValue;
-			uvThresValue *= 10;
-      
+      adcValue = (adcValue > AmbientUvValue) ? 
+			           (adcValue - AmbientUvValue) : 0;
+			
+			uvThresValue *= 50;
+			uvThresValue += 100;
+			/*
+      printf("ADC %u, AMB %u, THR %u\n", 
+			  (unsigned int)adcValue, 
+				(unsigned int)AmbientUvValue, 
+				(unsigned int)uvThresValue);
+			*/
       if(adcValue > uvThresValue)
       {
         UI_MSG_T msg = {0, UIMSG_UVDETECT};
